@@ -1,0 +1,98 @@
+\section{Definitions of the Ising model and analysis of the Curie--Weiss model}
+\label{sec:definitions_examples}
+
+\begin{definition}[Ising model on a finite graph]
+    The Ising model on a finite graph \( G = (V, E) \) with inverse temperature \( \beta \in [0,\infty) \) is defined as follows.
+    Let $\Omega:=\{\pm1\}^V$ denote the set of spin configurations on the vertices of the graph;
+    a typical element of $\Omega$ is denoted by $\sigma=(\sigma_i)_{i\in V}$.
+    Elements $\sigma\in\Omega$ are called \emph{spins}.
+    The \emph{energy} or \emph{Hamiltonian} of a spin configuration $\sigma$ is given by
+    \[
+    H(\sigma) := H_{G,\beta}(\sigma) := -\beta \sum_{\{i,j\} \in E} \sigma_i \sigma_j.
+    \]
+    The probability of a configuration \(\sigma\in\Omega\) is given by the Boltzmann distribution
+    \[
+    \P(\sigma) := \P_{G,\beta}(\sigma) := \frac{1}{Z_{G,\beta}} e^{-H_{G,\beta}(\sigma)},
+    \]
+    where \(Z_{G,\beta}\) is normalization constant or \emph{partition function} defined by
+    \[
+    Z_{G,\beta} := \sum_{\sigma\in\Omega} e^{-H_{G,\beta}(\sigma)}.
+    \]
+\end{definition}
+
+\begin{definition}[Curie-Weiss model]
+    The Curie-Weiss model is a special case of the Ising model where the graph \( G \) is a complete graph on \( N \) vertices. In this model, every pair of vertices is connected by an edge, and the Hamiltonian simplifies to
+    \[
+    H(\sigma) = -\beta \sum_{1 \leq i < j \leq N} \sigma_i \sigma_j.
+    \]
+    Write $\P_{N,\beta}$ for the corresponding probability measure.
+    The Curie-Weiss model is often used to study mean-field behavior in statistical mechanics, as it captures the essential features of phase transitions and spontaneous magnetization in a simplified setting.
+\end{definition}
+
+Let $N_+$ denote the number of vertices with spin $+1$ in a configuration $\sigma\in\Omega$.
+This is a random variable.
+Let us try to calculate the probability of the event $\{N_+=K\}$,
+without worrying about the normalization constant $Z_{G,\beta}$.
+It is straightforward to verify that for $\sigma\in\{N_+=K\}$,
+the Hamiltonian satisfies
+\begin{align}
+    H(\sigma)=2\beta K(N-K) + \text{const}(N).
+\end{align}
+The distribution of $N_+$ can then be calculated as follows:
+\begin{align}
+    \label{eq:CurieWeissDistribution}
+    \P_{N,\beta}(N_+ = K) &\propto \binom{N}{K} e^{-2\beta  K(N-K)}
+    \propto \frac1{K! (N-K)!} e^{-2\beta K (N-K)}.
+\end{align}
+Using Stirling's formula for the factorials, we find that
+\begin{gather}
+    \log\P_{N,\beta}(N_+ = K) 
+    \stackrel{\text{Stirling}}{\approx}
+    -N f_{(N\beta)}(K/N) + \text{const}(N);
+    \\
+    f_{(\alpha)}:[0,1]\to\R,\,
+    x\mapsto x \log x + (1-x)\log (1-x) + 2 \alpha x (1-x).
+\end{gather}
+For large $N$, the random variable $N_+/N$ is concentrated
+around the minimisers of the function $f_{(N\beta)}$.
+It is thus natural to fix some $\alpha\geq 0$ and set $\beta:=\alpha/N$
+while sending $N$ to infinity.
+The phase transition of the Curie-Weiss model then simply reduces to studying
+the minimisers of the function $f_{(\alpha)}$ and the behaviour of this function
+around these minimisers.
+
+\begin{exercise}
+    \begin{enumerate}
+        \item Formally verify that all the calculations are correct.
+        \item Show that for small $\alpha$, the function \( f_{(\alpha)} \) has a single minimum, which means that the value of \( K/N \) is concentrated around the value \( 1/2 \).
+        \item Show that for large enough $\alpha$, the function \( f_{(\alpha)} \) has two minimizers at \( (1 \pm m)/2 \) for some $m>0$, which means that the value of \( K/N \) is concentrated around these minimizers.
+        \item Calculate the critical value for $\alpha$. At this value, the second derivative of \( f_{(\alpha)} \) vanishes at \( x=1/2 \). What does this mean for the distribution of \( N_+/N \)?
+    \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+    Reconsider Equation~\eqref{eq:CurieWeissDistribution}.
+    In this equation, the competition between the two factors is extremely transparent.
+    \begin{itemize}
+        \item     First, there is an comabinatorial term or \emph{entropy}, which favours values $K$ for the random variable
+        $N_+$ such that the cardinality of the set $\{N_+=K\}$ is large.
+        This means that values $K\approx N/2$ are preferred.
+        \item     Second, there is the \emph{energy} term, which favours values such that the Hamiltonian 
+        is minimised. This favours configurations where as many spins as possible align.    
+    \end{itemize}
+    The interaction parameter $\beta$ allows us to put more emphasis
+    on the entropy term or on the energy term.
+    In the $N\to\infty$ limit, there is a precise value for $N\beta$
+    where the behaviour of the random system undergoes a qualitative change:
+    a rudimentary example of a  \emph{phase transition}.
+\end{remark}
+
+While the competition between entropy and energy is transparent in the
+case of the complete graph (the Curie--Weiss model), the situation is much more
+complicated when considering other graphs.
+We are particularly interested in graphs modelling Euclidean space,
+by taking large finite subgraphs of the square lattice graph $\Z^d$
+in dimension $d\geq 1$.
+The geometry of the Ising model (absent in the case of Curie--Weiss)
+is an extremely rich and beautiful object,
+and most of this course is dedicated to understanding it.
