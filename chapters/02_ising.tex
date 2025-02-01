@@ -1,0 +1,145 @@
+\section{Early developments. 1924: Ising's analysis}
+\label{sec:ising_1d}
+
+Wilhelm Lenz challenged his doctoral student Ernst Ising
+to solve the model of interest on the one-dimensional line graph $\Z$.
+Readers acquainted with percolation theory
+will suspect that such a simple model is unlikely to exhibit
+a phase transition.
+This suspicion is correct,
+but we stress that the percolation model had not yet
+been described at the time that Ising undertook his doctoral research.
+
+We defined the Ising model in the previous section,
+but only on finite graphs.
+Let us extend this definition to infinite graphs.
+
+\begin{definition}[The Ising model with boundary conditions]
+    Let $G=(V,E)$ denote a fixed locally finite graph.
+    We consider the measurable space 
+    $(\Omega,\calF)$ where $\Omega=\{\pm1\}^V$
+    and where $\calF$ is the product-$\sigma$-algebra.
+
+    Let $\Lambda$ denote a \emph{domain},
+    that is, a finite subset of $V$.
+    The Ising model in the domain $\Lambda$
+    with inverse temperature $\beta \geq 0$ and boundary conditions
+    $\zeta\in\{\pm1\}^{V\setminus\Lambda}$
+    is the probability measure $\P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$
+    on $(\Omega,\calF)$ defined via:
+    \[
+        \P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}(\sigma)
+        =
+        \frac1{Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}}
+        \cdot
+        \true{\sigma|_{V\setminus\Lambda}=\zeta}\cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
+        ,
+    \]
+    where $H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)$ is the Hamiltonian given by
+    \[
+        H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)
+        =
+        -\beta\sum_{uv\in E(\Lambda)}\sigma_u\sigma_v
+        ,
+    \]
+    and where the partition function $Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$ is given by
+    \[
+        Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}
+        =
+        \sum_{\sigma \in \Omega} \true{\sigma|_{V\setminus\Lambda}=\zeta} \cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
+        .
+    \]
+    The set $E(\Lambda)\subset E$ denotes 
+    the set of edges with at least one endpoint in $\Lambda$.
+    Indeed, adding a constant to the Hamiltonian does not affect the measure,
+    and edges which do not intersect $\Lambda$ contribute with a constant.
+
+    We write $+$ and $-$ for the boundary conditions
+    $+1\in\Omega$ and $-1\in\Omega$ respectively.
+\end{definition}
+
+\begin{theorem}[Ising, 1924]
+    Let $G=(V,E)$ denote the one-dimensional lattice $\Z$,
+    and define $\Lambda_n:=\{-n+1,\ldots,n-1\}$.
+    Then, for any $\beta\geq 0$ and any sequence of boundary conditions $\zeta\in\Omega$, we have
+    \[
+        \lim_{n\to\infty}\langle\sigma_0\rangle_{\Lambda_n,\beta}^\zeta
+        =
+        0
+        .
+    \]
+\end{theorem}
+
+\begin{proof}
+    We assume without loss of generality
+    that $\zeta\equiv +1$.
+    Write $T$ for the matrix
+    \[
+        T:=
+        \begin{pmatrix}
+            e^{\beta} & e^{-\beta} \\
+            e^{-\beta} & e^{\beta}
+        \end{pmatrix}.
+    \]
+    It is straightforward to work out that
+    \begin{gather}
+        Z_{\Lambda_n,\beta}^+\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
+        =
+        \left(T^n
+            \begin{pmatrix}
+                1 & 0 \\ 0 & -1
+            \end{pmatrix}
+            T^n
+            \right)_{1,1};
+        \\
+        Z_{\Lambda_n,\beta}^+ = \left(T^{2n}\right)_{1,1},
+    \end{gather}
+    see the exercise below.
+    One may then conclude that the ratio of these two numbers tends to zero 
+    with $n\to\infty$
+    by simply diagonalising $T$.
+\end{proof}
+
+\begin{remark}
+    Although the intuition is reminiscent
+    of the theory of Markov chains, we stress that the matrix
+    $T$ above is \emph{not} a stochastic matrix.
+    This is, for example, why we require to treat the partition function
+    (the normalisation factor) separately.
+\end{remark}
+
+\begin{exercise}
+    Let $(f_k)_k$ denote a family of functions
+    of the form $f_k:\{+1,-1\}\to\R$.
+    For any $k$, define
+    \[ M_k:=\begin{pmatrix}
+        f_{k}(+1) & 0 \\
+        0 & f_{k}(-1)
+    \end{pmatrix}.\] 
+    Prove that for any $n$,
+    we have
+    \[
+        Z_{\Lambda_n,\beta}^+
+        \langle\textstyle\prod_{k\in\Lambda_n} f_k(\sigma_{k})\rangle_{\Lambda_n,\beta}^+
+        =
+        \left(
+            T
+            M_{n-1}
+            T
+            M_{n-2}
+            T
+            \cdots
+            T
+            M_{-n+1}
+            T
+        \right)_{1,1}.
+    \]
+\end{exercise}
+
+\begin{remark}
+    Ising conjectured that the absence of a phase transition which he observed
+    in the one-dimensional model would also hold in higher dimensions.
+    This conjecture was later shown to be false:
+    as we shall soon see, Peierls proved in 1936 that the two-dimensional model
+    exhibits a phase transition.
+\end{remark}

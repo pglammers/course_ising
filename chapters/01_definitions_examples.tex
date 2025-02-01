@@ -1,72 +1,65 @@
-\section{1907. The Curie--Weiss model}
+\section{Early developments. 1907: The Curie--Weiss model}
 \label{sec:definitions_examples}
 
-\begin{definition}[Ising model on a finite graph]
-    The Ising model on a finite graph \( G = (V, E) \) with inverse temperature \( \beta \in [0,\infty) \) is defined as follows.
-    Let $\Omega:=\{\pm1\}^V$ denote the set of spin configurations on the vertices of the graph;
-    a typical element of $\Omega$ is denoted by $\sigma=(\sigma_i)_{i\in V}$.
-    Elements $\sigma\in\Omega$ are called \emph{spins}.
-    The \emph{energy} or \emph{Hamiltonian} of a spin configuration $\sigma$ is given by
-    \[
-    H(\sigma) := H_{G,\beta}(\sigma) := -\beta \sum_{\{i,j\} \in E} \sigma_i \sigma_j.
-    \]
-    The probability of a configuration \(\sigma\in\Omega\) is given by the Boltzmann distribution
-    \[
-    \P(\sigma) := \P_{G,\beta}(\sigma) := \frac{1}{Z_{G,\beta}} e^{-H_{G,\beta}(\sigma)},
-    \]
-    where \(Z_{G,\beta}\) is normalization constant or \emph{partition function} defined by
-    \[
-    Z_{G,\beta} := \sum_{\sigma\in\Omega} e^{-H_{G,\beta}(\sigma)}.
-    \]
-\end{definition}
+The Ising model is actually a generalisation of the Curie--Weiss model.
+Weiss introduced this mathematical model in 1907 in order to find a theoretical
+explanation for the spontaneous magnetisation of ferromagnetic materials
+that had previously been studied by Pierre Curie.
+The Curie--Weiss model is a special case of the Ising model
+where the graph is a complete graph.
+This model can be solved with elementary methods
+and exhibits a phase transition.
+Moreover, it exhibits the interplay between entropy and energy in an
+extremely transparent fashion,
+which is why we quickly review it here.
 
 \begin{definition}[Curie-Weiss model]
-    The Curie-Weiss model is a special case of the Ising model where the graph \( G \) is a complete graph on \( N \) vertices. In this model, every pair of vertices is connected by an edge, and the Hamiltonian simplifies to
-    \[
-    H(\sigma) = -\beta \sum_{1 \leq i < j \leq N} \sigma_i \sigma_j.
-    \]
-    Write $\P_{N,\beta}$ for the corresponding probability measure.
+    The Curie-Weiss model is the Ising model on the complete graph \( G=K_n \) on \( n \) vertices.
+    We typically fix a parameter $\alpha\in[0,\infty)$ and then set the inverse temperature $\beta$ to $\beta=\alpha/n$.
+    We shall write
+    \[\P^{\operatorname{CW}}_{n,\alpha}:=\P^{\operatorname{Ising}}_{K_n,\alpha/n}\]
+    for the associated Boltzmann distribution.
     The Curie-Weiss model is often used to study mean-field behavior in statistical mechanics, as it captures the essential features of phase transitions and spontaneous magnetization in a simplified setting.
 \end{definition}
 
-Let $N_+$ denote the number of vertices with spin $+1$ in a configuration $\sigma\in\Omega$.
+Let $n_+=n_+(\sigma)$ denote the number of vertices with spin $+1$ in a configuration $\sigma\in\Omega$.
 This is a random variable.
-Let us try to calculate the probability of the event $\{N_+=K\}$,
-without worrying about the normalization constant $Z_{G,\beta}$.
-It is straightforward to verify that for $\sigma\in\{N_+=K\}$,
+Let us try to calculate the probability of the event $\{n_+=k\}$,
+without worrying about the partition function (the normalising constant).
+One may easily check that
 the Hamiltonian satisfies
 \begin{align}
-    H(\sigma)=2\beta K(N-K) + \text{const}(N).
+    H(\sigma)=2\beta n_+(n-n_+) + \text{const}(n).
 \end{align}
-The distribution of $N_+$ can then be calculated as follows:
+The distribution of $n_+$ can then be calculated as follows:
 \begin{align}
     \label{eq:CurieWeissDistribution}
-    \P_{N,\beta}(N_+ = K) &\propto \binom{N}{K} e^{-2\beta  K(N-K)}
-    \propto \frac1{K! (N-K)!} e^{-2\beta K (N-K)}.
+    \P_{K_n,\beta}^{\operatorname{Ising}}(\{n_+ = k\}) &\propto \binom{n}{k} e^{-2\beta  k(n-k)}
+    \propto \frac1{k! (n-k)!} e^{-2\beta k (n-k)}.
 \end{align}
 Using Stirling's formula for the factorials, we find that
 \begin{gather}
-    \log\P_{N,\beta}(N_+ = K) 
+    \log\P_{K_n,\beta}^{\operatorname{Ising}}(\{n_+ = k\}) 
     \stackrel{\text{Stirling}}{\approx}
-    -N f_{(N\beta)}(K/N) + \text{const}(N);
+    -n f_{(n\beta)}(k/n) + \text{const}(n);
     \\
     f_{(\alpha)}:[0,1]\to\R,\,
     x\mapsto x \log x + (1-x)\log (1-x) + 2 \alpha x (1-x).
 \end{gather}
-For large $N$, the random variable $N_+/N$ is concentrated
-around the minimisers of the function $f_{(N\beta)}$.
-It is thus natural to fix some $\alpha\geq 0$ and set $\beta:=\alpha/N$
-while sending $N$ to infinity.
-The phase transition of the Curie-Weiss model then simply reduces to studying
-the minimisers of the function $f_{(\alpha)}$ and the behaviour of this function
-around these minimisers.
+If we fix $\alpha$ and send $n$ to infinity, then 
+we discover a large deviations principle for the random variable $n_+/n$
+with rate function $f_{(\alpha)}$ and speed $n$.
+In particular, the random variable $n_+/n$ is concentrated
+around the minimisers of the function $f_{(\alpha)}$.
 
 \begin{exercise}
     \begin{enumerate}
-        \item Formally verify that all the calculations are correct.
-        \item Show that for small $\alpha$, the function \( f_{(\alpha)} \) has a single minimum, which means that the value of \( K/N \) is concentrated around the value \( 1/2 \).
-        \item Show that for large enough $\alpha$, the function \( f_{(\alpha)} \) has two minimizers at \( (1 \pm m)/2 \) for some $m>0$, which means that the value of \( K/N \) is concentrated around these minimizers.
-        \item Calculate the critical value for $\alpha$. At this value, the second derivative of \( f_{(\alpha)} \) vanishes at \( x=1/2 \). What does this mean for the distribution of \( N_+/N \)?
+        \item Formally verify that all of the above calculations are correct.
+        \item Show that for small $\alpha$, the function \( f_{(\alpha)} \) has a single minimum, which means that the random variable \( n_+/n \) is concentrated around the value \( 1/2 \).
+        \item Show that for large enough $\alpha$, the function \( f_{(\alpha)} \) has two minima at \( (1 \pm m)/2 \) for some $m>0$, which means that the random variable \( n_+/n \) is concentrated around these minima.
+        The value of $m$ is called the \emph{magnetisation}.
+        \item Calculate the critical value for $\alpha$. At this value, the second derivative of \( f_{(\alpha)} \) vanishes at \( x=1/2 \). What does this mean for the distribution of \( n_+/n \)?
+        More precisely, what is the order of magnitude of $\Var|\frac{n_+}{n}-\frac12|$ as $n\to\infty$?
     \end{enumerate}
 \end{exercise}
 
@@ -74,15 +67,15 @@ around these minimisers.
     Reconsider Equation~\eqref{eq:CurieWeissDistribution}.
     In this equation, the competition between the two factors is extremely transparent.
     \begin{itemize}
-        \item     First, there is an comabinatorial term or \emph{entropy}, which favours values $K$ for the random variable
-        $N_+$ such that the cardinality of the set $\{N_+=K\}$ is large.
-        This means that values $K\approx N/2$ are preferred.
+        \item     First, there is a combinatorial term or \emph{entropy}, which favours values $k$ for the random variable
+        $n_+$ such that the cardinality of the set $\{n_+=k\}$ is large.
+        This means that values $k\approx n/2$ are preferred.
         \item     Second, there is the \emph{energy} term, which favours values such that the Hamiltonian 
         is minimised. This favours configurations where as many spins as possible align.    
     \end{itemize}
     The interaction parameter $\beta$ allows us to put more emphasis
     on the entropy term or on the energy term.
-    In the $N\to\infty$ limit, there is a precise value for $N\beta$
+    In the $n\to\infty$ limit, there is a precise value for $n\beta$
     where the behaviour of the random system undergoes a qualitative change:
     a rudimentary example of a  \emph{phase transition}.
 \end{remark}
