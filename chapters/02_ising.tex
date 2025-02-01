@@ -61,9 +61,9 @@ Let us extend this definition to infinite graphs.
 \begin{theorem}[Ising, 1924]
     Let $G=(V,E)$ denote the one-dimensional lattice $\Z$,
     and define $\Lambda_n:=\{-n+1,\ldots,n-1\}$.
-    Then, for any $\beta\geq 0$ and any sequence of boundary conditions $\zeta\in\Omega$, we have
+    Then, for any $\beta\geq 0$, we have
     \[
-        \lim_{n\to\infty}\langle\sigma_0\rangle_{\Lambda_n,\beta}^\zeta
+        \lim_{n\to\infty}\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
         =
         0
         .
@@ -71,8 +71,6 @@ Let us extend this definition to infinite graphs.
 \end{theorem}
 
 \begin{proof}
-    We assume without loss of generality
-    that $\zeta\equiv +1$.
     Write $T$ for the matrix
     \[
         T:=
