@@ -3,7 +3,7 @@
 
 \begin{theorem}[Peierls, 1936]
     \label{thm:peierls}
-    The Ising model exhibits a phase transition in two dimensions.
+    The Ising model exhibits phase transition in two dimensions.
 \end{theorem}
 
 We shall prove a slight variation of Peierls' original setup,
@@ -21,6 +21,7 @@ We consider the Ising model on the infinite graph $\T$.
 We shall prove the following version of Peierls' result.
 
 \begin{theorem}[Peierls, 1936]
+    \label{thm:peierls_triangles}
     Consider the Ising model on the two-dimensional
     triangular lattice graph $\T$.
     For sufficiently large $\beta$,
@@ -31,166 +32,161 @@ We shall prove the following version of Peierls' result.
     \]
 \end{theorem}
 
-\begin{proof}
-    Let $\H:=\T^*$ denote the hexagonal lattice
-    that is dual to the triangular lattice.
-    For a fixed configuration $\sigma\in\Omega$,
-    we let $D(\sigma)\subset E(\H)$ denote the set of
-    hexagonal lattice edges such that the spin on either side is
-    different.
-    \todo{Add figure}
-    The set $D(\sigma)$ is called the
-    \emph{interface} between the spins valued $+1$
-    and those valued $-1$.
-    Notice that $D(\sigma)$ has a partition into
-    loops and bi-infinite paths.
-    If only finitely many spins of $\sigma$ are $-1$,
-    then there are no bi-infinite paths,
-    and all connected components of $D(\sigma)$
-    are loops.
-    This happens almost surely when sampling from $\P_{\Lambda_n,\beta}^+$.
+Let $\H:=\T^*$ denote the hexagonal lattice
+that is dual to the triangular lattice.
+For a fixed configuration $\sigma\in\Omega$,
+we let $\calI(\sigma)\subset E(\H)$ denote the set of
+hexagonal lattice edges separating hexagons with different spins.
+The set $\calI(\sigma)$ is called the
+\emph{interface} between the spins valued $+1$
+and those valued $-1$.
+\todo{Add figure}
+Notice that $\calI(\sigma)$ has a partition into
+loops and bi-infinite paths.
+If only finitely many spins of $\sigma$ are valued $-1$,
+then there are no bi-infinite paths,
+and all connected components of $\calI(\sigma)$
+are loops.
+This happens almost surely when sampling from $\langle\blank\rangle_{\Lambda_n,\beta}^+$.
 
-    For the above theorem, it suffices to prove that
-    for sufficiently large $\beta$, we have
-    \begin{equation}
-        \label{eq:peierls_target}
-        \inf_{n}\P_{\Lambda_n,\beta}^+
-        (\{\text{some loop surrounds $0$}\})
-        <\frac12.
-    \end{equation}
-    Notice that any loop surrounding zero,
-    must necessarily intersect the half-axis
-    $\R_{\geq 0}\subset\C$ at a half-integer.
-    Claim that for sufficiently large $\beta$,
-    and for any $k\in\Z_{\geq 1}$
-    we have 
-    \begin{equation}
-        \label{eq:peierls_target_2}
-        \inf_{n}\P_{\Lambda_n,\beta}^+
-        (\{\text{there exists a loop which surrounds $0$ and intersects $k-\tfrac12$}\})
-        \leq 4^{-k}.
-    \end{equation}
-    Before proving the claim, we observe that the claim
-    implies Equation~\eqref{eq:peierls_target}
-    via a union bound since $1/4+1/16+1/64+\cdots<1/2$.
+The core of Peierls' argument is the following lemma.
 
-    We now focus on the claim.
-    Fix $k$ (the lower bound for $\beta$ that we find shall be independant
-    of it).
-    To prove the claim,
-    we define a ``loop erasure map'' $F:\Omega\to\Omega$
-    which (informally) erases the loop through $k-\frac12$
-    around $0$
-    (if there is one).
-    Formally, it is defined as the unique map with the following properties.
-    \begin{itemize}
-        \item If $D(\sigma)$ does not contain a loop which hits $k-\frac12$
-        and surrounds $0$,
-        then $F$ does not modify $\sigma$,
-        that is, $F(\sigma)=\sigma$.
-        \item If $D(\sigma)$ contains a loop intersecting $k-\frac12$
-        and surrounding $0$,
-        then $F$ erases that loop.
-        In this case, we formally define $F(\sigma)$ as follows.
-        Let $\calC\subset D(\sigma)$ denote the loop of interest.
-        Then $F(\sigma)$ is defined such that
-        \[
-            F(\sigma)_z \cdot \sigma_z = \begin{cases}
-                +1 &\text{if $z$ is outside $\calC$,}\\
-                -1 &\text{if $z$ is inside $\calC$.}
-            \end{cases}
-        \]
-        The reader should verify that this implies indeed
-        that $D(F(\sigma))$ equals $D(\sigma)$
-        but with loop $\calC$ removed.
-    \end{itemize}
-
-    The loop erasure map is a projection,
-    in the sense that $F\circ F=F$.
-    The event in the claim (Equation~\eqref{eq:peierls_target_2}) is clearly
-    related to $F$, since
+\begin{lemma}[Exponential decay of loop lengths]
+    \label{lem:exp_decay_ising_loops}
+    Consider the Ising model on the two-dimensional triangular lattice $\T$
+    at inverse temperature $\beta$.
+    Suppose that $e^{-2\beta}<\frac12$.
+    Then for any hexagonal lattice edge $e\in E(\H)$
+    and for any minimal loop length $\ell\in\Z_{\geq 1}$,
+    we get
     \[
-        \operatorname{Image}(F)
-        =
-        \Omega\setminus
-        \{\text{there exists a loop which surrounds $0$ and intersects $k-\tfrac12$}\}.
+        \P_{\Lambda_n,\beta}^+
+        (\{\text{$\calI(\sigma)$ has a loop of length at least $\ell$ through $e$}\})
+        \leq \frac{(2e^{-2\beta})^\ell}{1-2e^{-2\beta}},
     \]
-    For Equation~\eqref{eq:peierls_target_2},
-    it suffices to prove that for any $\sigma\in\Omega$,
-    we have
-    \begin{equation}
-        \label{eq:peierls_target_3}
-        \P_{\Lambda_n,\beta}^+
-        (F^{-1}(\sigma)\setminus\{\sigma\})
-        \leq 4^{-k}
-        \cdot
-        \P_{\Lambda_n,\beta}^+
-        (\sigma).
-    \end{equation}
-    Fix $\sigma$.
-    What does the preimage $F^{-1}(\sigma)$ look like?
-    It contains all configurations $\sigma^\calC$ obtained from $\sigma$
-    by \emph{adding} one loop $\calC$ through $k-\frac12$ around $0$.
-    We notice that this changes the Hamiltonian by exactly $2\beta|\calC|$,
-    where $|\calC|$ is the number of edges of the loop.
-    Thus, we get
+    uniformly in $n$.
+\end{lemma}
+
+\begin{proof}
+    Fix $\beta$, $e$, and $n$.
+    Let $\calL$ denote a loop through $e$,
+    and consider the event $\{\calL\subset\calI\}$.
+    We claim that
     \[
         \P_{\Lambda_n,\beta}^+
-        (F^{-1}(\sigma)\setminus\{\sigma\})
-        =
-        \sum_{\calC\subset E^*(\Lambda_n)\setminus D(\sigma)}
-        \P_{\Lambda_n,\beta}^+
-        (\sigma^\calC)
-        =
+        (\{\calL\subset\calI\})
+        \leq e^{-2\beta|\calL|}.
+    \]
+
+    To prove the claim,
+    we introduce the injective ``loop erasure map''
+    \[
+        \calE_\calL:\{\calL\subset\calI\}
+        \to \Omega\setminus \{\calL\subset\calI\},
+    \]
+    which is defined such that it flips all the spins inside the loop $\calL$.
+    As a consequence, $\calI(\calE_\calL(\sigma))=\calI(\sigma)\setminus\calL$.
+    For any $\sigma\in\{\calL\subset\calI\}$, we have
+    \[
         \P_{\Lambda_n,\beta}^+
         (\sigma)
-        \sum_{\calC\subset E^*(\Lambda_n)\setminus D(\sigma)}
-        e^{-2\beta|\calC|}.
+        =
+        e^{-2\beta|\calL|}
+        \cdot
+        \P_{\Lambda_n,\beta}^+
+        (\calE_\calL(\sigma))
+        .
     \]
-    It suffices to prove that the rightmost sum is bounded by $4^{-k}$.
-    Observe the following:
-    \begin{itemize}
-        \item If a loop hits $k-\frac12$ and surrounds $0$, then its length must exceed $2+4k\geq k$,
-        \item Since at each turn the loop can turn left or right, there are at most $2^{\ell-1}$ loops of length $\ell$ going through $k-\frac12$.
-    \end{itemize}
-    Thus, we get
+    We can write down this identity because we know that the loop erasure map
+    decreases the Hamiltonian by $2\beta|\calL|$.
+    Since $\calE_\calL$ is injective, we get
     \[
-        % \P_{\Lambda_n,\beta}^+
-        % (F^{-1}(\sigma)\setminus\{\sigma\})
-        % =
-        % \P_{\Lambda_n,\beta}^+
-        % (\sigma)
-        \sum_{\calC\subset E^*(\Lambda_n)\setminus D(\sigma)}
-        e^{-2\beta|\calC|}
-        \leq
-        % \P_{\Lambda_n,\beta}^+
-        % (\sigma)
-        \sum_{\ell=k}^\infty
-        (2e^{-2\beta})^\ell
-        =\frac{(2e^{-2\beta})^k}{1-2e^{-2\beta}}.
+        \P_{\Lambda_n,\beta}^+
+        (\{\calL\subset\calI\})
+        = e^{-2\beta|\calL|}\cdot \P_{\Lambda_n,\beta}^+(\operatorname{Image}(\calE_\calL))
+        \leq e^{-2\beta|\calL|},
     \]
-    If $\beta$ is large enough,
-    then the rightmost expression is bounded by $4^{-k}$,
-    which proves Equation~\eqref{eq:peierls_target_3}
-    and therefore Equations~\eqref{eq:peierls_target_2}
-    and~\eqref{eq:peierls_target}
-    and therefore the theorem.
+    which proves the claim.
+
+    To prove the lemma, observe simply that the number of loops of length $k$
+    through $e$ is bounded by $2^k$, so that 
+    \begin{align}
+        &\P_{\Lambda_n,\beta}^+
+        (\{\text{$\calI(\sigma)$ has a loop of length at least $\ell$ through $e$}\})
+        \\&\qquad=
+        \sum\nolimits_{\text{$\calL$ is a loop of length at least $\ell$ through $e$}}
+        \P_{\Lambda_n,\beta}^+
+        (\{\calL\subset\calI\})
+        \\&\qquad\leq 
+        \sum\nolimits_{k\geq \ell} 2^k\cdot e^{-2\beta k}.
+    \end{align}
+    The final expression is a geometric series converging to the upper bound
+    in the lemma.
 \end{proof}
 
 \begin{remark}
-    In the Peierls argument,
-    the interplay between entropy and energy is extremely important.
+    In the previous proof,
+    the interplay between entropy and energy is quite transparent.
     The entropy in the argument comes from the number of loops of length
     $\ell$, which we upper bounded by $2^\ell$.
     Such a loop contributes a total of $2\beta\ell$ to the Hamiltonian.
-    When $e^{-2\beta}<2$, the energy term dominates,
-    forcing loops to be small.
+    When $2e^{-2\beta}<1$, the energy term dominates,
+    forcing the loops to be small.
 \end{remark}
+
+\begin{proof}[Proof of Theorem~\ref{thm:peierls_triangles}]
+    For a fixed configuration $\sigma\in\Omega$
+    sampled from $\P_{\Lambda_n,\beta}^+$,
+    we may express $\sigma_0$ as the parity of the number
+    of loops in $\calI(\sigma)$ surrounding $0$.
+    In particular, if no loop surrounds $0$,
+    then $\sigma_0=+1$.
+    Thus, for Theorem~\ref{thm:peierls_triangles},
+    it suffices to prove that
+    \begin{equation}
+        \label{eq:peierls_target_equation}
+        \P_{\Lambda_n,\beta}^+
+        (\{\text{$\calI(\sigma)$ contains a loop surrounding $0$}\})
+        <\frac12,
+    \end{equation}
+    for sufficiently large $\beta$,
+    and uniformly in $n$.
+
+    Suppose given some loop $\calL\subset E(\H)$ surrounding $0$.
+    Then $\calL$ must intersect the half-line $\R_{\geq 0}\subset\C$.
+    More precisely, $\calL$ must contain some edge $e$ whose midpoint
+    lies precisely in the set of half-integers $-\frac12+\Z_{\geq 1}$.
+    If the endpoint of $e$ is $k-\frac12$, then
+    $|\calL|\geq k$, otherwise it cannot surround $0$.
+    We are now ready to complete Peierls' argument,
+    using exponential decay of the loop lengths (Lemma~\ref{lem:exp_decay_ising_loops}).
+    
+    Let us perform a union bound over the intersection point,
+    in order to obtain
+    \begin{align}
+        &\P_{\Lambda_n,\beta}^+
+        (\{\text{$\calI(\sigma)$ contains a loop surrounding $0$}\})
+        \\
+        &\qquad\leq
+        \sum_{k=1}^\infty
+        \P_{\Lambda_n,\beta}^+
+        (\{\text{$\calI(\sigma)$ contains a loop surrounding $0$ and hitting $k-\tfrac12$}\})
+        \\
+        &\qquad\leq
+        \sum_{k=1}^\infty
+        \frac{(2e^{-2\beta})^k}{1-2e^{-2\beta}}
+        =
+        \frac{2e^{-2\beta}}{(1-2e^{-2\beta})^2}.
+    \end{align}
+    This upper bound is independent of $n$
+    and tends to $0$ with $\beta\to\infty$,
+    thus establishing Equation~\eqref{eq:peierls_target_equation}.
+\end{proof}
 
 \begin{exercise}
     \begin{enumerate}
-        \item     Consider the Ising model on the two-dimensional square lattice $\mathbb{Z}^2$.
-        In this case, the interface $D(\sigma)$ does not consist of loops, but of even subgraphs
+        \item     Consider the Ising model on the two-dimensional square lattice graph $\mathbb{Z}^2$.
+        In this case, the interface $\calI(\sigma)$ does not consist of loops, but of even subgraphs
         of the dual lattice.
         How can Peierls' argument be adapted to this case?
         \item  Now consider the $d$-dimensional square lattice for $d\geq 3$.
@@ -199,8 +195,7 @@ We shall prove the following version of Peierls' result.
     \end{enumerate}
 \end{exercise}
 
-
-
-
-
-
+\begin{remark}
+    Peierls' is robust,
+    in the sense that it can be adapted to many other models in statistical mechanics.
+\end{remark}
