@@ -1,0 +1,142 @@
+\section{Correlation inequalities. The FKG inequality}
+
+\begin{definition}[FKG inequality]
+    Let $(\Omega,\preceq)$ denote a partially ordered set
+    and $\mu$ a probability measure on $\Omega$.
+    We say that $\mu$ satisfies the \emph{FKG inequality}
+    if
+    \begin{equation}
+        \label{eq:FKG}
+        \mu[fg]\geq \mu[f]\mu[g]
+    \end{equation}
+    for any bounded $\preceq$-nondecreasing functions
+    $f,g:\Omega\to\R$.
+\end{definition}
+
+For simplicity, we often call $\preceq$-nondecreasing functions \emph{increasing}
+and $\preceq$-nonincreasing functions \emph{decreasing}.
+Notice that $f$ is increasing if and only if $-f$ is decreasing.
+The FKG inequality may therefore be formulated in terms of decreasing functions,
+or in terms of a mixture of increasing and decreasing functions.
+
+\begin{definition}[Distributive lattices]
+    A \emph{distributive lattice} is a tuple $(\Omega,\preceq,\vee,\wedge)$
+    where $(\Omega,\preceq)$ is a partially ordered set
+    and where $\vee,\wedge:\Omega\times\Omega\to\Omega$
+    are binary operators satisfying the following properties
+    for any $x,y,z\in\Omega$:
+    \begin{enumerate}
+        \item $x\vee y$ equals the least upper bound of $x$ and $y$ with respect to $\preceq$,
+        \item $x\wedge y$ equals the greatest lower bound of $x$ and $y$ with respect to $\preceq$,
+        \item The following two \emph{distribution equations}:
+        \begin{itemize}
+            \item $x\wedge (y\vee z)=(x\wedge y)\vee(x\wedge z)$,
+            \item $x\vee (y\wedge z)=(x\vee y)\wedge(x\vee z)$.
+        \end{itemize}
+    \end{enumerate}
+    A distributive lattice is called \emph{finite} or \emph{countable}
+    whenever $\Omega$ has these respective properties.
+    It is called a \emph{binary lattice} if it is isomorphic
+    to $\{0,1\}^I$ for some index set $I$.
+\end{definition}
+
+
+\begin{definition}[FKG lattice condition]
+    Let $X:\Omega\to[0,\infty)$ denote a
+    function defined on some distributive lattice $(\Omega,\preceq,\vee,\wedge)$.
+    We say that $X$ satisfies the \emph{FKG lattice condition}
+    if 
+    \begin{equation}
+        X(\omega\vee\eta)\cdot X(\omega\wedge\eta)
+        \geq
+        X(\omega)\cdot X(\eta)
+        \qquad
+        \forall\omega,\eta\in\Omega.
+    \end{equation}
+\end{definition}
+
+\begin{theorem}
+    \label{thm:original_FKG}
+    Let $(\Omega,\preceq,\vee,\wedge)$ denote a finite binary lattice,
+    and let $X:\Omega\to[0,\infty)$ denote a strictly positive function
+    satisfying the FKG lattice condition.
+    Then the probability measure $\mu$ defined by its expectation functional
+    \[
+        \mu[f]:=\frac1Z\sum_{\omega\in\Omega}X(\omega)f(\omega);
+        \qquad Z:=\sum_{\omega\in\Omega}X(\omega)
+    \]
+    satisfies the FKG inequality on $(\Omega,\preceq)$.
+\end{theorem}
+
+\begin{proof}
+    Without loss of generality, $\Omega=\{0,1\}^n$ for some $n\in\Z_{\geq 0}$.
+    We induct on $n$.
+    The case $n=0$ is trivial.
+    The case $n=1$ is elementary and left as an exercise for the interested reader.
+    Notice that the measures
+    \[
+        \mu_\pm:=\mu[\blank|\Omega_\pm];
+        \qquad
+        \Omega_-:=\{\omega_n=0\};
+        \qquad
+        \Omega_+:=\{\omega_n=1\}
+    \]
+    satisfy the FKG inequality due to the induction hypothesis.
+
+    \begin{claim*}
+    For any increasing function $f$  on $(\Omega,\preceq)$ we have \(
+            \mu_-[f]\leq\mu_+[f]
+        \).
+    \end{claim*}
+
+    We shall first see how the claim implies the theorem,
+    then prove the claim.
+    Let $f,g:\Omega\to\R$ denote increasing functions.
+    We then simply assert that
+    \[
+        \mu[fg] = \mu[\mu[fg|\omega_n]]
+        \geq
+        \mu[\mu[f|\omega_n]\mu[g|\omega_n]]
+        \geq
+        \mu[\mu[f|\omega_n]]\mu[\mu[g|\omega_n]]
+        =
+        \mu[f]\mu[g].
+    \]
+    The two equalities are just the tower property.
+    The first inequality is the FKG inequality applied
+    to the measures $\mu_\pm$.
+    For the second inequality, notice that $\mu[f|\omega_n]$
+    and $\mu[g|\omega_n]$ are increasing functions
+    of the bit $\omega_n$,
+    so that we may simply apply the FKG inequality
+    coming from the $n=1$ case already discussed above.
+
+    We now prove the claim.
+    Write $\omega\mapsto \omega^+$ for the obvious bijection
+    from $\Omega_-$ to $\Omega_+$.
+    Then
+    \[
+        \mu_+[ f]
+        =
+        \frac{\sum_{\omega\in\Omega_-}X(\omega^+)f(\omega^+)}{\sum_{\omega\in\Omega_-}X(\omega^+)}.
+    \]
+    Writing $X(\omega^+)=X(\omega)X'(\omega)$
+    where
+    $X'(\omega):=\frac{X(\omega^+)}{X(\omega)}$,
+    we get 
+    \[
+        \mu_+[ f]
+        =
+        \frac{\mu_-[ f(\omega^+) X']}{\mu_-[ X']}
+        \geq
+        \frac{\mu_-[ f X']}{\mu_-[ X']}
+        .
+    \]
+    For the inequality in this display we just used that $f(\omega^+)\geq f(\omega)$.
+    To conclude that the right hand side equals at least $\mu_-[ f]$
+    we apply the FKG inequality to $\mu_-[\blank]$,
+    observing that $f$ is increasing by assumption and that $X'$ is increasing
+    due to the FKG lattice condition.
+    This establishes the claim.
+\end{proof}
+
