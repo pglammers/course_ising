@@ -1,4 +1,13 @@
-\section{Correlation inequalities. The FKG inequality}
+\section{The FKG inequality. Proof}
+
+Cees Fortuin, Pieter Kasteleyn, and Jean Ginibre discovered a general
+way to prove that increasing observables are positive correlated.
+This inequality already known in the context of percolation
+theory (independent randomness) as the \emph{Harris inequality},
+after Theodore Harris.
+In these lecture notes, we shall state and prove the FKG inequality in a simplified
+context, which will be sufficient for our purposes.
+The interested reader may consult the original paper, which is an accessible classic in statistical mechanics.
 
 \begin{definition}[FKG inequality]
     Let $(\Omega,\preceq)$ denote a partially ordered set
@@ -55,7 +64,7 @@ or in terms of a mixture of increasing and decreasing functions.
     \end{equation}
 \end{definition}
 
-\begin{theorem}
+\begin{theorem}[FKG, 1971]
     \label{thm:original_FKG}
     Let $(\Omega,\preceq,\vee,\wedge)$ denote a finite binary lattice,
     and let $X:\Omega\to[0,\infty)$ denote a strictly positive function
@@ -112,8 +121,10 @@ or in terms of a mixture of increasing and decreasing functions.
     coming from the $n=1$ case already discussed above.
 
     We now prove the claim.
+    Remark that we have not yet used the FKG lattice condition;
+    this will be crucial in the proof of the claim.
     Write $\omega\mapsto \omega^+$ for the obvious bijection
-    from $\Omega_-$ to $\Omega_+$.
+    from $\Omega_-$ to $\Omega_+$ (which flips the last bit).
     Then
     \[
         \mu_+[ f]
@@ -137,6 +148,5 @@ or in terms of a mixture of increasing and decreasing functions.
     we apply the FKG inequality to $\mu_-[\blank]$,
     observing that $f$ is increasing by assumption and that $X'$ is increasing
     due to the FKG lattice condition.
-    This establishes the claim.
+    This establishes the claim, and thus the theorem.
 \end{proof}
-

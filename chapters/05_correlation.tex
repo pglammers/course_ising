@@ -1,10 +1,10 @@
-\section{Correlation inequalities. Introduction}
+\section{Correlation inequalities}
 \label{sec:correlation}
 
 Peierls' argument is simple and robust, but also quite ad-hoc in the sense
 that it does not serve as a building block for further analysis.
-We now want to take a slightly more systematic approach to the Ising model.
-At the centre of the study of the Ising model are \emph{correlation functions}
+We now want to take a more systematic approach to the Ising model.
+At the centre of the modern study of the Ising model are \emph{correlation functions}
 and \emph{correlation inequalities}.
 
 Let $\langle\blank\rangle$ denote an Ising model (in a finite graph,
@@ -26,7 +26,8 @@ Its expectation $\langle\sigma_A\rangle$ is called a \emph{correlation function}
 
 Correlation functions are at the centre of the study of the Ising model.
 Inequalities between correlation functions are called \emph{correlation inequalities}.
-We state some examples in the finite graph setting:
+We state some examples in the finite graph setting.
+These shall all be proved rigorously later.
 \begin{itemize}
     \item The \emph{first Griffiths inequality}, which asserts that for any $A\subset V$,
         \[
@@ -49,12 +50,32 @@ We state some examples in the finite graph setting:
 \end{itemize}
 Such inequalities may be used to prove interesting properties about the Ising model.
 
-\begin{remark}
-    \todo{write remark about boundary conditions}
+\begin{remark}[Infinite graphs with boundary conditions as finite graphs]
+    Until now, we always made a distinction between the Ising model on a finite graph
+    and the Ising model on the infinite lattice with boundary conditions.
+    But are they really different?
+    Let us discuss the case of $+$ boundary conditions.
+    Let $G$ denote an infinite graph and $\Lambda$ a domain.
+    Write $\partial\Lambda:=V\setminus\Lambda$.
+    Then we may consider the Ising model on the finite graph
+    \[
+        G':=(V',E');
+        \qquad
+        V':=\Lambda\cup \{\partial\Lambda\};
+        \qquad
+        E':=E(\Lambda).
+    \]
+    This means that $\partial\Lambda$ (all the vertices outside the domain $\Lambda$) are collapsed
+    into a single vertex.
+    It is then easy to check that
+    the distribution of $\sigma|_{\Lambda}$ is the same in the following two probability measures:
+    \[
+        \P^+_{\Lambda,\beta}
+        \qquad
+        \text{and}
+        \qquad
+        \P_{G',\beta}(\blank|\{\sigma_{\partial\Lambda}=+\}).
+    \]
+    This enables us to state all our inequalities in a unified way,
+    namely on finite graphs.
 \end{remark}
-
-\begin{exercise}
-
-\end{exercise}
-
-

@@ -59,6 +59,8 @@ Let us extend this definition to infinite graphs.
 \end{definition}
 
 \begin{theorem}[Ising, 1924]
+    The one-dimensional Ising model is demagnetised at all temperatures.
+    This means the following.
     Let $G=(V,E)$ denote the one-dimensional lattice $\Z$,
     and define $\Lambda_n:=\{-n+1,\ldots,n-1\}$.
     Then, for any $\beta\geq 0$, we have
@@ -102,8 +104,8 @@ Let us extend this definition to infinite graphs.
     Although the intuition is reminiscent
     of the theory of Markov chains, we stress that the matrix
     $T$ above is \emph{not} a stochastic matrix.
-    This is, for example, why we require to treat the partition function
-    (the normalisation factor) separately.
+    This is why we need to consider the partition function
+    (normalising constant) separately.
 \end{remark}
 
 \begin{exercise}
@@ -135,9 +137,8 @@ Let us extend this definition to infinite graphs.
 \end{exercise}
 
 \begin{remark}
-    Ising conjectured that the absence of a phase transition which he observed
-    in the one-dimensional model would also hold in higher dimensions.
-    This conjecture was later shown to be false:
-    as we shall soon see, Peierls proved in 1936 that the two-dimensional model
-    exhibits a phase transition.
+    Ising conjectured that the absence of magnetisation in the one-dimensional
+    model would also hold in higher dimensions. This was later shown to be
+    false: Peierls proved in 1936 that the two-dimensional model magnetises for
+    sufficiently large $\beta$.
 \end{remark}
