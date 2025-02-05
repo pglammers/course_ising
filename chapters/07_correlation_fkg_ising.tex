@@ -1,0 +1,52 @@
+\section{The FKG inequality. Applications to the Ising spins}
+
+\begin{lemma}
+    Consider the Ising model on a finite graph $G$ at inverse
+    temperature $\beta\geq 0$.
+    Then the map
+    \[
+        \sigma\mapsto e^{-H_{G,\beta}(\sigma)}
+    \]
+    satisfies the FKG lattice condition.
+    In particular, the Ising measure
+    $\langle\blank\rangle_{G,\beta}$ satisfies the FKG inequality.
+\end{lemma}
+
+\begin{proof}
+    Let $\sigma,\eta\in\Omega$ denote two spin configurations.
+    It suffices to show that
+    \[
+        H(\sigma\vee\eta)+H(\sigma\wedge\eta)
+        \leq
+        H(\sigma)+H(\eta).
+    \]
+    This is immediate from the definition of the Hamiltonian:
+    it is a sum of terms of the form
+    \[
+        -\beta\sigma_u\sigma_v,
+    \]
+    while these terms satisfy the obvious inequality
+    \[
+        (\sigma_u\vee \eta_u)(\sigma_v\vee \eta_v)
+        +
+        (\sigma_u\wedge \eta_u)(\sigma_v\wedge \eta_v)
+        \geq
+        \sigma_u\sigma_v+\eta_u\eta_v.
+    \]
+    This finishes the proof.
+\end{proof}
+
+We can now already prove the first Griffiths inequality for the case of
+two vertices.
+
+\begin{corollary}
+    Let $G$ be a finite graph and let $\beta\geq 0$.
+    Then the associated Ising model satisfies $\langle\sigma_u\sigma_v\rangle_{G,\beta}\geq 0$.
+\end{corollary}
+
+\begin{proof}
+    Note that $\sigma_u$ and $\sigma_v$ are increasing functions
+    of the spin configuration $\sigma$,
+    while they have zero expectation due to flip-symmetry.
+    The result then follows from the FKG inequality.
+\end{proof}
