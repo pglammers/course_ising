@@ -56,16 +56,15 @@ Such inequalities may be used to prove interesting properties about the Ising mo
     But are they really different?
     Let us discuss the case of $+$ boundary conditions.
     Let $G$ denote an infinite graph and $\Lambda$ a domain.
-    Write $\partial\Lambda:=V\setminus\Lambda$.
     Then we may consider the Ising model on the finite graph
     \[
         G':=(V',E');
         \qquad
-        V':=\Lambda\cup \{\partial\Lambda\};
+        V':=\Lambda\cup \{\Lambda^c\};
         \qquad
         E':=E(\Lambda).
     \]
-    This means that $\partial\Lambda$ (all the vertices outside the domain $\Lambda$) are collapsed
+    This means that the vertices in $\Lambda^c$ are collapsed
     into a single vertex.
     It is then easy to check that
     the distribution of $\sigma|_{\Lambda}$ is the same in the following two probability measures:
@@ -74,7 +73,7 @@ Such inequalities may be used to prove interesting properties about the Ising mo
         \qquad
         \text{and}
         \qquad
-        \P_{G',\beta}(\blank|\{\sigma_{\partial\Lambda}=+\}).
+        \P_{G',\beta}(\blank|\{\sigma_{\Lambda^c}=+\}).
     \]
     This enables us to state all our inequalities in a unified way,
     namely on finite graphs.

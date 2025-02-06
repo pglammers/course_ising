@@ -1,0 +1,112 @@
+\section{The Markov property}
+
+Recall the definition of the Ising model on a finite graph
+(Definition~\ref{def:ising_finite})
+and on general graphs with boundary conditions (Definition~\ref{def:ising_bc}).
+The second definition includes the first, since we may simply 
+choose our domain $\Lambda$ to be the full vertex set whenever the
+graph $G=(V,E)$ is finite.
+That is why we state our results for general graphs with boundary conditions
+in this section.
+
+One important property of the definition with boundary conditions is that
+it in fact encodes \emph{conditional probability measures}.
+
+\begin{lemma}[Boundary conditions as conditional measures]
+    \label{lemma:boundary_conditions_conditional_measures}
+    Let $G$ denote a locally finite graph and $\beta\in[0,\infty)$
+    an inverse temperature.
+    Let $\Lambda\subset\Delta$ denote two finite domains
+    and fix $\xi\in\{\pm1\}^{\Delta^c}$
+    and $\zeta\in\{\pm1\}^{\Delta\setminus\Lambda}$.
+    Then
+    \[
+        \P_{\Delta,\beta}^\xi(\blank|\{\sigma|_{\Delta\setminus\Lambda}=\zeta\})
+        =
+        \P_{\Lambda,\beta}^{\xi\zeta}.
+    \]
+\end{lemma}
+
+\begin{proof}
+    For the two measures, we get
+    \begin{align}
+        \P_{\Delta,\beta}^\xi(\sigma|\{\sigma|_{\Delta\setminus\Lambda}=\zeta\})
+        &\propto\true{\sigma|_{\Lambda^c}=\xi\zeta}\cdot e^{-H_{\Delta,\beta}(\sigma)};
+        \\\P_{\Lambda,\beta}^{\xi\zeta}(\sigma)
+        &\propto\true{\sigma|_{\Lambda^c}=\xi\zeta}\cdot e^{-H_{\Lambda,\beta}(\sigma)}.
+    \end{align}
+    But $H_{\Delta,\beta}-H_{\Lambda,\beta}$ is constant on the
+    event $\{\sigma|_{\Lambda^c}=\xi\zeta\}$,
+    which means that the two probability measures are the same.
+\end{proof}
+
+The Ising model is a \emph{nearest-neighbour model},
+meaning that the interactions are associated with the edges of the graph.
+A consequence of this is the so-called \emph{Markov property}.
+There are several ways to state it.
+We shall first state and prove the following lemma.
+For any domain $\Lambda\subset V$,
+we let $\partial\Lambda\subset V$ denote the set of vertices
+at graph distance one from $\Lambda$.
+This is called the \emph{boundary} of $\Lambda$.
+
+\begin{lemma}[Markov property]
+    \label{lemma:markov_property_general}
+    Consider a locally finite graph $G$,
+    an inverse temperature $\beta$,
+    a domain $\Lambda$,
+    and a boundary condition $\zeta$.
+    Let $(\Lambda_i)_i$ denote the partition of $\Lambda$
+    into connected components.
+    Then in the measure
+    $\P_{\Lambda,\beta}^\zeta$,
+    the family $(\sigma|_{\Lambda_i})_i$
+    is a family of independent random variables.
+    Moreover, the distribution of $\sigma|_{\Lambda_i}$ only depends on
+    $\zeta|_{\partial\Lambda_i}$.
+\end{lemma}
+
+\begin{proof}
+    We have
+    $\P_{\Lambda,\beta}^\zeta(\sigma)\propto \true{\sigma|_{\Lambda^c}=\zeta}\cdot e^{-H_{\Lambda,\beta}(\sigma)}$.
+    The Hamiltonian may be written
+    \[
+        H_{\Lambda,\beta}(\sigma)
+        =
+        \sum_i H_{\Lambda_i,\beta}(\sigma).
+    \]
+    But each term $H_{\Lambda_i,\beta}(\sigma)$
+    is a function of $\sigma|_{\Lambda_i}$ and $\zeta|_{\partial\Lambda_i}$.
+    This means that $e^{-H_{\Lambda,\beta}(\sigma)}$ 
+    may be written as a product of factors, where the factor corresponding
+    to $\Lambda_i$ only depends on $\sigma|_{\Lambda_i}$ and $\zeta|_{\partial\Lambda_i}$.
+    This implies the desired independence.
+\end{proof}
+
+The Markov property is often phrased in a slightly different fashion.
+
+\begin{theorem}[Markov property]
+    Consider a locally finite graph $G$,
+    and inverse temperature $\beta$,
+    and two domains $\Lambda\subset\Delta$.
+    Let $\zeta\in\{\pm1\}^{\Delta^c}$ denote a boundary condition,
+    and fix $\xi\in\{\pm1\}^{\partial\Lambda}$.
+    If $\P_{\Delta,\beta}^\zeta(\{\sigma|_{\partial\Lambda=\xi}\})>0$,
+    then in the conditional probability measure
+    \[
+        \P_{\Delta,\beta}^\zeta(\blank|\{\sigma|_{\partial\Lambda=\xi}\})
+        =
+        \P_{\Delta\cup\partial\Lambda,\beta}^{\zeta\xi}
+        ,
+    \]
+    the random variables $\sigma|_{\Lambda}$
+    and $\sigma|_{\Lambda^c}$ are independent.
+    Moreover, the distribution of $\sigma|_{\Lambda}$ only depends on $\xi$.
+\end{theorem}
+
+\begin{proof}
+The two measures in the display in this theorem are equal because of Lemma~\ref{lemma:boundary_conditions_conditional_measures}.
+The theorem is then a mere corollary of the previous lemma (Lemma~\ref{lemma:markov_property_general}).
+\end{proof}
+
+

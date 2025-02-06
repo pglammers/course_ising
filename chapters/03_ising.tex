@@ -15,6 +15,7 @@ but only on finite graphs.
 Let us extend this definition to infinite graphs.
 
 \begin{definition}[The Ising model with boundary conditions]
+    \label{def:ising_bc}
     Let $G=(V,E)$ denote a fixed locally finite graph.
     We consider the measurable space 
     $(\Omega,\calF)$ where $\Omega=\{\pm1\}^V$
@@ -24,7 +25,7 @@ Let us extend this definition to infinite graphs.
     that is, a finite subset of $V$.
     The Ising model in the domain $\Lambda$
     with inverse temperature $\beta \geq 0$ and boundary conditions
-    $\zeta\in\{\pm1\}^{V\setminus\Lambda}$
+    $\zeta\in\{\pm1\}^{\Lambda^c}$
     is the probability measure $\P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$
     on $(\Omega,\calF)$ defined via:
     \[
@@ -32,7 +33,7 @@ Let us extend this definition to infinite graphs.
         =
         \frac1{Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}}
         \cdot
-        \true{\sigma|_{V\setminus\Lambda}=\zeta}\cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
+        \true{\sigma|_{\Lambda^c}=\zeta}\cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
         ,
     \]
     where $H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)$ is the Hamiltonian given by
@@ -46,7 +47,7 @@ Let us extend this definition to infinite graphs.
     \[
         Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}
         =
-        \sum_{\sigma \in \Omega} \true{\sigma|_{V\setminus\Lambda}=\zeta} \cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
+        \sum_{\sigma \in \Omega} \true{\sigma|_{\Lambda^c}=\zeta} \cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
         .
     \]
     The set $E(\Lambda)\subset E$ denotes 
