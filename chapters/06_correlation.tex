@@ -78,3 +78,24 @@ Such inequalities may be used to prove interesting properties about the Ising mo
     This enables us to state all our inequalities in a unified way,
     namely on finite graphs.
 \end{remark}
+
+\begin{exercise}
+    First consider the Ising model on a finite graph $G$ at inverse temperature
+    $\beta\in[0,\infty)$.
+    Prove that $\langle\sigma_A\rangle_{G,\beta}=0$
+    whenever $|A|$ is odd.
+
+    Now consider the Ising model on locally finite graph $G$ at inverse temperature
+    $\beta\in[0,\infty)$ with $+$ boundary conditions outside the domain
+    $\Lambda\subset V$, chosen such that $\Lambda\neq V$.
+    Recall the construction in the previous remark.
+    Prove that if $A\subset\Lambda$ contains an odd number of vertices,
+    then
+    \[
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+
+        =
+        \E_{G',\beta}^+[\sigma_A|\{\sigma_{\Lambda^c}=+\}]
+        =
+        \langle\sigma_{A\cup\{\Lambda^c\}}\rangle_{G',\beta}.
+    \]
+\end{exercise}
