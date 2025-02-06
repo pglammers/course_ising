@@ -28,7 +28,7 @@ Notice that $f$ is increasing if and only if $-f$ is decreasing.
 The FKG inequality may therefore be formulated in terms of decreasing functions,
 or in terms of a mixture of increasing and decreasing functions.
 
-\begin{remark}
+\begin{remark}[The FKG inequality and increasing events]
     We stated the FKG inequality in terms of observables.
     Examples of observables are functions of the form $\ind{A}$.
     In that case, the FKG inequality states that, if $\mu(A)>0$,
@@ -38,14 +38,23 @@ or in terms of a mixture of increasing and decreasing functions.
     \]
     whenever $\ind{A}$ and $\ind{B}$ are increasing functions.
     Such events are called \emph{increasing events}.
-    If $(A_i)_i$ is a family of events such that $\ind{A_i}$ is increasing,
-    then iterating the FKG inequality yields
+\end{remark}
+
+\begin{exercise}[Iterating the FKG inequality]
+    Let $\mu$ denote a probability measure satisfying the FKG inequality and
+     $(A_i)_i$ a finite family of increasing events.
+    Prove that
     \[
         \mu(\cap_i A_i)\geq \prod_i\mu(A_i).
     \]
-    We use here the fact that the product of two \emph{positive}
-    increasing functions is also increasing.
-\end{remark}
+    
+    If $(f_i)_i$ is a finite family of increasing functions,
+    does it hold true that $\mu[\prod_i f_i]\geq \prod_i \mu[f_i]$?
+    Why (not)?
+\end{exercise}
+
+We have now defined the FKG inequality,
+but to derive it, we require the notion of a distributive lattice.
 
 \begin{definition}[Distributive lattices]
     A \emph{distributive lattice} is a tuple $(\Omega,\preceq,\vee,\wedge)$
@@ -170,7 +179,7 @@ or in terms of a mixture of increasing and decreasing functions.
     This establishes the claim, and thus the theorem.
 \end{proof}
 
-\begin{remark}
+\begin{remark}[No FKG after conditioning]
     Suppose that $\mu$ is a probability measure satisfying the FKG inequality.
     Then we have $\mu(B|A)\geq\mu(B)$ whenever $A$ and $B$ are increasing events
     with $\mu(A)>0$,
@@ -178,7 +187,7 @@ or in terms of a mixture of increasing and decreasing functions.
     satisfies the FKG inequality.
 \end{remark}
 
-\begin{exercise}
+\begin{exercise}[No FKG after conditioning]
     Consider the following example of two independent coin flips:
     $\Omega=\{\pm1\}^2$ and $X\equiv 1$,
     so that $\mu$ is the uniform distribution on $\Omega$.
@@ -191,7 +200,7 @@ or in terms of a mixture of increasing and decreasing functions.
     Argue that this conditional measure does not satisfy the FKG inequality.
 \end{exercise}
 
-\begin{remark}
+\begin{remark}[Preservation of FKG after conditioning on binary sublattices]
     Consider the setting of Theorem~\ref{thm:original_FKG}.
     That theorem does imply that the FKG inequality is preserved
     under conditioning on an event $A\subset\Omega$
