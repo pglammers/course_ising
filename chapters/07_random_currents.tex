@@ -1,0 +1,19 @@
+\section{Random currents}
+
+\begin{definition}[Currents]
+    Let $G=(V,E)$ denote a graph.
+    A \emph{current} is a map $\n:E\to\Z_{\geq 0}$.
+    If $G$ is finite and $\beta\in[0,\infty)$, then the
+    \emph{weight} of a current is defined as
+    \[
+        w_\beta(\n):=\prod_{xy\in E}
+        \frac{\beta^{\n_{xy}}}{\n_{xy}!}.
+    \]
+\end{definition}
+
+Consider the Ising model on some finite graph $G$ at inverse temperature $\beta$.
+Fix $A\subset V$, and consider the non-normalised correlation function
+\[
+    Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}.
+\]
+
