@@ -3,6 +3,10 @@
 \begin{definition}[Currents]
     Let $G=(V,E)$ denote a graph.
     A \emph{current} is a map $\n:E\to\Z_{\geq 0}$.
+    We think of $(V,\n)$ as a multigraph,
+    where for each edge $uv\in E$ we have $\n_{uv}$ multi-edges between $u$ and $v$.
+    The set of \emph{sources} $\partial\n\subset V$ of a current
+    $\n$ is defined as the set of vertices $u\in V$ with an odd degree in the multigraph.
     If $G$ is finite and $\beta\in[0,\infty)$, then the
     \emph{weight} of a current is defined as
     \[
@@ -11,9 +15,154 @@
     \]
 \end{definition}
 
-Consider the Ising model on some finite graph $G$ at inverse temperature $\beta$.
-Fix $A\subset V$, and consider the non-normalised correlation function
-\[
-    Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}.
-\]
+Currents can be used to encode correlation functions of the Ising model.
 
+\begin{theorem}[Current representation of correlation functions]
+    Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
+    Let $A\subset V$ be a subset of vertices.
+    Then
+    \[
+        Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}
+        =2^{|V|}\sum_{\n:\:\partial\n=A}
+        w_\beta(\n).
+    \]
+    In particular, the partition function is given by
+    \[
+        Z_{G,\beta}=2^{|V|}\sum_{\n:\:\partial\n=\emptyset}
+        w_\beta(\n).
+    \]
+\end{theorem}
+
+\begin{proof}
+    We claim that
+    \begin{align}
+        \label{eq:curents:1}
+        Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}
+        &=
+        \sum_{\sigma\in\{\pm1\}^V}
+        \sigma_A
+        \prod_{uv\in E}
+        e^{\beta\sigma_u\sigma_v}
+        \\
+        \label{eq:curents:2}
+        &=
+        \sum_{\sigma\in\{\pm1\}^V}
+        \sigma_A
+        \prod_{uv\in E}
+        \sum_{\n=0}^\infty
+        \frac{(\beta\sigma_u\sigma_v)^\n}{\n!}
+        \\
+        \label{eq:curents:3}
+        &=
+        \sum_{\n:E\to\Z_{\geq 0}}
+        \sum_{\sigma\in\{\pm1\}^V}
+        \sigma_A
+        \prod_{uv\in E}
+        \frac{(\beta\sigma_u\sigma_v)^{\n_{uv}}}{\n_{uv}!}
+        \\
+        \label{eq:curents:4}
+        &=
+        2^{|V|}\sum_{\n:\:\partial\n=A}
+        \prod_{uv\in E}
+        \frac{\beta^{\n_{uv}}}{\n_{uv}!}
+        \\
+        \label{eq:curents:5}
+        &=
+        2^{|V|}
+        \sum_{\n:\:\partial\n=A}
+        w_\beta(\n).
+    \end{align}
+    Although this may come as a surprise, its justification is straightforward.
+    \begin{itemize}
+        \item Equation~\eqref{eq:curents:1} is derived from the definition
+        of the Ising model by pulling out the sum in the Hamiltonian in
+        the exponential as a product.
+        \item Equation~\eqref{eq:curents:2} follows by expanding each exponential.
+        \item Equation~\eqref{eq:curents:3} is Fubini's theorem:
+        we first swap the product and the sum (so that we have to perform one sum for each
+        factor in the product), then we interchange the two sums.
+        Absolute convergene comes from the factorial terms in the denominator.
+        \item Equation~\eqref{eq:curents:4} follows simply by noting that the sum over $\sigma$ is zero unless
+        all the factors of the form $\sigma_u$ cancel.
+        \item Equation~\eqref{eq:curents:5} is the definition of the weight above.
+    \end{itemize}
+    This finishes the proof.
+\end{proof}
+
+\begin{corollary}[First Griffiths inequality]
+    Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
+    Then for any $A\subset V$, we have $\langle\sigma_A\rangle_{G,\beta}\geq 0$.
+\end{corollary}
+
+\begin{proof}
+    The current expansion shows that the correlation function is a sum of
+    non-negative terms.
+\end{proof}
+
+\begin{exercise}[Correlation functions with odd sets]
+    \begin{itemize}
+        \item     Consider the setting of the previous theorem.
+        Show that if $|A|$ is odd, then $\langle\sigma_A\rangle_{G,\beta}=0$.
+        \item Now consider an arbitrary graph $G$ with some domain $\Lambda$.
+        Show that if $|A|$ is odd, then $\langle\sigma_A\rangle_{G,\beta}^+\geq 0$.
+        For this part, one needs Remark~\ref{remark:infinite_graphs_as_finite_graphs}
+        and Exercise~\ref{exercise:infinite_graphs_as_finite_graphs}.
+    \end{itemize}
+\end{exercise}
+
+\begin{definition}[Percolation of currents]
+    Let $G$ denote a graph and $\n$ a current.
+    We associate $\n$ with the set $E(\n):=\{uv\in E:\n_{uv}>0\}\subset E$.
+    Edges in $E(\n)$ are called \emph{open},
+    the other edges \emph{closed}.
+    We shall write $\{u\xleftrightarrow{\n}v\}$
+    for the event there is an open path from $u$ to $v$
+    ($u$ and $v$ may represent vertices or sets of vertices).
+\end{definition}
+
+\begin{exercise}[Currents and the Peierls argument]
+    For the first two parts, consider
+    the Ising model on a finite graph $G$ at inverse temperature $\beta$.
+    \begin{enumerate}
+        \item Let $\calL\subset E$ denote a circuit through $G$
+        (a closed path which traverses no edge more than once).
+        Prove that
+        \[
+            \frac{
+                \sum_{\n:\:\partial\n=\emptyset,\,\calL\subset E(\n)} w_\beta(\n)
+            }{
+                \sum_{\n:\:\partial\n=\emptyset} w_\beta(\n)
+            }
+            \leq
+            \beta^{|\calL|}.
+        \]
+        \item Let $\calP\subset E$ denote a path from $u$ to $v$ through $G$
+        which traverses no edge more than once.
+        Prove that
+        \[
+            \frac{
+                \sum_{\n:\:\partial\n=\{u,v\},\,\calP\subset E(\n)} w_\beta(\n)
+            }{
+                \sum_{\n:\:\partial\n=\emptyset} w_\beta(\n)
+            }
+            \leq
+            \beta^{|\calP|}.
+        \]
+        \item Let $G$ denote an infinite graph of maximum degree $d\in\Z_{\geq 0}$.
+        Let $u$ denote a fixed vertex, and let $\Lambda_n$ denote the set of vertices
+        at distance at most $n-1$ from $u$.
+        Prove that for any $\beta<1/d$ and $n\in\Z_{\geq 0}$, we have
+        \[
+            \langle\sigma_u\rangle_{\Lambda_n,\beta}^+
+            \leq
+            \frac{(d\beta)^n}{1-d\beta}.
+        \]
+        For this part, one needs Remark~\ref{remark:infinite_graphs_as_finite_graphs}
+        and Exercise~\ref{exercise:infinite_graphs_as_finite_graphs}.
+    \end{enumerate}
+    Indeed, this is the high-temperature counterpart to the Peierls argument
+    (Theorem~\ref{thm:peierls_triangles}).
+    We did not only prove that for small $\beta$, the magnetisation vanishes
+    (tends to zero),
+    but also that it tends to zero exponentially fast in the distance to the boundary.
+\end{exercise}
