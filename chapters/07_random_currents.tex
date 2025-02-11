@@ -18,6 +18,7 @@
 Currents can be used to encode correlation functions of the Ising model.
 
 \begin{theorem}[Current representation of correlation functions]
+    \label{thm:current_representation_of_correlation_functions}
     Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
     Let $A\subset V$ be a subset of vertices.
     Then
@@ -118,6 +119,12 @@ Currents can be used to encode correlation functions of the Ising model.
     We shall write $\{u\xleftrightarrow{\n}v\}$
     for the event there is an open path from $u$ to $v$
     ($u$ and $v$ may represent vertices or sets of vertices).
+
+    For fixed $S\subset V$, we shall also write $\calE_S$ for the set
+    \[
+        \{O\subset E:\text{$|C\cap S|$ is even for any connected component $C\subset V$ of $(V,O)$}\}.
+    \]
+    This definition will only become useful in the next section.
 \end{definition}
 
 \begin{exercise}[Currents and the Peierls argument]
@@ -166,3 +173,44 @@ Currents can be used to encode correlation functions of the Ising model.
     (tends to zero),
     but also that it tends to zero exponentially fast in the distance to the boundary.
 \end{exercise}
+
+\begin{definition}[Replacing sums by measures]
+    Sums are measures.
+    Even though there is no added mathematical value in replacing sums by measures,
+    doing so will slightly change our perspective,
+    and also shorten notations.
+
+    For an Ising model on some finite graph $G$ with inverse temperature
+    $\beta$, we shall write
+    \(
+        \M_{G,\beta}
+    \)
+    for the measure on random currents $\n\in(\Z_{\geq 0})^E$
+    such that
+    \[
+        \M_{G,\beta}(\n)=w_\beta(\n).
+    \]
+    For $A\subset V$, we shall also write $\M_{G,\beta}^A$
+    for the measure
+    \[
+        \M_{G,\beta}[\blank]:=\M_{G,\beta}[(\blank)\ind{\{\partial\n=A\}}].
+    \]
+\end{definition}
+
+\begin{corollary}
+        The measure $\M_{G,\beta}$ is not a probability measure,
+        but $e^{-\beta|E|}\M_{G,\beta}$ is a probability measure
+        in which $(\n_{uv})_{uv\in E}$ is a family of independent
+        random variables with distribution $\operatorname{Poisson}(\beta)$.
+\end{corollary}
+
+\begin{corollary}
+    \label{cor:current_representation_of_correlation_functions}
+    Theorem~\ref{thm:current_representation_of_correlation_functions}
+    says that 
+    \[
+        Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}
+        =2^{|V|}\M_{G,\beta}[\{\partial\n=A\}]
+        =2^{|V|}\M_{G,\beta}^A[1].
+    \]
+\end{corollary}
