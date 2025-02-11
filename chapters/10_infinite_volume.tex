@@ -1,0 +1,201 @@
+\section{The thermodynamical limit}
+\label{sec:infinite_volume}
+
+Consider the Ising model on the infinite graph $\Z^d$ for $d\geq 2$.
+Let $u=0\in\Z^d$ and let $\Lambda_n$ denote the graph metric ball around $u$.
+We have already derived the following results.
+\begin{itemize}
+    \item For large $\beta$,
+    the Ising model exhibits magnetisation
+    in the sense that
+    \[
+        \inf_{n}\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
+        >0.
+    \]
+    This was proved via the Peierls argument, see Theorem~\ref{thm:peierls}
+    and Exercise~\ref{exo:peierls_general}.
+    \item For small $\beta$,
+    the Ising model \emph{does not} exhibit magnetisation:
+    \[
+        \lim_{n\to\infty}\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
+        =0.
+    \]
+    This was proved via a Peierls argument for random currents,
+    see Exercise~\ref{exercise:currents_peierls}.
+\end{itemize}
+At the time moment of stating the Peierls argument (Section~\ref{sec:peierls}),
+we knew almost nothing about the Ising model.
+Our understanding is now advancing.
+We already used the first Griffiths inequality to show that $\langle\sigma_0\rangle_{\Lambda_n,\beta}^+\geq 0$
+(Corollary~\ref{cor:griffiths_1}
+and Exercise~\ref{exo:correlation_functions_with_odd_sets}).
+Our first objective is now to prove the following result.
+To state it, we write
+\[
+    \lim_{\Lambda\uparrow V}f(\Lambda)
+    \qquad\text{for}\qquad
+    \lim_{n\to\infty}f(\Lambda_n),
+\]
+where $(\Lambda_n)_n$ is any increasing sequence of domains 
+with $\cup_n\Lambda_n=V$.
+This notation makes sense only when the limit is independent
+of the precise choice of the sequence $(\Lambda_n)_n$,
+and is called the \emph{thermodynamical limit} of \emph{infinite-volume limit}.
+
+\begin{lemma}[Correlation functions are monotone in the domain]
+    \label{lemma:correlation_functions_monotone}
+    Consider the Ising model on a locally finite graph
+    $G$ at inverse temperature $\beta$.
+    Let $A\subset V$ denote any finite subset.
+    Then the function
+    \[
+        \Lambda\mapsto
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+
+    \]
+    is a nonincreasing function of the domain $\Lambda$.
+
+    In particular, we have well-definedness of the thermodynamical limit
+    \[
+        \lim_{\Lambda\uparrow V}
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+.
+    \]
+\end{lemma}
+
+\begin{proof}
+    Consider two domains $\Lambda\subset\bar\Lambda$.
+    We want to show that
+    \[
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+
+        \geq
+        \langle\sigma_A\rangle_{\bar\Lambda,\beta}^+.
+    \]
+    Without loss of generality,
+    $A\subset\bar\Lambda$ and
+    $\bar\Lambda\setminus\Lambda=\{u\}$ for some
+    vertex $u\in V$.
+
+    Let $G'=(\bar\Lambda\cup\{\bar\Lambda^c\},E(\bar\Lambda))$ denote the graph obtained from $\bar\Lambda$
+    as in Remark~\ref{remark:infinite_graphs_as_finite_graphs}
+    and Exercise~\ref{exercise:infinite_graphs_as_finite_graphs}.
+    We refer to the Ising model on $G'$ when subscripts are submitted from now on.
+    Assume that $|A|$ is even for now.
+    Then
+    \begin{align}
+        &\langle\sigma_A\rangle_{\bar\Lambda,\beta}^+
+        =
+        \E[\sigma_A];
+        \\
+        &\langle\sigma_A\rangle_{\Lambda,\beta}^+
+        =
+        \E[\sigma_A|\{\sigma_u=\sigma_{\bar\Lambda^c}\}].
+    \end{align}
+    It suffices to show that the conditioning increases the expectation.
+    
+    Define the event $Q_\pm:=\{\sigma_u\sigma_{\bar\Lambda^c}=\pm 1\}$.
+    It suffices to prove that
+    \[
+        \E[\sigma_A|Q_+]
+        \geq
+        \E[\sigma_A|Q_-].
+    \]
+    Notice that
+    \begin{multline}
+        \P[Q_+]\E[\sigma_A|Q_+]
+        -
+        \P[Q_-]\E[\sigma_A|Q_-]
+        =
+        \E[\sigma_A\sigma_{\{u,\bar\Lambda^c\}}]
+        \\
+        \stackrel{\text{second Griffiths}}\geq
+        \E[\sigma_A]\E[\sigma_{\{u,\bar\Lambda^c\}}]
+        =(\P[Q_+]
+        -
+        \P[Q_-])\E[\sigma_A].
+    \end{multline}
+    This is the desired inequality.
+
+    If $|A|$ is odd then we just need to replace the set $A$
+    by $A':=A\cup\{\bar\Lambda^c\}$,
+    and the same proof will work.
+\end{proof}
+
+Perhaps we were wondering if $\langle\sigma_0\rangle_{\Lambda_n,\beta}^+$
+was decreasing in $n$ in the statement of the Peierls argument
+(Theorem~\ref{thm:peierls_triangles}),
+but the result we proved just now is much stronger:
+we proved that the thermodynamical limit of any ``local Fourier transform''
+is well-defined.
+Rather than taking a thermodynamical of observables,
+we would however like to make sense of the thermodynamical limit
+of the family of measures $\langle\blank\rangle_{\Lambda,\beta}^+$.
+The previous lemma enables us to do this;
+we only need to set up the definitions to make formal sense of our limit.
+
+\begin{definition}[A compact space of measures]
+    Let $G$ denote a locally finite graph.
+    Recall that $(\Omega,\calF)$ is the measurable space $\Omega:=\{\pm1\}^V$
+    endowed with the product $\sigma$-algebra.
+    For a domain $\Lambda$, we write $\calF_\Lambda$
+    for the $\sigma$-algebra generated by spins in $\Lambda$.
+    An observable $X:\Omega\to\C$ is called \emph{local} if it measurable
+    with respect to $\calF_\Lambda$ for some domain $\Lambda$.
+
+    Let $\calP(\Omega,\calF)$ denote the set of all probability measures
+    on this measurable space.
+    We endow this set with the \emph{local convergence topology},
+    which is defined as the topology making the map
+    \[
+        \calP(\Omega,\calF)\to\C,\,\mu\mapsto\mu[X]
+    \]
+    continuous for any local observable $X$.
+\end{definition}
+
+\begin{remark}
+    This topology is sometimes known under different names in the literature
+    (such as the \emph{weak topology}).
+    I like the name \emph{local convergence topology} because it captures the essence quite literally:
+    if the statistics of the measures within a fixed domain $\Lambda$ converge,
+    then we have local convergence.
+\end{remark}
+
+\begin{remark}
+    The local convergence topology turns $\calP(\Omega,\calF)$ into a compact space.
+    For a fixed domain $\Lambda$, the set of probability measures
+    on $(\Omega,\calF_\Lambda)$ is a compact simplex in some finite-dimensional
+    real vector space.
+    Sequences of probability measures have converging subsequences by standard
+    arguments.
+    Convergence for arbitrary $\Lambda$ may be obtained by a standard diagonal
+    argument.
+\end{remark}
+
+\begin{theorem}[Existence of the thermodynamical limit under $+$ boundary conditions]
+    Consider the Ising model on a locally finite graph $G$
+    at inverse temperature $\beta$.
+    Then there exists a unique probability measure
+    $\langle\blank\rangle_{G,\beta}^+\in\calP(\Omega,\calF)$
+    such that
+    \[
+        \lim_{\Lambda\uparrow V}\langle X\rangle_{\Lambda,\beta}^+=\langle X\rangle_{G,\beta}^+
+    \]
+    for any local observable $X:\Omega\to\R$.
+    In other words,
+    \[
+        \lim_{\Lambda\uparrow V}\langle \blank\rangle_{\Lambda,\beta}^+
+        =
+        \langle \blank\rangle_{G,\beta}^+.
+    \]
+    The measure $\langle\blank\rangle_{G,\beta}^+$ is called
+    the \emph{thermodynamical limit} or \emph{infinite-volume limit}
+    with $+$ boundary conditions.
+\end{theorem}
+
+\begin{proof}
+    Any local observable may be written as a finite linear conbination
+    of observables of the form $\sigma_A$ where $A$ is a finite subset of
+    $V$.
+    The theorem then follows by compactness and Lemma~\ref{lemma:correlation_functions_monotone}.
+\end{proof}
+
+
+
