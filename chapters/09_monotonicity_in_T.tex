@@ -7,6 +7,67 @@
 \end{theorem}
 
 \begin{proof}
-    
+    We want to prove that
+    \[
+        \frac{\partial}{\partial\beta}
+        \langle\sigma_A\rangle_{G,\beta}
+        =
+        \frac{\partial}{\partial\beta}
+        \left(
+            \frac{
+                \sum_\sigma\sigma_A\prod_{uv}e^{\beta\sigma_u\sigma_v}
+            }{
+                \sum_\sigma\prod_{uv}e^{\beta\sigma_u\sigma_v}
+            }
+        \right)
+        \geq 0.
+    \]
+    Since we are differentiating a fraction,
+    it suffices to show that the numerator grows at a faster rate
+    than the denominator,
+    that is,
+    \[
+        \frac{\frac{\partial}{\partial\beta}
+            \sum_\sigma\sigma_A\prod_{uv}e^{\beta\sigma_u\sigma_v}
+        }{
+            Z\langle\sigma_A\rangle
+        }
+        \geq
+        \frac{\frac{\partial}{\partial\beta}
+            \sum_\sigma\prod_{uv}e^{\beta\sigma_u\sigma_v}
+        }{
+            Z
+        }.
+    \]
+    By multiplying either side by $\langle\sigma_A\rangle$
+    and differentiating each side,
+    we see that this inequality is equivalent to
+    \[
+       \sum_{xy}
+        \frac{\sum_\sigma
+            \sigma_x\sigma_y\sigma_A\prod_{uv}e^{\beta\sigma_u\sigma_v}
+        }{Z}
+        \geq
+        \langle\sigma_A\rangle
+        \sum_{xy}
+        \frac{
+            \sum_\sigma
+            \sigma_x\sigma_y
+            \prod_{uv}e^{\beta\sigma_u\sigma_v}
+        }{Z}.
+    \]
+    Each fraction may now be reinterpreted as a correlation function,
+    so that the previous inequality is equivalent to
+    \[
+        \sum_{xy}\langle\sigma_x\sigma_y\sigma_A\rangle
+        \geq
+        \langle\sigma_A\rangle
+        \sum_{xy}\langle\sigma_x\sigma_y\rangle.
+    \]
+    But this is just the second Griffiths inequality.
 \end{proof}
 
+\begin{exercise}
+    What are some other properties of the function $\beta\mapsto\langle\sigma_A\rangle_{G,\beta}$
+    in the context of the theorem above?
+\end{exercise}
