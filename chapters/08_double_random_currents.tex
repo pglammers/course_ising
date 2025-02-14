@@ -153,6 +153,27 @@ behaviour of the Ising model, especially in graph dimensions $3$ and $4$.
     This inequality implies the claim, and therefore the second Griffiths inequality.
 \end{proof}
 
+\begin{exercise}[Conditioning on equality increases the correlation functions]
+    Consider the Ising model on a finite graph $G$
+    at inverse temperature $\beta$, and fix some subset $A\subset V$.
+    \begin{itemize}
+        \item     Prove that for any two distinct vertices $u,v\in V$,
+        we have
+        \[
+            \E_{G,\beta}[\sigma_A|\{\sigma_u=\sigma_v\}]
+            \geq
+            \E_{G,\beta}[\sigma_A]=\langle\sigma_A\rangle_{G,\beta}.
+        \]
+        \item Prove for any $X\subset Y\subset V$, we have
+        \[
+            \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $X$}\}]
+            \leq
+            \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $Y$}\}]
+            .
+        \]
+    \end{itemize}
+\end{exercise}
+
 \begin{exercise}[The two-point function as a metric]
     Consider the Ising model on a finite graph $G$
     at inverse temperature $\beta>0$.
