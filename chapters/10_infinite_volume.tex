@@ -1,4 +1,4 @@
-\section{The thermodynamical limit}
+\section{The thermodynamical limit. Wired boundary}
 \label{sec:infinite_volume}
 
 Consider the Ising model on the infinite graph $\Z^d$ for $d\geq 2$.
@@ -40,9 +40,9 @@ where $(\Lambda_n)_n$ is any increasing sequence of domains
 with $\cup_n\Lambda_n=V$.
 This notation makes sense only when the limit is independent
 of the precise choice of the sequence $(\Lambda_n)_n$,
-and is called the \emph{thermodynamical limit} of \emph{infinite-volume limit}.
+and is called the \emph{thermodynamical limit} or \emph{infinite-volume limit}.
 
-\begin{lemma}[Correlation functions are monotone in the domain]
+\begin{lemma}[Correlation functions are monotone in the domain (wired boundary)]
     \label{lemma:correlation_functions_monotone}
     Consider the Ising model on a locally finite graph
     $G$ at inverse temperature $\beta$.
@@ -80,50 +80,60 @@ and is called the \emph{thermodynamical limit} of \emph{infinite-volume limit}.
     We refer to the Ising model on $G'$ when subscripts are submitted from now on.
     Assume that $|A|$ is even for now.
     Then
-    \begin{align}
-        &\langle\sigma_A\rangle_{\bar\Lambda,\beta}^+
+    \begin{equation}
+        \langle\sigma_A\rangle_{\bar\Lambda,\beta}^+
         =
-        \E[\sigma_A];
-        \\
-        &\langle\sigma_A\rangle_{\Lambda,\beta}^+
+        \E[\sigma_A];\qquad
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+
         =
         \E[\sigma_A|\{\sigma_u=\sigma_{\bar\Lambda^c}\}].
-    \end{align}
+    \end{equation}
     It suffices to show that the conditioning increases the expectation.
+    This is just Exercise~\ref{exo:conditioning_equality}.
     
-    Define the event $Q_\pm:=\{\sigma_u\sigma_{\bar\Lambda^c}=\pm 1\}$.
-    It suffices to prove that
-    \[
-        \E[\sigma_A|Q_+]
-        \geq
-        \E[\sigma_A|Q_-].
-    \]
-    Notice that
-    \begin{multline}
-        \P[Q_+]\E[\sigma_A|Q_+]
-        -
-        \P[Q_-]\E[\sigma_A|Q_-]
-        =
-        \E[\sigma_A\sigma_{\{u,\bar\Lambda^c\}}]
-        \\
-        \stackrel{\text{second Griffiths}}\geq
-        \E[\sigma_A]\E[\sigma_{\{u,\bar\Lambda^c\}}]
-        =(\P[Q_+]
-        -
-        \P[Q_-])\E[\sigma_A].
-    \end{multline}
-    This is the desired inequality.
+    % Define the event $Q_\pm:=\{\sigma_u\sigma_{\bar\Lambda^c}=\pm 1\}$.
+    % It suffices to prove that
+    % \[
+    %     \E[\sigma_A|Q_+]
+    %     \geq
+    %     \E[\sigma_A|Q_-].
+    % \]
+    % Notice that
+    % \begin{multline}
+    %     \P[Q_+]\E[\sigma_A|Q_+]
+    %     -
+    %     \P[Q_-]\E[\sigma_A|Q_-]
+    %     =
+    %     \E[\sigma_A\sigma_{\{u,\bar\Lambda^c\}}]
+    %     \\
+    %     \stackrel{\text{second Griffiths}}\geq
+    %     \E[\sigma_A]\E[\sigma_{\{u,\bar\Lambda^c\}}]
+    %     =(\P[Q_+]
+    %     -
+    %     \P[Q_-])\E[\sigma_A].
+    % \end{multline}
+    % This is the desired inequality.
 
     If $|A|$ is odd then we just need to replace the set $A$
-    by $A':=A\cup\{\bar\Lambda^c\}$,
-    and the same proof will work.
+    by $A':=A\cup\{\bar\Lambda^c\}$.
+    More precisely,
+    we have
+    \begin{equation}
+        \langle\sigma_A\rangle_{\bar\Lambda,\beta}^+
+        =
+        \E[\sigma_{A'}];\qquad
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+
+        =
+        \E[\sigma_{A'}|\{\sigma_u=\sigma_{\bar\Lambda^c}\}].
+    \end{equation}
+    One may then simply apply Exercise~\ref{exo:conditioning_equality} as for the even case.
 \end{proof}
 
 Perhaps we were wondering if $\langle\sigma_0\rangle_{\Lambda_n,\beta}^+$
 was decreasing in $n$ in the statement of the Peierls argument
 (Theorem~\ref{thm:peierls_triangles}),
 but the result we proved just now is much stronger:
-we proved that the thermodynamical limit of any ``local Fourier transform''
+we proved that the thermodynamical limit of any ``local Fourier coefficient''
 is well-defined.
 Rather than taking a thermodynamical of observables,
 we would however like to make sense of the thermodynamical limit
@@ -131,7 +141,7 @@ of the family of measures $\langle\blank\rangle_{\Lambda,\beta}^+$.
 The previous lemma enables us to do this;
 we only need to set up the definitions to make formal sense of our limit.
 
-\begin{definition}[A compact space of measures]
+\begin{definition}[The compact ``local convergence'' topology]
     Let $G$ denote a locally finite graph.
     Recall that $(\Omega,\calF)$ is the measurable space $\Omega:=\{\pm1\}^V$
     endowed with the product $\sigma$-algebra.
@@ -163,13 +173,13 @@ we only need to set up the definitions to make formal sense of our limit.
     For a fixed domain $\Lambda$, the set of probability measures
     on $(\Omega,\calF_\Lambda)$ is a compact simplex in some finite-dimensional
     real vector space.
-    Sequences of probability measures have converging subsequences by standard
+    Sequences of probability measures of this type have converging subsequences by standard
     arguments.
     Convergence for arbitrary $\Lambda$ may be obtained by a standard diagonal
     argument.
 \end{remark}
 
-\begin{theorem}[Existence of the thermodynamical limit under $+$ boundary conditions]
+\begin{theorem}[Existence of the thermodynamical limit (wired boundary)]
     Consider the Ising model on a locally finite graph $G$
     at inverse temperature $\beta$.
     Then there exists a unique probability measure
@@ -197,5 +207,50 @@ we only need to set up the definitions to make formal sense of our limit.
     The theorem then follows by compactness and Lemma~\ref{lemma:correlation_functions_monotone}.
 \end{proof}
 
+\begin{exercise}[Right-continuity in $\beta$ for a wired boundary]
+    Consider the Ising model on a locally finite graph $G$.
+    Prove all of the following statements.
+    \begin{itemize}
+        \item For any finite set $A\subset V$,
+        the function $[0,\infty)\to\R,\,\beta\mapsto\langle\sigma_A\rangle_{G,\beta}^+$
+        is non-decreasing and right-continuous.
+        \item The function $[0,\infty)\to\calP(\Omega,\calF),\,\beta\mapsto\langle\blank\rangle_{G,\beta}^+$
+        is a right-continuous function.
+        \item The points of discontinuity form a countable subset of $[0,\infty)$.
+    \end{itemize}
+\end{exercise}
+
+\begin{definition}[Magnetisation and critical temperature]
+    Let $G$ denote a locally finite graph and $u$ some distinguished reference vertex.
+    The function
+    \[
+        m=m_G:[0,\infty)\to\R,\,\beta\mapsto\langle\sigma_u\rangle_{G,\beta}^+
+    \]
+    is called the \emph{magnetisation}.
+
+    The \emph{critical (inverse) temperature} is defined via
+    \[
+        \beta_c:=\inf\{\beta\in[0,\infty):m(\beta)>0\}.
+    \]
+\end{definition}
+
+\begin{remark}
+    The exercise above proves that $m$ is a non-decreasing right-continuous function.
+    We have already seen that:
+    \begin{itemize}
+        \item If $G$ has max-degree $d$,
+        then $m(\beta)=0$ for $\beta<1/d$ (Exercise~\ref{exercise:currents_peierls}),
+        \item If $G$ is the graph $\Z^d$ for $d\geq 2$,
+        then $\lim_{\beta\to\infty}m(\beta)>0$ (Exercise~\ref{exo:peierls_general}).
+    \end{itemize}
+    This implies in particular that on the square lattice graph $\Z^d$ in dimension
+    $d\geq 2$,
+    the critical inverse temperature $\beta_c$ is a strictly positive real number.
+    A key objective of our field is to understand the behaviour of the Ising model
+    at $\beta=\beta_c$ and at $\beta\approx\beta_c$.
+    As a very first question we can ask:
+    is the function $m$ continuous?
+    We will see the answer in Theorem~\ref{}\todo{Add ref to theorem}.
+\end{remark}
 
 
