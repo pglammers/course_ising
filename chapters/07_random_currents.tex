@@ -126,7 +126,10 @@ Currents can be used to encode correlation functions of the Ising model.
     \[
         \{O\subset E:\text{$|C\cap S|$ is even for any connected component $C\subset V$ of $(V,O)$}\}.
     \]
-    This definition will only become useful in the next section.
+    Notice that if $\partial\n=S$,
+    then $E(\n)\in\calE_S$.
+
+    We shall often simply write $\n$ for $E(\n)$.
 \end{definition}
 
 \begin{exercise}[Currents and the Peierls argument]
@@ -176,6 +179,26 @@ Currents can be used to encode correlation functions of the Ising model.
     (tends to zero),
     but also that it tends to zero exponentially fast in the distance to the boundary.
 \end{exercise}
+
+\begin{exercise}[difficult]
+    For any $\beta\in\R_{>0}$, there exists a constant $C_\beta< \infty$
+    with the following property.
+    Let $G$ denote any finite graph,
+    and let $A,B\subset V$ denote any subset of vertices.
+    Define
+    \[
+        d_{\operatorname{Transport}}(A,B)
+        :=
+        \min\{|E(\n)|:\text{$n$ is a current with $A\Delta B=\partial\n$}\}.
+    \]
+    Prove that
+    \[
+        \langle\sigma_A\rangle \leq (C_\beta)^{d_{\operatorname{Transport}}(A,B)}\cdot \langle\sigma_B\rangle. 
+    \]
+    This implies that for any $u\in V$,
+    the function $v\mapsto-\log \langle\sigma_u\sigma_v\rangle$ is $\log C_\beta$-Lipschitz.
+\end{exercise}
+
 
 \begin{definition}[Replacing sums by measures]
     Sums are measures.
