@@ -1,0 +1,92 @@
+\section{The thermodynamical limit: Wired boundary, demagnetisation}
+\label{sec:vanishing_magnetisation}
+
+Our next goal is to prove the following theorem.
+
+\begin{theorem}[$+$ and $-$ boundary conditions coincide
+    when the magnetisation vanishes] 
+    \label{thm:vanishing_magnetisation}
+    Let $G$ denote a connected locally finite graph,
+    endowed with some reference vertex $u$.
+    Then 
+    \[
+        \langle\blank\rangle_{G,\beta}^+=\langle\blank\rangle_{G,\beta}^-
+        \qquad
+        \iff 
+        \qquad
+        m_G(\beta)=0.
+    \]
+\end{theorem}
+
+We prove this lemma in several steps.
+
+\begin{lemma}
+    For any $\beta\in\R_{>0}$ and $N\in\Z_{\geq 0}$,
+    there exists a constant $C=C_{\beta,N}<\infty$ with the following property.
+    Consider the Ising model at inverse temperature $\beta$
+    on some finite graph $G$.
+    Then for any $u,v,g\in V$,
+    we have
+    \[
+        \langle \sigma_v\sigma_g\rangle \leq C \langle \sigma_u\sigma_g\rangle
+    \]
+    whenever $d_G(u,v)\leq N$.
+\end{lemma}
+
+\begin{proof}
+    \todo{Add proof}
+\end{proof}
+
+\begin{lemma}
+    Let $G$ denote a connected locally finite graph,
+    endowed with some reference vertex $u$.
+    Then 
+    \[
+        m_G(\beta) := \langle \sigma_u\rangle_{G,\beta}^+=0
+        \qquad
+        \iff
+        \qquad
+        \forall v\in V,\,
+        \langle \sigma_v\rangle_{G,\beta}^+=0
+        .
+    \]
+\end{lemma}
+
+\begin{proof}
+    Fix $\beta$ and $v\in V$.
+    It suffices to find a constant $C<\infty$ such that
+    \[
+        \langle \sigma_v\rangle_{\Lambda,\beta}^+
+        \leq C\langle \sigma_u\rangle_{\Lambda,\beta}^+
+    \]
+    for any domain $\Lambda$.
+    But then we may simply apply the ghost trick and apply the previous lemma.
+\end{proof}
+
+\begin{exercise}[difficult]
+    Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
+    Let $A\subset V$ denote any finite subset,
+    and fix $u\in A$.
+    Use the switching lemma to prove that
+    \[
+        \langle\sigma_A\rangle \leq
+        \sum_{v\in A\setminus\{u\}}
+        \langle\sigma_u\sigma_v\rangle
+        \langle\sigma_{A\setminus\{u,v\}}\rangle.
+    \]
+    Hint: argue that
+    \[
+        \true{\n\in\calE_A}
+        \leq
+        \sum_{v\in A\setminus\{u\}}
+        \true{\n\in\calE_{\{u,v\}}}
+        \true{\n\in\calE_A}.
+    \]
+\end{exercise}
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:vanishing_magnetisation}]
+    
+\end{proof}
+
+
