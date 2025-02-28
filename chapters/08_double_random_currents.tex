@@ -47,7 +47,55 @@ behaviour of the Ising model, especially in graph dimensions $3$ and $4$.
     \end{multline}
 \end{lemma}
 
-\begin{proof}
+\begin{remark}
+    While the switching lemma is an extremely powerful tool,
+    its statement may appear daunting at first sight.
+    Let us quickly see how switching may be applied to a simple example.
+    Suppose that we record cars traversing a bridge on a road.
+    Blue cars appear according to a Poisson process with rate $\lambda$.
+    Let $X_B$ denote the number of blue cars that passed after recording for one hour.
+    Can we easily prove, without a calculation, that
+    \[
+        \P[X_B\in 2\Z]\geq \P[X_B\in 2\Z+1]?
+    \]
+
+    Suppose that there are also yellow cars,
+    which arrive according to an independent Poisson process with rate $\lambda$.
+    Let $X_Y$ denote the number of yellow cars that passed.
+    Suppose that, after waiting for one hour, $X_B+X_Y=N>0$ cars passed.
+    What is the \emph{conditional} probability that $X_B$ is even?
+
+    Well, we must have $\P[X_B\in2\Z|\{X_B+X_Y=N\}]=1/2$. Indeed, by the properties of the Poisson process,
+    the distribution of the cars is invariant under \emph{switching} the colour
+    of the last car. If it was blue before, then we paint it yellow,
+    and vice versa.
+    This operation changes the parity of $X_B$
+    but leaves the conditional distribution invariant: 
+    hence the symmetric probability $1/2$.
+
+    But we cannot always do the switch.
+    If $X_B+X_Y=0$
+    then there is no car to repaint, and also
+    $X_B=0$.
+    Thus, we conclude that
+    \[
+        \P[X_B\in 2\Z]-\P[X_B\in 2\Z+1]=\P[\{X_B+X_Y=0\}]\geq 0.
+    \]
+    
+    Notice that we originally asked a question about blue cars,
+    but introducing yellow cars allowed us to answer it.
+    This is the essence of the switching lemma.
+
+    The switching lemma is analogous to the above example:
+    \begin{itemize}
+        \item The product measure corresponds to the joint distribution of blue and yellow cars,
+        \item The weights correspond to the rates of the Poisson processes,
+        \item The function $F$ corresponds to the conditioning event $\{X_B+X_Y=N\}$,
+        \item The event $\{\n+\m\in\calE_S\}$ corresponds to the event $\{X_B+X_Y>0\}$.
+    \end{itemize}
+\end{remark}
+
+\begin{proof}[Proof of the switching lemma]
     By linearity of expectation,
     it suffices to consider the case that $F(\b):=\true{\b=\a}$
     for some fixed $\a\in\calE_S$.
