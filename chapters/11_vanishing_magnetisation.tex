@@ -18,52 +18,9 @@ Our next goal is to prove the following theorem.
     \]
 \end{theorem}
 
-We prove this lemma in several steps.
+The theorem can be proved using the following bound.
 
-\begin{lemma}
-    For any $\beta\in\R_{>0}$ and $N\in\Z_{\geq 0}$,
-    there exists a constant $C=C_{\beta,N}<\infty$ with the following property.
-    Consider the Ising model at inverse temperature $\beta$
-    on some finite graph $G$.
-    Then for any $u,v,g\in V$,
-    we have
-    \[
-        \langle \sigma_v\sigma_g\rangle \leq C \langle \sigma_u\sigma_g\rangle
-    \]
-    whenever $d_G(u,v)\leq N$.
-\end{lemma}
-
-\begin{proof}
-    \todo{Add proof}
-\end{proof}
-
-\begin{lemma}
-    Let $G$ denote a connected locally finite graph,
-    endowed with some reference vertex $u$.
-    Then 
-    \[
-        m_G(\beta) := \langle \sigma_u\rangle_{G,\beta}^+=0
-        \qquad
-        \iff
-        \qquad
-        \forall v\in V,\,
-        \langle \sigma_v\rangle_{G,\beta}^+=0
-        .
-    \]
-\end{lemma}
-
-\begin{proof}
-    Fix $\beta$ and $v\in V$.
-    It suffices to find a constant $C<\infty$ such that
-    \[
-        \langle \sigma_v\rangle_{\Lambda,\beta}^+
-        \leq C\langle \sigma_u\rangle_{\Lambda,\beta}^+
-    \]
-    for any domain $\Lambda$.
-    But then we may simply apply the ghost trick and apply the previous lemma.
-\end{proof}
-
-\begin{exercise}[difficult]
+\begin{exercise}[Pairing bound, difficult]
     Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
     Let $A\subset V$ denote any finite subset,
     and fix $u\in A$.
@@ -82,11 +39,74 @@ We prove this lemma in several steps.
         \true{\n\in\calE_{\{u,v\}}}
         \true{\n\in\calE_A}.
     \]
+
+    Conclude that
+    \[
+        \langle\sigma_A\rangle \leq
+        \sum_{\pi}
+        \prod_{\{u,v\}\in \pi}
+        \langle\sigma_u\sigma_v\rangle
+    \]
+    where $\pi$ ranges over the \emph{pairings} of $A$,
+    that is, the set of partitions of $A$ in which each member has two elements.
 \end{exercise}
 
 
 \begin{proof}[Proof of Theorem~\ref{thm:vanishing_magnetisation}]
-    
+    Notice that $\langle\blank\rangle_{G,\beta}^+$ and $\langle\blank\rangle_{G,\beta}^-$ are related
+    by a global spin flip (the pushforward map corresponding to $\sigma\mapsto-\sigma$).
+    Therefore all of the following are equivalent:
+    \begin{itemize}
+        \item $\langle\blank\rangle_{G,\beta}^+=\langle\blank\rangle_{G,\beta}^-$,
+        \item $\langle\blank\rangle_{G,\beta}^+$ is invariant under the map $\sigma\mapsto-\sigma$,
+        \item $\langle\sigma_A\rangle_{G,\beta}^+=0$ whenever $A\subset V$ has odd cardinal.
+    \end{itemize}
+
+    The implication ``$\implies$'' is now obvious, and we focus on  ``$\impliedby$''.
+    Suppose that $m(\beta)=0$,
+    that is, $\langle\sigma_u\rangle^+=0$ where $u$ is the reference vertex.
+    Fix $A\subset V$ with $|A|$ odd.
+    It suffices to prove that $\langle\sigma_A\rangle^+=0$.
+    We shall in fact give \emph{two} proofs of this fact.
+    In both proofs, we shall fix a sequence $(\Lambda_n)_n$ of increasing subsets of $V$ with $\cup_n\Lambda_n=V$.
+    \begin{itemize}
+        \item \emph{Proof~1, using the pairing bound.}
+        For fixed $n$, we get
+        \begin{align}
+            \langle\sigma_A\rangle_{\Lambda_n}^+
+            =\langle\sigma_{A\cup\{\Lambda_n^c\}}\rangle_{G_n'}
+            &\leq
+            \sum_{v\in A}\langle\sigma_{\{v,\Lambda_n^c\}}\rangle_{G_n'}
+            \langle\sigma_{A\setminus\{v\}}\rangle_{G_n'}
+            =\sum_{v\in A}\langle\sigma_v\rangle_{\Lambda_n}^+
+            \langle\sigma_{A\setminus\{v\}}\rangle_{\Lambda_n}^+
+            \\&\leq 
+            \sum_{v\in A}\langle\sigma_v\rangle_{\Lambda_n}^+
+            \to_{n\to\infty}0.
+        \end{align}
+        The first inequality is the pairing bound,
+        the second the generic bound $\langle\sigma_{A\setminus\{v\}}\rangle_{\Lambda_n}^+\in[0,1]$,
+        and the convergence follows from Exercise~\ref{exercise:Definition of critical beta does not depend on ref point}.
+
+        \item \emph{Proof~2, using directly the high-temperature expansion.}
+        We only consider $\beta>0$, otherwise the spins are independent fair coin flips,
+        and the result is automatic.
+        Recall Exercise~\ref{exercise:Log-Lipschitz property of correlation functions}.
+        For fixed $n$, we get
+        \[
+            (\tanh\beta)^{d_{\operatorname{Transport}}(A,\{u\})}\cdot\langle\sigma_A\rangle_{\Lambda_n}^+
+            \leq 
+            \langle\sigma_u\rangle_{\Lambda_n}^+.
+        \]
+        On the left, the transport distance is calculated in the graph $G_n'$
+        (the dependence on $n$ is implicit).
+        As $n\to\infty$, this transport distance stabilises at the finite transport distance
+        in the infinite graph $G$.
+        Since the right hand side tends to zero with $n$,
+        we know that the left hand side also tends to zero.
+        Since the prefactor remains uniformly positive,
+        we must have $\langle\sigma_A\rangle^+=0$.
+    \end{itemize}    
 \end{proof}
 
 

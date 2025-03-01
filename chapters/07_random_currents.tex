@@ -180,23 +180,72 @@ Currents can be used to encode correlation functions of the Ising model.
     but also that it tends to zero exponentially fast in the distance to the boundary.
 \end{exercise}
 
-\begin{exercise}[difficult]
-    For any $\beta\in\R_{>0}$, there exists a constant $C_\beta< \infty$
-    with the following property.
-    Let $G$ denote any finite graph,
-    and let $A,B\subset V$ denote any subset of vertices.
-    Define
+In fact, the sum
+\(\sum_{\n:\:\partial\n=A}
+        w_\beta(\n)\) can be calculated in a different way.
+        We can first sum over the \emph{parity} of each edge 
+        (which already determines $\partial\n$),
+        then over all random currents consistent with that
+        parity.
+        Once the parity is fixed, the remaining sum decomposes
+        as an independent product over the edges.
+        More precisely, we get
+        \begin{align}
+            \sum_{\n:\:\partial\n=A}
+        w_\beta(\n)
+       & =
+        \sum_{\omega\subset E:\:\partial\ind{\omega}=A}
+        \left(\sum\nolimits_{\n:\:\n-\ind{\omega}\in 2\Z^E}
+        w_\beta(\n)\right)
+        \\
+        &=
+        \sum_{\omega\subset E:\:\partial\ind{\omega}=A}
+        (\sinh\beta)^{|\omega|}(\cosh\beta)^{|E\setminus\omega|}.
+        \end{align}
+The factors $\cosh\beta$ and $\sinh\beta$ appear when performing the sum
+$\sum_{k\geq 0} \beta^k/k!$ but restricting to even and odd values
+for $k$ respectively.
+We have now proved the \emph{high-temperature expansion}
+(see below for a formal statement).
+The high-temperature expansion is less versatile than the currents representation
+of the Ising model, but it is still somewhat useful.
+
+\begin{theorem}[High-temperature expansion]
+        \label{thm:High-temperature expansion}
+        Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
+        Let $A\subset V$ be a subset of vertices.
+        Then
+        \[
+            Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}
+            =2^{|V|}\sum_{\omega\subset E:\:\partial\ind{\omega}=A}
+            (\sinh\beta)^{|\omega|}(\cosh\beta)^{|E\setminus\omega|}.
+        \]
+        In particular, the partition function is given by
+        \[
+            Z_{G,\beta}=2^{|V|}\sum_{\omega\subset E:\:\partial\ind{\omega}=\emptyset}
+            (\sinh\beta)^{|\omega|}(\cosh\beta)^{|E\setminus\omega|}.
+        \]
+\end{theorem}
+
+\begin{exercise}[Log-Lipschitz property of correlation functions]
+    \label{exercise:Log-Lipschitz property of correlation functions}
+    Let $G$ denote any finite graph.
+    We define the following metric on subsets of $V$:
+    for any $A,B\subset V$, we set
     \[
         d_{\operatorname{Transport}}(A,B)
         :=
-        \min\{|E(\n)|:\text{$n$ is a current with $A\Delta B=\partial\n$}\}.
+        \min\{|\omega|:\text{$\omega\subset E$ and $A\Delta B=\partial\ind{\omega}$}\}.
     \]
-    Prove that
+    Consider the Ising model on $G$ at inverse temperature $\beta\in\R_{\geq 0}$.
+    Use the high-temperature expansion to prove that
     \[
-        \langle\sigma_A\rangle \leq (C_\beta)^{d_{\operatorname{Transport}}(A,B)}\cdot \langle\sigma_B\rangle. 
+        (\tanh\beta)^{d_{\operatorname{Transport}}(A,B)}\langle\sigma_A\rangle
+        \leq
+        \langle\sigma_B\rangle. 
     \]
     This implies that for any $u\in V$,
-    the function $v\mapsto-\log \langle\sigma_u\sigma_v\rangle$ is $\log C_\beta$-Lipschitz.
+    the function $v\mapsto-\log \langle\sigma_u\sigma_v\rangle$ is $(-\log\tanh\beta)$-Lipschitz.
 \end{exercise}
 
 
