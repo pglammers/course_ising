@@ -1,145 +1,152 @@
-\section{Early developments. 1924: Ising's analysis}
+\section{Ising's model and basic notions}
 \label{sec:ising_1d}
 
+While the competition between entropy and energy is transparent in the Curie--Weiss model,
+the model does not encode any kind of geometry.
+Indeed, all atoms interact equally with all other atoms.
+It would perhaps be more realistic to place the atoms on a Euclidean grid,
+and let the interactions strength between two atoms depend on their distance.
+In the simplest case, we could simply let each atom interact only with the atoms
+closest to it. This is called the \emph{nearest-neighbour interaction}.
+We mainly focus on this setup in these lecture notes.
+
 Wilhelm Lenz challenged his doctoral student Ernst Ising
-to solve the model of interest on the one-dimensional line graph $\Z$.
-Readers acquainted with percolation theory
-will suspect that such a simple model is unlikely to exhibit
-a phase transition.
-This suspicion is correct,
-but we stress that the percolation model had not yet
-been described at the time that Ising undertook his doctoral research.
+to solve this nearest-neighbour model for magnetism on the one-dimensional line graph $\Z$.
+Lenz was not entirely precise when posing this question,
+and it was Ising who first formulated a definition for the model under consideration.
+The model is therefore called the \emph{Ising model} in his honour.
+We shall later address Ising's analysis in an exercise (Exercise~\ref{}\todo{Add exercise}).
 
-We defined the Ising model in the previous section,
-but only on finite graphs.
-Let us extend this definition to infinite graphs.
-
-\begin{definition}[The Ising model with boundary conditions]
-    \label{def:ising_bc}
-    Let $G=(V,E)$ denote a fixed locally finite graph.
-    We consider the measurable space 
-    $(\Omega,\calF)$ where $\Omega=\{\pm1\}^V$
-    and where $\calF$ is the product-$\sigma$-algebra.
-
-    Let $\Lambda$ denote a \emph{domain},
-    that is, a finite subset of $V$.
-    The Ising model in the domain $\Lambda$
-    with inverse temperature $\beta \geq 0$ and boundary conditions
-    $\zeta\in\{\pm1\}^{\Lambda^c}$
-    is the probability measure $\P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$
-    on $(\Omega,\calF)$ defined via:
+\begin{definition}[Ising model]
+    \label{def:ising_finite}
+    The Ising model on a finite graph \( G = (V, E) \) with \emph{inverse temperature} \( \beta \in [0,\infty) \) is defined as follows.
+    Let $\Omega:=\{\pm1\}^V$ denote the set of spin configurations on the vertices of the graph;
+    a typical element of $\Omega$ is denoted by $\sigma=(\sigma_u)_{u\in V}$.
+    Elements $\sigma\in\Omega$ are called \emph{spin configurations};
+    elements $\sigma_u$ are called \emph{spins}.
+    The \emph{energy} or \emph{Hamiltonian} of a spin configuration $\sigma$ is given by
     \[
-        \P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}(\sigma)
-        =
-        \frac1{Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}}
-        \cdot
-        \true{\sigma|_{\Lambda^c}=\zeta}\cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
-        ,
+        H_{G,\beta}^{\operatorname{Ising}}(\sigma) := -\beta \sum_{uv \in E} \sigma_u \sigma_v.
     \]
-    where $H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)$ is the Hamiltonian given by
+    We write $\P_{G,\beta}^{\operatorname{Ising}}$ for the associated \emph{Boltzmann distribution} or \emph{Gibbs measure}:
     \[
-        H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)
-        =
-        -\beta\sum_{uv\in E(\Lambda)}\sigma_u\sigma_v
-        ,
+        \P_{G,\beta}^{\operatorname{Ising}}(\sigma) := \frac{1}{Z_{G,\beta}^{\operatorname{Ising}}} e^{-H^{\operatorname{Ising}}_{G,\beta}(\sigma)},
     \]
-    and where the partition function $Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$ is given by
+    where \(Z_{G,\beta}^{\operatorname{Ising}}\) is normalisation constant or \emph{partition function} defined by
     \[
-        Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}
-        =
-        \sum_{\sigma \in \Omega} \true{\sigma|_{\Lambda^c}=\zeta} \cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
-        .
+        Z_{G,\beta}^{\operatorname{Ising}}:= \sum_{\sigma\in\Omega} e^{-H^{\operatorname{Ising}}_{G,\beta}(\sigma)}.
     \]
-    The set $E(\Lambda)\subset E$ denotes 
-    the set of edges with at least one endpoint in $\Lambda$.
-    Indeed, adding a constant to the Hamiltonian does not affect the measure,
-    and edges which do not intersect $\Lambda$ contribute with a constant.
-
-    We write $+$ and $-$ for the boundary conditions
-    $+1\in\Omega$ and $-1\in\Omega$ respectively.
+    We shall write $\langle\blank\rangle_{G,\beta}^{\operatorname{Ising}}$ for the expectation functional associated to this probability measure.
 \end{definition}
 
-\begin{theorem}[Ising, 1924]
-    The one-dimensional Ising model is demagnetised at all temperatures.
-    This means the following.
-    Let $G=(V,E)$ denote the one-dimensional lattice $\Z$,
-    and define $\Lambda_n:=\{-n+1,\ldots,n-1\}$.
-    Then, for any $\beta\geq 0$, we have
+\begin{remark*}
+    We shall often suppress subscripts and superscripts when they are clear from the context.
+\end{remark*}
+
+\begin{remark*}
+    The mathematical community has widely adopted the terminology coming from the physics
+    literature.
+    We often prefer the symbol $\langle\blank\rangle$ over $\E[\blank]$ when taking expecations,
+    expect when considering \emph{conditional} expectations.
+\end{remark*}
+
+\begin{exercise}[The edge graph]
+    Consider the Ising model on the complete graph on the two vertices $V:=\{x,y\}$
+    at inverse temperature $\beta\in[0,\infty)$.
+    \begin{itemize}
+        \item Calculate $\langle\sigma_x\rangle_\beta$.
+        \item Calculate $\langle\sigma_x\sigma_y\rangle_\beta$.
+    \end{itemize}
+\end{exercise}
+
+\begin{definition}[Correlation functions]
+    Consider $\Omega:=\{\pm\}^V$.
+    Then for any finite subset $A\subset V$,
+    we define $\sigma_A:\Omega\to\{\pm\},\,\sigma\mapsto\prod_{x\in A}\sigma_x$.
+    Its expectation $\langle\sigma_A\rangle$ in any probability measure $\langle\blank\rangle$
+    on $\Omega$ is called a \emph{correlation function}.
+    If $|A|=n$ then $\langle\sigma_A\rangle$ is also called an \emph{$n$-point correlation function}.
+\end{definition}
+
+\begin{remark*}[Flip-symmetry]
+    The Ising model is \emph{flip-symmetric} in the sense that the distribution of the spins is invariant under the transformation $\sigma\mapsto-\sigma$.
+    This is because the Hamiltonian is invariant under this transformation.
+\end{remark*}
+
+\begin{exercise}[Flip-symmetry]
+    Consider the Ising model on a finite graph $G=(V,E)$.
+    \begin{itemize}
+        \item Prove that if $A\subset V$ contains an odd number of vertices,
+        then $\langle\sigma_A\rangle=0$.
+        \item Prove that if $A\subset V$ contains an odd number of vertices
+        and $x\in V$,
+        then \[\E[\sigma_A|\{\sigma_x=+\}]=\langle \sigma_{A}\sigma_x\rangle.\]
+        \item Prove that if $A\subset V$ contains an even number of vertices
+        and $x\in V$,
+        then \[\E[\sigma_A|\{\sigma_x=+\}]=\langle \sigma_{A}\rangle.\]
+    \end{itemize}
+\end{exercise}
+
+In practice, we are interested in the Ising model on finite portions of the square
+lattice $\Z^d$ endowed with nearest-neighbour connectivity.
+We now provide the definitions for this setup.
+
+\begin{definition}[Free boundary conditions]
+    Let $G=(V,E)$ denote a locally finite graph and $\Lambda\subset V$ a finite set.
+    Write $\Lambda^\f$ for the subgraph of $G$ induced by $\Lambda$.
+    Write $\langle\blank\rangle_{\Lambda,\beta}^\f:=\langle\blank\rangle_{\Lambda^\f,\beta}$ for the \emph{free-boundary
+    Ising model} in $\Lambda$ at inverse temperature $\beta\in[0,\infty)$.    
+\end{definition}
+
+\begin{definition}[Fixed boundary conditions]
+    Let $G=(V,E)$ denote a locally finite graph and $\Lambda\subset V$ a finite set.
+    Let $\partial\Lambda\subset V\setminus\Lambda$ denote the set of vertices adjacent to $\Lambda$.
+    Write $\bar\Lambda$ for the graph defined by
     \[
-        \lim_{n\to\infty}\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
-        =
-        0
-        .
+        V(\bar\Lambda):=\Lambda\cup\partial\Lambda;\qquad
+        E(\bar\Lambda):=\{\{x,y\}\in E:\{x,y\}\cap\Lambda\neq\emptyset\}.
+    \]
+    For any $\zeta\in\{\pm\}^{\partial\Lambda}$,
+    we shall write $\langle\blank\rangle_{\Lambda,\beta}^\zeta$
+    for the measure
+    \[
+        \langle\blank\rangle_{\Lambda,\beta}^\zeta:=\E_{\bar\Lambda,\beta}[\blank|\{\sigma|_{\partial\Lambda}=\zeta\}].
+    \]
+    This is called the \emph{fixed-boundary Ising model} with boundary conditions $\zeta$.
+    The boundary condition $\zeta\equiv\pm$ is of particular interest,
+    and it is denoted $\langle\blank\rangle_{\Lambda,\beta}^\pm$.
+\end{definition}
+
+\begin{exercise}[Markov property]
+    Consider the Ising model on some finite graph $G=(V,E)$ at inverse temperature $\beta$.
+    Fix some $\Lambda\subset V$ and let $(\Lambda_i)_i$ denote the partition of $\Lambda$ into connected components.
+    Let $\zeta\in\{\pm\}^{\Lambda^c}$,
+    and consider the conditional probability measure
+    $\P[\blank|\{\sigma|_{\Lambda^c}=\zeta\}]$.
+    \begin{itemize}
+        \item Prove that $(\sigma|_{\Lambda_i})_i$ is a family of independent random variables in this measure.
+        \item Prove that the law of $\sigma|_{\Lambda_i}$ is $\langle\blank\rangle_{\Lambda_i}^{\zeta|_{\partial\Lambda_i}}$.
+    \end{itemize}
+    \emph{Hint.}
+    Decompose the Hamiltonian according to $H(\sigma)=C+\sum_i H_i(\sigma)$,
+    where each $H_i$ is measurable in terms of $\zeta|_{\partial\Lambda_i}$ and $\sigma|_{\Lambda_i}$.
+\end{exercise}
+
+Ising proved that in one dimension, the Ising model exhibits exponential decay of correlations at all temperatures.
+In other words, there is no phase transition.
+We now state his result, without a proof.
+While the proof is quite straightforward even with elementary methods,
+its proof becomes entirely trivial after the introduction of more recent methods.
+
+\begin{theorem}[Ising, 1924]
+    Consider the finite domains $\Lambda_n:=\{-n,\dots,n\}$ of the graph $\Z$.
+    Then for any $\beta\in[0,\infty)$,
+    there exists a constant $c=c_\beta>0$ such that
+    \[
+        \langle\sigma_0\rangle_{\Lambda_n,\beta}^+
+        \leq e^{-c_\beta\cdot n}.
     \]
 \end{theorem}
 
-\begin{proof}
-    Write $T$ for the matrix
-    \[
-        T:=
-        \begin{pmatrix}
-            e^{\beta} & e^{-\beta} \\
-            e^{-\beta} & e^{\beta}
-        \end{pmatrix}.
-    \]
-    It is straightforward to work out that
-    \begin{gather}
-        Z_{\Lambda_n,\beta}^+\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
-        =
-        \left(T^n
-            \begin{pmatrix}
-                1 & 0 \\ 0 & -1
-            \end{pmatrix}
-            T^n
-            \right)_{1,1};
-        \\
-        Z_{\Lambda_n,\beta}^+ = \left(T^{2n}\right)_{1,1},
-    \end{gather}
-    see the exercise below.
-    One may then conclude that the ratio of these two numbers tends to zero 
-    with $n\to\infty$
-    by simply diagonalising $T$.
-\end{proof}
-
-\begin{remark}
-    Although the intuition is reminiscent
-    of the theory of Markov chains, we stress that the matrix
-    $T$ above is \emph{not} a stochastic matrix.
-    This is why we need to consider the partition function
-    (normalising constant) separately.
-\end{remark}
-
-\begin{exercise}
-    Let $(f_k)_k$ denote a family of functions
-    of the form $f_k:\{+1,-1\}\to\R$.
-    For any $k$, define
-    \[ M_k:=\begin{pmatrix}
-        f_{k}(+1) & 0 \\
-        0 & f_{k}(-1)
-    \end{pmatrix}.\] 
-    Prove that for any $n$,
-    we have
-    \[
-        Z_{\Lambda_n,\beta}^+
-        \langle\textstyle\prod_{k\in\Lambda_n} f_k(\sigma_{k})\rangle_{\Lambda_n,\beta}^+
-        =
-        \left(
-            T
-            M_{n-1}
-            T
-            M_{n-2}
-            T
-            \cdots
-            T
-            M_{-n+1}
-            T
-        \right)_{1,1}.
-    \]
-\end{exercise}
-
-\begin{remark}
-    Ising conjectured that the absence of magnetisation in the one-dimensional
-    model would also hold in higher dimensions. This was later shown to be
-    false: Peierls proved in 1936 that the two-dimensional model magnetises for
-    sufficiently large $\beta$.
-\end{remark}
+Unfortunately, Ising wrongly conjectured that the same would be true in higher dimension.
+Disappointed with this prediction, he left academia.

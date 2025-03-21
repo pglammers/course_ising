@@ -1,91 +1,117 @@
-\section{Early developments. 1907: The Curie--Weiss model}
+\section{The Curie--Weiss model}
 \label{sec:definitions_examples}
 
-The Ising model is actually a generalisation of the Curie--Weiss model.
-Pierre-Ernest Weiss introduced this mathematical model in 1907 in order to find a theoretical
-explanation for the spontaneous magnetisation of ferromagnetic materials
-that had previously been studied by Pierre Curie.
-The Curie--Weiss model is a special case of the Ising model
-where the graph is a complete graph.
-This model can be solved with elementary methods
-and exhibits a phase transition.
-Moreover, the phase transition may be seen as a direct consequence
-of the competition between entropy and energy,
-which is why we quickly review it here.
+At the end of the 19th century, Curie published his experimental results on 
+\emph{ferromagnetism}:
+the
+magnetic properties of metals.
+He made three striking observations.
+\begin{itemize}
+    \item The magnetic strength of a metal varies with the temperature.
+    Increasing the temperature decreases the magnetic strength.
+    \item Each metal has a certain temperature, specific to that metal,
+    at which the magnetic properties disappear entirely.
+    We call this temperature the \emph{Curie temperature}.
+    \item Around the Curie temperature, the magnetic strength drops continuously
+    to zero. In other words, the magnetic strength does not ``jump'' to zero.
+\end{itemize}
+The first observation singles out the temperature as the driving parameter of the system.
+This is good news for us, since the temperature may be regarded informally as the amount of 
+``randomness'' or ``entropy'' in the system, justifying a probabilistic analysis of the situation.
+The second observation implies that there is a \emph{phase transition}:
+there is a special temperature (in this case the Curie temperature) at which
+the system's behaviour undergoes a qualitative change.
+The third observation entails an important property of this phase transition.
+
+The first mathematical explanation for Curie's experimental results came from
+Weiss.
+He proposed the following mathematical axioms for studying the magnetic properties of metals.
+\begin{itemize}
+    \item The metal consists of $n$ atoms.
+    \item Each atom acts like a small magnet in itself.
+    It is in one of two states, denoted $\pm$.
+    \item The total strength of the metal is obtained by summing the states of all atoms.
+    \item Each atom interacts with all other atoms.
+    The atoms prefer to \emph{align}, that is, to be in the same state.
+    The temperature regulates the strength of the interaction.
+\end{itemize}
+Physically, it makes sense that the temperature regulates the interaction strength.
+When atoms move slowly, they will stabilise, oriented in alignment with the magnetic field imposed by the other atoms.
+When atoms move fast, they will not bother with the states of the other atoms, and simply align themselves randomly.
+It is thus natural to think of the interaction strength as the \emph{inverse temperature}.
 
 \begin{definition}[Curie-Weiss model]
-    The Curie-Weiss model is the Ising model on the complete graph \( G=K_n \) on \( n \) vertices.
-    We typically fix a parameter $\alpha\in[0,\infty)$ and then set the inverse temperature $\beta$ to $\beta=\alpha/n$.
-    We shall write
-    \[\P^{\operatorname{CW}}_{n,\alpha}:=\P^{\operatorname{Ising}}_{K_n,\alpha/n}\]
-    for the associated Boltzmann distribution.
-    The Curie-Weiss model is often used to study mean-field behavior in statistical mechanics, as it captures the essential features of phase transitions and spontaneous magnetization in a simplified setting.
+    The Curie-Weiss model is the probability measure $\P^{\operatorname{CW}}_{n,\beta}$
+    on $\sigma\in\Omega:=\{+,-\}^n$
+    defined via
+    \[
+        \P(\sigma):=\P^{\operatorname{CW}}_{n,\beta}(\sigma)
+        \propto
+        e^{-H^{\operatorname{CW}}_{n,\beta}(\sigma)}
+        ;
+        \qquad
+        H(\sigma):=H^{\operatorname{CW}}_{n,\beta}(\sigma):=
+        -\frac\beta{n} \sum_{i<j}\sigma_i\sigma_j,
+    \]
+    where $n\in\Z_{\geq 1}$ and $\beta\in[0,\infty)$.
+    The parameter $\beta$ is called the \emph{interaction strength} or \emph{inverse temperature}.
+    The function $H$ is called the \emph{Hamiltonian} and captures the \emph{energy} in the system.
+    The probability measure $\P$ is also called the \emph{Boltzmann distribution}.
 \end{definition}
 
-Let $n_+=n_+(\sigma)$ denote the number of vertices with spin $+1$ in a configuration $\sigma\in\Omega$.
+Let $n_+=n_+(\sigma)$ denote the number of vertices with spin $+$ in a configuration $\sigma\in\Omega$.
 This is a random variable.
 Let us try to calculate the probability of the event $\{n_+=k\}$,
 without worrying about the partition function (the normalising constant).
 One may easily check that
 the Hamiltonian satisfies
 \begin{align}
-    H(\sigma)=2\beta n_+(n-n_+) + \text{const}(n).
+    H(\sigma)=2\frac\beta{n} n_+(n-n_+) + \text{const}(n).
 \end{align}
 The distribution of $n_+$ can then be calculated as follows:
 \begin{align}
     \label{eq:CurieWeissDistribution}
-    \P_{K_n,\beta}^{\operatorname{Ising}}(\{n_+ = k\}) &\propto \binom{n}{k} e^{-2\beta  k(n-k)}
-    \propto \frac1{k! (n-k)!} e^{-2\beta k (n-k)}.
+    \P(\{n_+ = k\}) &\propto \binom{n}{k} e^{-2\frac\beta{n}  k(n-k)}
+    \propto \frac1{k! (n-k)!} e^{-2\frac\beta{n} k (n-k)}.
 \end{align}
-Using Stirling's formula for the factorials, we find that
+Using Stirling's approximation for the factorials, we find that
 \begin{gather}
-    \log\P_{K_n,\beta}^{\operatorname{Ising}}(\{n_+ = k\}) 
+    \log\P(\{n_+ = k\})
     \stackrel{\text{Stirling}}{\approx}
-    -n f_{(n\beta)}(k/n) + \text{const}(n);
+    -n f_{\beta}(k/n) + \text{const}(n);
     \\
-    f_{(\alpha)}:[0,1]\to\R,\,
-    x\mapsto x \log x + (1-x)\log (1-x) + 2 \alpha x (1-x).
+    f_{\beta}:[0,1]\to\R,\,
+    x\mapsto x \log x + (1-x)\log (1-x) + 2 \beta x (1-x).
 \end{gather}
-If we fix $\alpha$ and send $n$ to infinity, then 
+If we fix $\beta$ and send $n$ to infinity, then 
 we discover a large deviations principle for the random variable $n_+/n$
-with rate function $f_{(\alpha)}$ and speed $n$.
-In particular, the random variable $n_+/n$ is concentrated
-around the minimisers of the function $f_{(\alpha)}$.
+with rate function $f_{\beta}$ and speed $n$.
+In particular, the random variable $n_+/n$ concentrates
+around the minimisers of the function $f_{\beta}$.
 
-\begin{exercise}
+\begin{exercise}[The rate function of the Curie--Weiss model]
     \begin{enumerate}
-        \item Formally verify that all of the above calculations are correct.
-        \item Show that for small $\alpha$, the function \( f_{(\alpha)} \) has a single minimum, which means that the random variable \( n_+/n \) is concentrated around the value \( 1/2 \).
-        \item Show that for large enough $\alpha$, the function \( f_{(\alpha)} \) has two minima at \( (1 \pm m)/2 \) for some $m>0$, which means that the random variable \( n_+/n \) is concentrated around these minima.
+        \item Show that for small $\beta$, the function \( f_{\beta} \) has a single minimum at $x=1/2$, which means that the random variable \( n_+/n \) concentrates around the value \( 1/2 \).
+        \item Show that for large $\beta$, the function \( f_{\beta} \) has two minima at \( (1 \pm m)/2 \) for some $m>0$, which means that the random variable \( n_+/n \) is concentrated around these minima.
         The value of $m$ is called the \emph{magnetisation}.
-        \item Calculate the critical value for $\alpha$. At this value, the second derivative of \( f_{(\alpha)} \) vanishes at \( x=1/2 \). What does this mean for the distribution of \( n_+/n \)?
-        More precisely, what is the order of magnitude of $\Var\frac{n_+}{n}$ as $n\to\infty$?
+        \item Calculate the critical value for $\beta$. At this value, the second derivative of \( f_{\beta} \) vanishes at \( x=1/2 \). What does this mean for the distribution of \( n_+/n \)?
+        Estimate the order of magnitude of $\Var\frac{n_+}{n}$ as $n\to\infty$ for this value of $\beta$.
     \end{enumerate}
 \end{exercise}
 
-\begin{remark}
+\begin{remark}[Entropy versus energy in the Curie--Weiss model]
     Reconsider Equation~\eqref{eq:CurieWeissDistribution}.
     In this equation, the competition between the two factors is extremely transparent.
     \begin{itemize}
         \item     First, there is a combinatorial term or \emph{entropy}, which favours values $k$ for the random variable
         $n_+$ such that the cardinality of the set $\{n_+=k\}$ is large.
         This means that values $k\approx n/2$ are preferred.
-        \item     Second, there is the \emph{energy} term, which favours values such that the Hamiltonian 
+        \item     Second, there is the \emph{energy} term, which favours values such that the energy 
         is minimised. This favours configurations where as many spins as possible align.    
     \end{itemize}
     The interaction parameter $\beta$ allows us to put more emphasis
     on the entropy term or on the energy term.
-    In the $n\to\infty$ limit, there is a precise value for $n\beta$
+    In the $n\to\infty$ limit, there is a precise value for $\beta$
     where the behaviour of the random system undergoes a qualitative change:
-    a rudimentary example of a  \emph{phase transition}.
+    a rudimentary example of a \emph{phase transition}.
 \end{remark}
-
-While the competition between entropy and energy is transparent in the
-case of the complete graph (the Curie--Weiss model), the situation is much more
-complicated when considering other graphs.
-We are particularly interested in graphs modelling Euclidean space,
-by taking large finite subgraphs of the square lattice graph $\Z^d$
-in dimension $d\geq 1$.
-The geometry of the Ising model (absent in the case of Curie--Weiss)
-is an extremely rich and beautiful object,
-and most of this course is dedicated to understanding it.

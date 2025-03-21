@@ -1,4 +1,59 @@
-\section{The Markov property}
+\section{Boundary conditions and the Markov property}
+
+We now introduce two related concepts:
+\emph{boundary conditions} and the \emph{Markov property}.
+Boundary conditions arise when taking an Ising model and conditioning
+on the spins at certain vertices.
+An essential property of the nearest-neighbour Ising model is that the spins
+can only communicate via the graph that the model is defined on.
+This property is expressed in terms of the Markov property.
+
+\begin{definition}[The Ising model with boundary conditions]
+    \label{def:ising_bc}
+    Let $G=(V,E)$ denote a fixed locally finite graph.
+    We consider the measurable space 
+    $(\Omega,\calF)$ where $\Omega=\{\pm1\}^V$
+    and where $\calF$ is the product-$\sigma$-algebra.
+
+    Let $\Lambda$ denote a \emph{domain},
+    that is, a finite subset of $V$.
+    The Ising model in the domain $\Lambda$
+    with inverse temperature $\beta \geq 0$ and boundary conditions
+    $\zeta\in\{\pm1\}^{\Lambda^c}$
+    is the probability measure $\P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$
+    on $(\Omega,\calF)$ defined via:
+    \[
+        \P_{\Lambda,\beta}^{\operatorname{Ising},\zeta}(\sigma)
+        =
+        \frac1{Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}}
+        \cdot
+        \true{\sigma|_{\Lambda^c}=\zeta}\cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
+        ,
+    \]
+    where $H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)$ is the Hamiltonian given by
+    \[
+        H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)
+        =
+        -\beta\sum_{uv\in E(\Lambda)}\sigma_u\sigma_v
+        ,
+    \]
+    and where the partition function $Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}$ is given by
+    \[
+        Z_{\Lambda,\beta}^{\operatorname{Ising},\zeta}
+        =
+        \sum_{\sigma \in \Omega} \true{\sigma|_{\Lambda^c}=\zeta} \cdot e^{-H_{\Lambda,\beta}^{\operatorname{Ising}}(\sigma)}
+        .
+    \]
+    The set $E(\Lambda)\subset E$ denotes 
+    the set of edges with at least one endpoint in $\Lambda$.
+    Indeed, adding a constant to the Hamiltonian does not affect the measure,
+    and edges which do not intersect $\Lambda$ contribute with a constant.
+
+    We write $+$ and $-$ for the boundary conditions
+    $+1\in\Omega$ and $-1\in\Omega$ respectively.
+\end{definition}
+
+
 
 Recall the definition of the Ising model on a finite graph
 (Definition~\ref{def:ising_finite})

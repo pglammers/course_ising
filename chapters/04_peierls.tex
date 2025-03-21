@@ -1,202 +1,148 @@
-\section{Early developments. 1936: Peierls' argument}
+\section{Peierls' argument}
 \label{sec:peierls}
+
+Peierls disproved Ising's conjecture for the absence of phase transition
+in dimension $d\geq 2$.
 
 \begin{theorem}[Peierls, 1936]
     \label{thm:peierls}
-    The Ising model exhibits magnetisation in two dimensions.
-\end{theorem}
-
-We shall discuss a slight variation of Peierls' original setup,
-so that we can fully focus the proof on the core idea.
-Let $\T$ denote the triangular lattice graph,
-comprised of vertices of the form
-\[
-    \T:=\left\{n+m e^{\pi i/3}:n,m\in\Z \right\}\subset\C,
-\]
-and such that each vertex is connected to the six
-vertices at distance one.
-Let $\Lambda_n\subset\T$ denote the set of vertices at a graph
-distance at most $n-1$ from $0\in\T$.
-We consider the Ising model on the infinite graph $\T$.
-We shall prove the following version of Peierls' result.
-
-\begin{theorem}[Peierls, 1936]
-    \label{thm:peierls_triangles}
-    Consider the Ising model on the two-dimensional
-    triangular lattice graph $\T$.
-    For sufficiently large $\beta$,
-    we have
+    Consider the finite domains $\Lambda_n:=\{-n,\dots,n\}^2$ of the square lattice graph $\Z^2$.
+    Then for sufficiently large $\beta\in[0,\infty)$, we have
     \[
-        \inf_{n}\langle\sigma_0\rangle_{\Lambda_n,\beta}^+
-        >0.
+        \inf_n\langle\sigma_{(0,0)}\rangle_{\Lambda_n,\beta}^+>0.
     \]
 \end{theorem}
-
-Let $\H:=\T^*$ denote the hexagonal lattice
-that is dual to the triangular lattice.
-For a fixed configuration $\sigma\in\Omega$,
-we let $\calI(\sigma)\subset E(\H)$ denote the set of
-hexagonal lattice edges separating hexagons with different spins.
-The set $\calI(\sigma)$ is called the
-\emph{interface} between the spins valued $+1$
-and those valued $-1$.
-\todo{Add figure}
-Notice that $\calI(\sigma)$ has a partition into
-loops and bi-infinite paths.
-If only finitely many spins of $\sigma$ are valued $-1$,
-then there are no bi-infinite paths,
-and all connected components of $\calI(\sigma)$
-are loops.
-This happens almost surely when sampling from $\langle\blank\rangle_{\Lambda_n,\beta}^+$.
-
-The core of Peierls' argument is the following lemma.
-
-\begin{lemma}[Exponential decay of loop lengths]
-    \label{lem:exp_decay_ising_loops}
-    Consider the Ising model on the two-dimensional triangular lattice $\T$
-    at inverse temperature $\beta$.
-    Suppose that $e^{-2\beta}<\frac12$.
-    Then for any hexagonal lattice edge $e\in E(\H)$
-    and for any minimal loop length $\ell\in\Z_{\geq 1}$,
-    we get
-    \[
-        \P_{\Lambda_n,\beta}^+
-        (\{\text{$\calI(\sigma)$ has a loop of length at least $\ell$ through $e$}\})
-        \leq \frac{(2e^{-2\beta})^\ell}{1-2e^{-2\beta}},
-    \]
-    uniformly in $n$.
-\end{lemma}
 
 \begin{proof}
-    Fix $\beta$, $e$, and $n$.
-    Let $\calL$ denote a loop through $e$,
-    and consider the event $\{\calL\subset\calI\}$.
-    We claim that
-    \[
-        \P_{\Lambda_n,\beta}^+
-        (\{\calL\subset\calI\})
-        \leq e^{-2\beta|\calL|}.
-    \]
+    Our objective is to prove that $\P_{\Lambda_n,\beta}^+[\{\sigma_{(0,0)}=-\}]\leq\frac13$
+    for all $n$.
+    Fix $n$.
 
-    To prove the claim,
-    we introduce the injective ``loop erasure map''
-    \[
-        \calE_\calL:\{\calL\subset\calI\}
-        \to \Omega\setminus \{\calL\subset\calI\},
-    \]
-    which is defined such that it flips all the spins inside the loop $\calL$.
-    As a consequence, $\calI(\calE_\calL(\sigma))=\calI(\sigma)\setminus\calL$.
-    For any $\sigma\in\{\calL\subset\calI\}$, we have
-    \[
-        \P_{\Lambda_n,\beta}^+
-        (\sigma)
-        =
-        e^{-2\beta|\calL|}
-        \cdot
-        \P_{\Lambda_n,\beta}^+
-        (\calE_\calL(\sigma))
-        .
-    \]
-    We can write down this identity because we know that the loop erasure map
-    decreases the Hamiltonian by $2\beta|\calL|$.
-    Since $\calE_\calL$ is injective, we get
-    \[
-        \P_{\Lambda_n,\beta}^+
-        (\{\calL\subset\calI\})
-        = e^{-2\beta|\calL|}\cdot \P_{\Lambda_n,\beta}^+(\operatorname{Image}(\calE_\calL))
-        \leq e^{-2\beta|\calL|},
-    \]
-    which proves the claim.
-
-    To prove the lemma, observe simply that the number of loops of length $k$
-    through $e$ is bounded by $2^k$, so that 
-    \begin{align}
-        &\P_{\Lambda_n,\beta}^+
-        (\{\text{$\calI(\sigma)$ has a loop of length at least $\ell$ through $e$}\})
-        \\&\qquad=
-        \sum\nolimits_{\text{$\calL$ is a loop of length at least $\ell$ through $e$}}
-        \P_{\Lambda_n,\beta}^+
-        (\{\calL\subset\calI\})
-        \\&\qquad\leq 
-        \sum\nolimits_{k\geq \ell} 2^k\cdot e^{-2\beta k}.
-    \end{align}
-    The final expression is a geometric series converging to the upper bound
-    in the lemma.
-\end{proof}
-
-\begin{remark}
-    In the previous proof,
-    the interplay between entropy and energy is quite transparent.
-    The entropy in the argument comes from the number of loops of length
-    $\ell$, which we upper bounded by $2^\ell$.
-    Such a loop contributes a total of $2\beta\ell$ to the Hamiltonian.
-    When $2e^{-2\beta}<1$, the energy term dominates,
-    forcing the loops to be small.
-\end{remark}
-
-\begin{proof}[Proof of Theorem~\ref{thm:peierls_triangles}]
-    For a fixed configuration $\sigma\in\Omega$
-    sampled from $\P_{\Lambda_n,\beta}^+$,
-    we may express $\sigma_0$ as the parity of the number
-    of loops in $\calI(\sigma)$ surrounding $0$.
-    In particular, if no loop surrounds $0$,
-    then $\sigma_0=+1$.
-    Thus, for Theorem~\ref{thm:peierls_triangles},
-    it suffices to prove that
+    Consider the set $\Omega'\subset\Omega$ of spin configurations on $\bar\Lambda_n$
+    which assign $+$ to $\partial\Lambda_n$.
+    The two-dimensional square lattice graph $G=\Z^2$ is planar, and
+    therefore we may consider its planar dual $G^*$.
+    For any spin configuration $\sigma\in\Omega'$,
+    we let $\calI(\sigma)\subset E(G^*)$ denote its \emph{interface},
+    that is, the set of dual edges separating two spins with a \emph{distinct} value.
+    Notice that:
+    \begin{itemize}
+        \item The map $\sigma\mapsto \calI(\sigma)$ is injective,
+        \item If $\sigma_{(0,0)}=-$, then $\calI(\sigma)$ contains at least one self-avoiding loop around $(0,0)$.
+    \end{itemize}
+    In particular, inclusion of events yields
     \begin{equation}
-        \label{eq:peierls_target_equation}
-        \P_{\Lambda_n,\beta}^+
-        (\{\text{$\calI(\sigma)$ contains a loop surrounding $0$}\})
-        <\frac12,
+        \label{eq:peierlsgeneral}
+        \P_{\Lambda_n,\beta}^+[\{\sigma_{(0,0)}=-\}]
+        \leq
+        \P_{\Lambda_n,\beta}^+[\{\text{$\calI(\sigma)$ contains a loop $\gamma$ around $(0,0)$}\}].
     \end{equation}
-    for sufficiently large $\beta$,
-    and uniformly in $n$.
 
-    Suppose given some loop $\calL\subset E(\H)$ surrounding $0$.
-    Then $\calL$ must intersect the half-line $\R_{\geq 0}\subset\C$.
-    More precisely, $\calL$ must contain some edge $e$ whose midpoint
-    lies precisely in the set of half-integers $-\frac12+\Z_{\geq 1}$.
-    If the endpoint of $e$ is $k-\frac12$, then
-    $|\calL|\geq k$, otherwise it cannot surround $0$.
-    We are now ready to complete Peierls' argument,
-    using exponential decay of the loop lengths (Lemma~\ref{lem:exp_decay_ising_loops}).
-    
-    Let us perform a union bound over the intersection point,
-    in order to obtain
-    \begin{align}
-        &\P_{\Lambda_n,\beta}^+
-        (\{\text{$\calI(\sigma)$ contains a loop surrounding $0$}\})
-        \\
-        &\qquad\leq
-        \sum_{k=1}^\infty
-        \P_{\Lambda_n,\beta}^+
-        (\{\text{$\calI(\sigma)$ contains a loop surrounding $0$ and hitting $k-\tfrac12$}\})
-        \\
-        &\qquad\leq
-        \sum_{k=1}^\infty
-        \frac{(2e^{-2\beta})^k}{1-2e^{-2\beta}}
+    We would now like to make a competition between entropy and energy appear,
+    as for the Curie-Weiss model.
+    The entropy comes from the choice of the loop $\gamma$;
+    the energy comes into play when upper bounding the probability that a particular loop
+    belongs to $\calI(\sigma)$.
+    For large $\beta$, energy wins over entropy, yielding the desired bound.
+    Let us start with the energy bound.
+
+    \begin{claim*}
+        For any fixed loop $\gamma$, we may bound $\P_{\Lambda_n,\beta}^+[\{\gamma\subset\calI(\sigma)\}]\leq e^{-2\beta|\gamma|}$.
+    \end{claim*}
+
+    \begin{proof}[Proof of the claim]
+    We would like to define a \emph{loop erasure map} $\calE:\{\gamma\subset\calI(\sigma)\}\to\Omega'$,
+    which has the property that it removes the loop $\gamma$ from the interface,
+    that is,
+    \[
+        \calI(\calE(\sigma))=\calE(\sigma)\setminus\gamma.
+    \]
+    It is easy to realise such a map: we simply define $\calE$ such that it
+    flips the sign of every vertex of $\Lambda_n$ which is surrounded by $\gamma$.
+    Since $\calI$ is injective, the map $\calE$ is also injective,
+    and we have
+    \[
+        \P_{\Lambda_n,\beta}^+[\{\gamma\subset\calI(\sigma)\}]
         =
-        \frac{2e^{-2\beta}}{(1-2e^{-2\beta})^2}.
-    \end{align}
-    This upper bound is independent of $n$
-    and tends to $0$ with $\beta\to\infty$,
-    thus establishing Equation~\eqref{eq:peierls_target_equation}.
-\end{proof}
+        \frac
+        {\sum_{\sigma\in\operatorname{Domain}(\calE)}e^{-H(\sigma)}}
+        {\sum_{\sigma\in\Omega'}e^{-H(\sigma)}}
+        \leq
+        \frac
+        {\sum_{\sigma\in\operatorname{Domain}(\calE)}e^{-H(\sigma)}}
+        {\sum_{\sigma\in\operatorname{Image}(\calE)}e^{-H(\sigma)}}
+        =
+        e^{-2\beta|\gamma|}.
+    \]
+    The last equality is easy,
+    since for any $\sigma\in\{\gamma\subset\calI(\sigma)\}$,
+    we have
+    \[
+        H(\calE(\sigma))=H(\sigma)-2\beta|\gamma|,
+    \]
+    since $\calE$ removes precisely $|\gamma|$ disagreement edges from the interface.
+    This proves the claim.
+    \renewcommand{\qedsymbol}{}
+    \end{proof}
 
-\begin{exercise}[The Peierls argument on other graphs]
-    \label{exo:peierls_general}
-    \begin{enumerate}
-        \item     Consider the Ising model on the two-dimensional square lattice graph $\mathbb{Z}^2$.
-        In this case, the interface $\calI(\sigma)$ does not consist of loops, but of even subgraphs
-        of the dual lattice.
-        How can Peierls' argument be adapted to this case?
-        \item  Now consider the $d$-dimensional square lattice for $d\geq 3$.
-        What is the structure of the interface in this case?
-        Can we adapt Peierls' to prove magnetisation for sufficiently large $\beta$?
-    \end{enumerate}
-\end{exercise}
+    We use the energy bound to prove another interesting intermediate result.
+
+    \begin{claim*}[Exponential decay of the loop length]
+        For any dual edge $e$, we have
+        \[
+        \P_{\Lambda_n,\beta}^+[\{\text{$\calI(\sigma)$ contains a loop of length at least $\ell$ through $e$}\}]
+        \leq (3e^{-2\beta})^\ell \frac{1}{1-3e^{-2\beta}}
+        \]
+        whenever $3e^{-2\beta}<1$.
+    \end{claim*}
+
+    \begin{proof}[Proof of the claim]
+        Let $\calL_k$ denote the set of self-avoiding loops through $e$
+        of length $k$.
+        Notice that $|\calL_k|\leq 3^k$.
+        A union bound yields
+        \begin{multline}
+            \P_{\Lambda_n,\beta}^+[\{\text{$\calI(\sigma)$ contains a loop of length at least $\ell$ through $e$}\}]
+            \\
+            \leq
+            \sum_{k=\ell}^\infty \sum_{\gamma\in\calL_k} 
+            \P_{\Lambda_n,\beta}^+[\{\gamma\subset\calI(\sigma)\}]
+            \leq
+            \sum_{k=\ell}^\infty |\calL_k|\cdot e^{-2\beta k}
+            \leq 
+            \sum_{k=\ell}^\infty 3^k\cdot e^{-2\beta k}
+            \\
+            =
+            (3e^{-2\beta})^\ell \frac{1}{1-3e^{-2\beta}}.
+        \end{multline}
+        This is the desired bound.
+    \renewcommand{\qedsymbol}{}
+    \end{proof}
+
+    Return to Equation~\eqref{eq:peierlsgeneral}.
+    If $\calI(\sigma)$ contains a loop around $(0,0)$, then this loop 
+    must hit $(k-\frac12,0)$ for some $k\in\Z_{\geq 1}$,
+    and this loop must have at least $k$ steps.
+    Thus, another union bound yields
+    \[
+        \P_{\Lambda_n,\beta}^+[\{\sigma_{(0,0)}=-\}]
+        \leq
+        \sum_{k=1}^\infty 
+        (3e^{-2\beta})^{k} \frac{1}{1-3e^{-2\beta}}
+        =(3e^{-2\beta})\frac{1}{(1-3e^{-2\beta})^2}.
+    \]
+    The right hand side is smaller than $\frac13$ when $\beta$ is sufficiently large,
+    independently of $n$.
+\end{proof}
 
 \begin{remark}
     Peierls' is robust,
     in the sense that it can be adapted to many other models in statistical mechanics.
 \end{remark}
+
+\begin{exercise}[The Peierls argument in higher dimensions]
+    \label{exo:peierls_general}
+    Now consider the square lattice graph $\Z^d$ in dimension $d\geq 3$.
+    What is the structure of the interface in this case?
+    Can we adapt Peierls' to prove magnetisation for sufficiently large $\beta$?
+\end{exercise}
