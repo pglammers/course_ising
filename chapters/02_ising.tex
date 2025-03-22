@@ -74,6 +74,7 @@ We shall later address Ising's analysis in an exercise (Exercise~\ref{}\todo{Add
 \end{remark*}
 
 \begin{exercise}[Flip-symmetry]
+    \label{exercise:flip-symmetry}
     Consider the Ising model on a finite graph $G=(V,E)$.
     \begin{itemize}
         \item Prove that if $A\subset V$ contains an odd number of vertices,
@@ -139,12 +140,13 @@ While the proof is quite straightforward even with elementary methods,
 its proof becomes entirely trivial after the introduction of more recent methods.
 
 \begin{theorem}[Ising, 1924]
+    \label{thm:Ising}
     Consider the finite domains $\Lambda_n:=\{-n,\dots,n\}$ of the graph $\Z$.
     Then for any $\beta\in[0,\infty)$,
     there exists a constant $c=c_\beta>0$ such that
     \[
         \langle\sigma_0\rangle_{\Lambda_n,\beta}^+
-        \leq e^{-c_\beta\cdot n}.
+        \leq \frac1ce^{-c_\beta\cdot n}.
     \]
 \end{theorem}
 

@@ -1,0 +1,310 @@
+\section{The high-temperature expansion}
+
+The previous section proved the Peierls argument.
+An essential ingredient was to view the Ising model in two dimensions
+through the \emph{interfaces} of the spins.
+Such a transformation of the model may be viewed as a rudimentary version of
+an \emph{expansion}.
+The interface perspective is sometimes called the \emph{low-temperature expansion}
+because it works well in the low-temperature regime (when $\beta$ is large).
+There are several useful expansions for the Ising model;
+each one of them is adapted to a different setting.
+In this section we discuss another expansion: the \emph{high-temperature expansion}.
+As the name suggests, this expansion is well-adapted to situations where $\beta$
+is small, even though we can also use it to prove useful results in other regimes.
+Appendix~\ref{}\todo{Add Appendix and reference} contains an overview of the expansions
+discussed in these notes, and may serve as a reference.
+
+For a streamlined presentation, we will henceforth present all our expansions
+for the Ising model on \emph{finite graphs without boundary conditions}.
+This obviously includes the free boundary conditions.
+It is straightforward to see that fixed boundary conditions
+also fit into this framework, see Definition~\ref{definition:ghost} and Lemma~\ref{lemma:ghost} below.
+
+Consider the Ising model on a finite graph $G$.
+We are typically interested in the correlation functions,
+defined via
+\[
+    \langle\sigma_A\rangle
+    =
+    \frac{\sum_{\sigma\in\Omega}\sigma_A e^{-H(\sigma)}}{\sum_{\sigma\in\Omega}e^{-H(\sigma)}}
+    =
+    \frac{\sum_{\sigma\in\Omega}\sigma_A \prod_{xy\in E} e^{\beta\sigma_x\sigma_y} }{\sum_{\sigma\in\Omega}\prod_{xy\in E} e^{\beta\sigma_x\sigma_y} }.
+\]
+An \emph{expansion} of the Ising model involves rewriting the sum
+\[
+    \sum_{\sigma\in\Omega}\sigma_A \prod_{xy\in E} e^{\beta\sigma_x\sigma_y}.
+\]
+A typical expansion comes down to rewriting the exponential, for example:
+\begin{itemize}
+    \item We may write $e^{\beta\sigma_x\sigma_y}=\cosh \beta + \sigma_x\sigma_y \sinh \beta$,
+    \item We may write $e^{\beta\sigma_x\sigma_y}=\sum_{k=0}^\infty (\beta\sigma_x\sigma_y)^k/k!$,
+    \item We may write $e^{\beta\sigma_x\sigma_y}=e^{-2\beta} + 2\cdot\true{\sigma_x=\sigma_y}\sinh\beta$.
+\end{itemize}
+Every expansion comes with its own advantages and disadvantages.
+The high-temperature expansion derives from the first identity.
+
+\begin{definition}[High-temperature expansion]
+    Consider the Ising model on a finite graph $G=(V,E)$ at inverse temperature $\beta$.
+    We consider \emph{percolation configurations} $\omega\in\{0,1\}^E$;
+    each $\omega$ is also regarded a (random) set of edges.
+    We write $\partial\omega\subset V$ for the set of vertices having
+    \emph{odd} degree in the graph $(V,\omega)$.
+
+    The \emph{high-temperature expansion} is the measure $\bfM_{G,\beta}$
+    on $\omega\in\{0,1\}^E$ defined by
+    \[
+        \bfM[\omega]:=\bfM_{G,\beta}[\omega]:=(\cosh\beta)^{|E\setminus\omega|}(\sinh\beta)^{|\omega|}.
+    \]
+\end{definition}
+
+\begin{theorem}[High-temperature expansion for correlation functions]
+    Consider the Ising model on a finite graph $G=(V,E)$.
+    Then for any $A\subset V$, we have
+    \[
+        Z\langle\sigma_A\rangle=2^{|V|}\bfM[\{\partial\omega=A\}].
+    \]
+\end{theorem}
+
+\begin{proof}
+    We claim that
+    \begin{align}
+        \label{eq:hight:1}
+        Z\langle\sigma_A\rangle
+        &=
+        \sum_{\sigma\in\Omega}
+        \sigma_A
+        \prod_{xy\in E}
+        e^{\beta\sigma_x\sigma_y}
+        \\
+        \label{eq:hight:2}
+        &=
+        \sum_{\sigma\in\Omega}
+        \sigma_A
+        \prod_{xy\in E}
+        (\cosh\beta+\sigma_x\sigma_y\sinh\beta)
+        \\
+        \label{eq:hight:3}
+        &=
+        \sum_{\sigma\in\Omega}
+        \sigma_A
+        \sum_{\omega\in\{0,1\}^E}
+        \prod_{xy\in E}
+        (\cosh\beta)^{1-\omega_{xy}}(\sigma_x\sigma_y\sinh\beta)^{\omega_{xy}}
+        \\
+        \label{eq:hight:4}
+        &=
+        \sum_{\omega\in\{0,1\}^E}
+        (\cosh\beta)^{|E\setminus\omega|}(\sinh\beta)^{|\omega|}
+        \sum_{\sigma\in\Omega}
+        \sigma_A
+        \sigma_{\partial\omega}
+        \\
+        \label{eq:hight:5}
+        &=
+        \sum_{\omega\in\{0,1\}^E}
+        (\cosh\beta)^{|E\setminus\omega|}(\sinh\beta)^{|\omega|}
+        2^{|V|}\true{A=\partial\omega}
+        \\
+        &=
+        2^{|V|}\bfM[\{\partial\omega=A\}].
+    \end{align}
+    Equations~\eqref{eq:hight:1} and~\eqref{eq:hight:2}
+    come down to definitions
+    and the identity for $e^{\beta\sigma_x\sigma_y}$.
+    Swapping the sum and the product yields Equation~\eqref{eq:hight:3}.
+    Equation~\eqref{eq:hight:4} is a rearrangement of the terms,
+    noting that $\prod_{xy}(\sigma_x\sigma_y)^{\omega_{xy}}=\sigma_{\partial\omega}$.
+    Equation~\eqref{eq:hight:5} is obtained by resolving the sum over $\sigma$.
+    The final equation is the definition of $\bfM$.
+\end{proof}
+
+We can use this theorem to state our first important \emph{correlation inequality}.
+
+\begin{theorem}[First Griffiths inequality]
+    Consider the Ising model on a finite graph $G=(V,E)$.
+    Then for any $A\subset V$, we have
+    \(
+        \langle\sigma_A\rangle\geq 0
+    \).
+\end{theorem}
+
+\begin{proof}
+    The previous theorem yields a nonnegative number for $Z\langle\sigma_A\rangle$.
+\end{proof}
+
+\begin{theorem}[Exponential decay at high temperature]
+    \label{thm:Exponential decay at high temperature}
+    Consider the Ising model with $+$ boundary conditions 
+    on the graph $\Z^d$ for $d\in\Z_{\geq 1}$.
+    Then for any $\beta\in[0,\infty)$
+    such that $(2d-1)\tanh\beta < 1$,
+    there exists a constant $c=c_{d,\beta}>0$
+    such that
+    \[
+        \langle\sigma_x\rangle_{\Lambda,\beta}^+
+        \leq \tfrac1ce^{-c \operatorname{Distance}(x,\Lambda^c)}
+    \]
+    for any $x\in\Z^d$ and any domain $\Lambda\subset\Z^d$.
+\end{theorem}
+
+We would like to use the high-temperature expansion,
+but for this we must first write $\langle\blank\rangle^+_\Lambda$
+as an Ising model on a finite graph without boundary condition.
+
+\begin{definition}[Ghost vertex]
+    \label{definition:ghost}
+    Let $G=(V,E)$ denote a locally finite graph,
+    and $\Lambda\subset V$ a finite domain.
+    We already defined the graphs $\Lambda^\f$ and $\bar\Lambda$.
+    Now define the graph $\Lambda^\frakg$ as follows:
+    it is obtained from the graph $\bar\Lambda$
+    by replacing all vertices in $\partial\Lambda$ by a single distinguished
+    vertex $\frakg$, called the \emph{ghost vertex}.
+    Its vertex set is given by
+    \(V(\Lambda^\frakg):=\Lambda\cup\{\frakg\}\),
+    and there is a natural bijection from $E(\bar\Lambda)$
+    to $E(\Lambda^\frakg)$.
+
+    Notice that $\Lambda^\frakg$ is a multigraph when some $x\in\Lambda$
+    is connected to multiple vertices in $\partial\Lambda$ in the graph $\bar\Lambda$,
+    but this does not really affect our setup.
+\end{definition}
+
+It is easy to see that the following lemma holds true.
+
+\begin{lemma}
+    \label{lemma:ghost}
+    Let $G=(V,E)$ denote a locally finite graph,
+    and $\Lambda\subset V$ a finite domain.
+    Then the distribution of $\sigma|_{\Lambda}$ is the same in the following
+    two measures:
+    \[
+        \langle\blank\rangle_{\Lambda}^+
+        \qquad\text{and}\qquad
+        \E_{\Lambda^\frakg}[\blank|\sigma_\frakg=+].
+    \]
+    Correlation functions can thus be expressed in terms of correlation functions
+    on finite graphs via Exercise~\ref{exercise:flip-symmetry}.
+\end{lemma}
+
+\begin{proof}[Proof overview of Theorem~\ref{thm:Exponential decay at high temperature}]
+    We have
+    \[
+        \langle\sigma_x\rangle_{\Lambda}^+
+        =
+        \langle\sigma_x\sigma_\frakg\rangle_{\Lambda^\frakg}
+        =
+        \frac{
+        \bfM_{\Lambda^\frakg}[\{\partial\omega=\{x,\frakg\}\}]
+        }{
+        \bfM_{\Lambda^\frakg}[\{\partial\omega=\emptyset\}]
+        }.
+    \]
+    If $\partial\omega=\{x,\frakg\}$, then $\omega$ contains a self-avoiding
+    walk $\gamma$ from $x$ to $\frakg$.
+    A union bound yields
+    \[
+        \langle\sigma_x\rangle_{\Lambda}^+
+        \leq
+        \sum_{\gamma}\frac{\bfM_{\Lambda^\frakg}[\{\partial\omega=\{x,\frakg\}\}\cap\{\gamma\subset\omega\}]}{\bfM_{\Lambda^\frakg}[\{\partial\omega=\emptyset\}]}.
+    \]
+    The proof is now completed after performing the two steps of the Peierls argument:
+    \begin{itemize}
+        \item One bounds each term by $(\tanh\beta)^{|\gamma|}$,
+        \item One bounds the number of walks $\gamma$ of length $n$ from $x$ by $2d(2d-1)^{|\gamma|-1}$.
+    \end{itemize} 
+    \qedhere
+\end{proof}
+
+\begin{exercise}
+    Fill in the details of the previous proof overview.
+\end{exercise}
+
+Let us summarise what we have proved so far.
+\begin{itemize}
+    \item Theorem~\ref{thm:Exponential decay at high temperature}
+    implies that there is exponential decay of correlations when $\beta$ is sufficiently small.
+    \item In dimension $d=1$, Theorem~\ref{thm:Exponential decay at high temperature} also implies Ising's result (Theorem~\ref{thm:Ising}),
+    since there was no requirement on $\beta$ when $d=1$.
+    \item In dimension $d\geq 2$, we proved that there is \emph{magnetisation} via the
+    Peierls argument (Theorem~\ref{thm:peierls}).
+    Thus, in dimension $d\geq 2$, there must be a phase transition,
+    and we aim to investigate further.
+\end{itemize}
+
+The high-temperature expansion is typically used to find upper bounds on correlation
+functions.
+However, it is also possible to use it to find lower bounds.
+Let $G=(V,E)$ denote a finite graph.
+For any fixed set $Q\subset E$ of edges,
+we define the \emph{XOR map}
+\[
+    \Xi_Q:\{0,1\}^E\to\{0,1\}^E,\,\omega\mapsto\omega\Delta Q,
+\]
+where $\Delta$ denotes the symmetric difference of two sets.
+This map is an involution.
+Moreover, for any $A\subset V$, it restricts to a bijection
+\begin{equation}
+    \label{eq:XiQ}
+\Xi_Q:
+\{\partial\omega=A\}\to\{\partial\omega=A\Delta\partial Q\}.
+\end{equation}
+The measure $\bfM$ is not invariant under the involution $\Xi_Q$,
+but it is easy to see how the map affects the measure.
+More precisely, for any $\eta\in\{0,1\}^E$, we have
+\[
+    \bfM[\{\omega = \Xi_Q(\eta)\}]
+    =
+    (\tanh\beta)^{|Q\setminus\eta|-|Q\cap\eta|}
+    \cdot
+    \bfM[\{\omega = \eta\}].
+\]
+The prefactor is upper bounded by $(\tanh\beta)^{-|Q|}$.
+Thus, writing $\Xi_Q^*$ for the pushforward map,
+we obtain
+\[
+    \Xi_Q^*\bfM\leq (\tanh\beta)^{-|Q|}
+    \cdot
+    \bfM.
+\]
+For example, using the bijection in Equation~\eqref{eq:XiQ},
+we obtain
+\begin{equation}
+    \label{eq:M-Xi-Q-high-temperature}
+    \bfM[\{\partial\omega=A\}]
+    \leq
+    (\tanh\beta)^{-|Q|}
+    \cdot
+    \bfM[\{\partial\omega=A\Delta\partial Q\}].
+\end{equation}
+We have now proved the following result.
+
+\begin{lemma}
+    \label{lemma:high-temperature}
+    Consider the Ising model on a finite graph $G=(V,E)$.
+    Then for any $A\subset V$ and any $Q\subset E$, we have
+    \[
+        \langle\sigma_A\sigma_{\partial Q}\rangle
+        \geq
+        (\tanh\beta)^{|Q|}\cdot\langle\sigma_A\rangle.
+    \]
+    In particular,
+    \[
+        \langle\sigma_x\sigma_y\rangle
+        \geq
+        (\tanh\beta)^{\operatorname{Distance}(x,y)}.
+    \]
+\end{lemma}
+
+\begin{proof}
+    The first inequality is Equation~\eqref{eq:M-Xi-Q-high-temperature}.
+    For the second inequality, simply set $A=\emptyset$
+    and let $Q$ denote a shortest path from $x$ to $y$.
+\end{proof}
+
+This lemma complements Theorem~\ref{thm:Exponential decay at high temperature}
+at high temperature, as the lemma asserts that the correlation functions cannot
+decay \emph{faster} than exponentially at any temperature
+(except when $\beta=0$).
+
