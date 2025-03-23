@@ -270,3 +270,29 @@ This is typical for the switching lemma.
     Use directly the switching lemma, and not the second Griffiths inequality.
     What does the percolation event $\calE_S$ look like in this case?
 \end{exercise}
+
+\begin{definition}[Probability measures on currents]
+    Consider the Ising model on a finite graph $G$
+    at inverse temperature $\beta$.
+    For any $A\subset V$,
+    define the probability measure $\P^A_{G,\beta}$ by
+    \[
+        \P^A:=\P^A_{G,\beta}:=\frac{2^{|V|}}{Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}}\M_{G,\beta}[\true{\partial\n=A}(\blank)].
+    \]
+    For any $A_1,\ldots,A_n$,
+    write $\P^{A_1,\ldots,A_n}:=\P^{A_1}\times\cdots\times\P^{A_n}$.
+\end{definition}
+
+\begin{exercise}[Correlation functions in terms of sourceless currents]
+    Consider the Ising model on a finite graph $G$
+    at inverse temperature $\beta$.
+    Prove that for any $A\subset V$,
+    \[
+        \langle\sigma_A\rangle^2
+        =
+        \P^{\emptyset,\emptyset}[\{\widehat{\n+\m}\in\calE_A\}].
+    \]
+
+    Observe that we can now express all correlation functions in terms of a single
+    fixed probability measure on sourceless random currents.
+\end{exercise}

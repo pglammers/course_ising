@@ -1,4 +1,4 @@
-\section{Monotonicity in the temperature}
+\section{Monotonicity via the second Griffiths inequality}
 
 \begin{theorem}[Monotonicity in the temperature]
     Let $G$ denote a finite graph and $A\subset V$ a finite set.
@@ -39,9 +39,8 @@
             Z
         }.
     \]
-    By multiplying either side by $\langle\sigma_A\rangle$
-    and differentiating each side,
-    we see that this inequality is equivalent to
+    We perform the differential and then multiply each side by $\langle\sigma_A\rangle$,
+    to see that this inequality is equivalent to
     \[
        \sum_{xy}
         \frac{\sum_\sigma
@@ -67,7 +66,247 @@
     But this is just the second Griffiths inequality.
 \end{proof}
 
-\begin{exercise}
+\begin{exercise}[Regularity properties of the correlation functions in $\beta$]
     Prove that the function $[0,\infty)\to\R,\,\beta\mapsto\langle\sigma_A\rangle_{G,\beta}$
     in the above context is an analytic function.
 \end{exercise}
+
+Next, we want to prove monotonicity in domains.
+We first challenge the reader to prove the following exercise.
+
+
+\begin{exercise}[Conditioning on equality increases the correlation functions]
+    \label{exo:conditioning_equality}
+    Consider the Ising model on a finite graph $G$
+    at inverse temperature $\beta$, and fix some subset $A\subset V$.
+    \begin{itemize}
+        \item     Prove that for any two distinct vertices $u,v\in V$,
+        we have
+        \[
+            \E_{G,\beta}[\sigma_A|\{\sigma_u=\sigma_v\}]
+            \geq
+            \E_{G,\beta}[\sigma_A]=\langle\sigma_A\rangle_{G,\beta}.
+        \]
+        \item Prove for any $X\subset Y\subset V$, we have
+        \[
+            \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $X$}\}]
+            \leq
+            \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $Y$}\}]
+            .
+        \]
+    \end{itemize}
+\end{exercise}
+
+\begin{lemma}[Monotonicity in domains]
+    \label{lemma:correlation_functions_monotone_both}
+    Consider the Ising model on a locally finite graph
+    $G=(V,E)$ at inverse temperature $\beta$.
+    Consider two finite domains $\Lambda\subset\Lambda'\subset V$
+    and a subset $A\subset \Lambda$.
+    \begin{itemize}
+        \item \textbf{Free boundary.}
+        We have $\langle\sigma_A\rangle^\f_{\Lambda,\beta}\leq\langle\sigma_A\rangle^\f_{\Lambda',\beta}$.
+        \item \textbf{Wired boundary.}
+        We have $\langle\sigma_A\rangle^+_{\Lambda,\beta}\geq\langle\sigma_A\rangle^+_{\Lambda',\beta}$.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}[Proof for $\langle\blank\rangle^\f$]
+    We first prove the following claim:
+    if $G'$ and $G''$ are finite graphs on the same vertex set,
+    and such that $E(G'')=E(G')\cup\{xy\}$,
+    then
+    \[
+        \langle\sigma_A\rangle_{G',\beta}
+        \leq
+        \langle\sigma_A\rangle_{G'',\beta}
+    \]
+    for any $A\subset V(G')$.
+    To prove the claim, we simply expand 
+    \[
+        \langle\sigma_A\rangle_{G'',\beta}
+        =
+        \frac{
+            \langle   e^{\beta\sigma_x\sigma_y}\sigma_A\rangle_{G'}
+        }{
+            \langle e^{\beta\sigma_x\sigma_y}\rangle_{G'}
+        }.
+    \]
+    Thus, we want to show that
+    \[
+            \langle e^{\beta\sigma_x\sigma_y} \sigma_A \rangle_{G'}
+            \geq 
+            \langle e^{\beta\sigma_x\sigma_y}\rangle_{G'}
+            \langle\sigma_A\rangle_{G'}.
+    \]
+    This follows from the second Griffiths inequality.
+    We have now proved the claim.
+
+    Recall the definition of the finite graph $\Lambda^\f$.
+    Let $\tilde\Lambda^\f:=((\Lambda')^\f,E(\Lambda^\f))$;
+    this is just the graph $\Lambda^\f$
+    supplemented with some isolated vertices $\Lambda'\setminus\Lambda$.
+    The law of $\sigma$ in $\langle\blank\rangle_{\tilde\Lambda^\f}$
+    is just given by $\langle\blank\rangle_{\Lambda^\f}$,
+    with independent fair coin flips for the isolated vertices in $\Lambda'\setminus\Lambda$.
+    Thus, it suffices to prove that
+    \[
+        \langle\sigma_A\rangle^\f_{\Lambda}
+        =
+        \langle\sigma_A\rangle_{\tilde\Lambda^\f}
+        \leq
+        \langle\sigma_A\rangle_{(\Lambda')^\f}
+        =
+        \langle\sigma_A\rangle^\f_{\Lambda'}
+        .
+    \]
+    This follows from the claim.
+\end{proof}
+
+
+\begin{proof}[Proof for $\langle\blank\rangle^+$]
+    Without loss of generality,
+    $\Lambda'\setminus\Lambda=\{u\}$ for some
+    vertex $u\in V$.
+    We make all calculations in the graph $(\Lambda')^\frakg$ with the ghost vertex:
+    we get
+    \[
+        \langle\sigma_A\rangle_{\Lambda'}^+
+        =
+        \E_{(\Lambda')^\frakg}[\sigma_A|\{\sigma_\frakg=+\}];
+        \qquad
+        \langle\sigma_A\rangle_{\Lambda}^+
+        =
+        \E_{(\Lambda')^\frakg}[\sigma_A|\{\sigma_\frakg=+\}\cap\{\sigma_u=\sigma_\frakg\}].
+    \]
+
+    Assume first that $|A|$ is even for now.
+    Then
+    \begin{equation}
+        \langle\sigma_A\rangle_{\Lambda}^+
+        =
+        \E_{(\Lambda')^\frakg}[\sigma_A|\{\sigma_u=\sigma_\frakg\}]
+        \geq
+        \E_{(\Lambda')^\frakg}[\sigma_A]
+        =
+        \langle\sigma_A\rangle_{\Lambda'}^+,
+    \end{equation}
+    due to Exercise~\ref{exo:conditioning_equality}.
+
+    If $|A|$ is odd, we just need to replace the set $A$
+    by $A':=A\cup\{\frakg\}$.
+    More precisely,
+    \begin{equation}
+        \langle\sigma_A\rangle_{\Lambda}^+
+        =
+        \E_{(\Lambda')^\frakg}[\sigma_{A'}|\{\sigma_u=\sigma_\frakg\}]
+        \geq
+        \E_{(\Lambda')^\frakg}[\sigma_{A'}]
+        =
+        \langle\sigma_A\rangle_{\Lambda'}^+,
+    \end{equation}
+    where the inequality uses the same exercise.
+
+    Those are the desired inequalities.
+\end{proof}
+
+\begin{definition}[Infinite-volume limit]
+    Let $G=(V,E)$ denote a locally finite graph.
+    Write
+    \[
+        \lim_{\Lambda\uparrow V}f(\Lambda)
+        \qquad\text{for}\qquad
+        \lim_{n\to\infty}f(\Lambda_n),
+    \]
+where $(\Lambda_n)_n$ is any increasing sequence of finite domains 
+with $\cup_n\Lambda_n=V$.
+This notation makes sense only when the limit is independent
+of the precise choice of the sequence $(\Lambda_n)_n$,
+and is called the \emph{thermodynamical limit} or \emph{infinite-volume limit}.
+
+Let $(\Omega,\calF)$ denote the measurable space $\Omega:=\{\pm1\}^V$
+endowed with the product $\sigma$-algebra.
+For a domain $\Lambda$, we write $\calF_\Lambda$
+for the $\sigma$-algebra generated by spins in $\Lambda$.
+An observable $X:\Omega\to\C$ is called \emph{local} if it is measurable
+with respect to $\calF_\Lambda$ for some domain $\Lambda$.
+
+Let $\calP(\Omega,\calF)$ denote the set of all probability measures
+on this measurable space.
+We endow this set with the \emph{local convergence topology},
+which is defined as the topology making the map
+\[
+    \calP(\Omega,\calF)\to\C,\,\mu\mapsto\mu[X]
+\]
+continuous for any local observable $X$.
+\end{definition}
+
+\begin{remark}
+    This topology is sometimes known under different names in the literature
+    (such as the \emph{weak topology}).
+    I like the name \emph{local convergence topology} because it captures the essence quite literally:
+    if the statistics of the measures within a fixed domain $\Lambda$ converge,
+    then we have local convergence.
+\end{remark}
+
+\begin{exercise}
+    Prove that $\calP(\Omega,\calF)$ is a compact space in this topology.
+\end{exercise}
+
+\begin{theorem}[Existence of the thermodynamical limit]
+    Consider the Ising model on a locally finite graph $G$
+    at inverse temperature $\beta$.
+    Then there exists unique probability measures
+    $\langle\blank\rangle_{G,\beta}^\f,\langle\blank\rangle^+_{G,\beta}\in\calP(\Omega,\calF)$
+    such that
+    \[
+        \lim_{\Lambda\uparrow V}\langle X\rangle_{\Lambda,\beta}^*=\langle X\rangle_{G,\beta}^*
+    \]
+    for $*\in\{\f,+\}$ and
+    for any local observable $X:\Omega\to\R$.
+    In other words,
+    \[
+        \lim_{\Lambda\uparrow V}\langle \blank\rangle_{\Lambda,\beta}^*
+        =:
+        \langle \blank\rangle_{G,\beta}^*.
+    \]
+    The measures $\langle\blank\rangle_{G,\beta}^*$ are called
+    the \emph{thermodynamical limits} or \emph{infinite-volume limits}.
+\end{theorem}
+
+\begin{proof}
+    Any local observable may be written as a finite linear conbination
+    of observables of the form $\sigma_A$ where $A$ is a finite subset of
+    $V$.
+    The theorem then follows by compactness and Lemma~\ref{lemma:correlation_functions_monotone}.
+\end{proof}
+
+\begin{exercise}[Continuity properties in $\beta$]
+    Consider the Ising model on a locally finite graph $G=(V,E)$.
+    Fix $A\subset V$ finite.
+    \begin{itemize}
+        \item The function $\beta\mapsto \langle\sigma_A\rangle_{G,\beta}^*$ is non-decreasing for $*\in\{\f,+\}$.
+        \item The function $\beta\mapsto \langle\sigma_A\rangle_{G,\beta}^\f$ is left continuous.
+        \item The function $\beta\mapsto \langle\sigma_A\rangle_{G,\beta}^+$ is right continuous.
+    \end{itemize}
+    \emph{Hint.} Argue that $\beta\mapsto \langle\sigma_A\rangle_{G,\beta}^\f$
+    is a limit of a non-decreasing sequence of non-decreasing functions.
+\end{exercise}
+
+\begin{definition}[Magnetisation and critical temperature]
+    Let $G$ be a vertex-transitive locally finite graph and $u$ some distinguished reference vertex.
+    The function
+    \[
+        m=m_G:[0,\infty)\to\R,\,\beta\mapsto\langle\sigma_u\rangle_{G,\beta}^+
+    \]
+    is called the \emph{magnetisation}.
+
+    The \emph{critical (inverse) temperature} is defined via
+    \[
+        \beta_c:=\inf\{\beta\in[0,\infty):m(\beta)>0\}.
+    \]
+\end{definition}
+
+We have already proved that $\beta_c\in(0,\infty)$ for $G=\Z^d$
+in dimension $d\geq 2$,
+and that $\beta_c=\infty$ for $G=\Z$.
