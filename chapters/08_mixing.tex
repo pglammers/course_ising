@@ -91,5 +91,82 @@ In this section, we consider the Ising model on the infinite square lattice $\Z^
     We then simply choose $u$ such that $\|u\|_2$ is sufficiently large.
 \end{proof}
 
+\begin{theorem}
+    Consider the Ising model on $\Z^d$ at inverse temperature $\beta$.
+    \begin{itemize}
+        \item \textbf{Wired boundary.}
+        The measure $\langle\blank\rangle_{\Z^d,\beta}^+$ is mixing.
+        \item \textbf{Free boundary.}
+        The measure $\langle\blank\rangle_{\Z^d,\beta}^\f$ is mixing if
+        $\lim_{\|y\|_2\to\infty}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f=0$.
+    \end{itemize}
+\end{theorem}
 
+\begin{proof}[Proof for $\langle\blank\rangle^+$]
+    It suffices to prove that for any finite sets $A,B\subset\Z^d$,
+    we have
+    \[
+        \lim_{\|u\|_2\to\infty}
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Z^d,\beta}^+
+        =
+        \langle\sigma_A\rangle_{\Z^d,\beta}^+
+        \langle\sigma_B\rangle_{\Z^d,\beta}^+.
+    \]
+    By the second Griffiths inequality,
+    we get
+    \[
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Z^d,\beta}^+
+        \geq
+        \langle\sigma_A\rangle_{\Z^d,\beta}^+
+        \langle\sigma_B\rangle_{\Z^d,\beta}^+.
+    \]
+    It suffices to prove the other inequality.
+    Consider an extremely large finite domain $\Lambda\supset A\cup B$.
+    Define $\Lambda_u:=\Lambda\cup(\Lambda+u)$.
+    If $\|u\|_2$ is sufficiently large,
+    then $\Lambda$ is not connected to $\Lambda_u$
+    in the set $\Lambda_u$, and so we get
+    \[
+        \limsup_{\|u\|_2\to\infty}
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Z^d,\beta}^+
+        \leq
+        \limsup_{\|u\|_2\to\infty}
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Lambda_u,\beta}^+
+        =
+        \langle\sigma_A\rangle_{\Lambda,\beta}^+
+        \langle\sigma_B\rangle_{\Lambda,\beta}^+
+        .
+    \]
+    Sending $\Lambda\uparrow\Z^d$ yields the desired inequality.
+\end{proof}
 
+\begin{proof}[Proof for $\langle\blank\rangle^\f$]
+    As for $+$ boundary conditions,
+    it suffices to fix two finite sets $A,B\subset\Z^d$,
+    and prove that
+    \[
+        \limsup_{\|u\|_2\to\infty}
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Z^d,\beta}^\f
+        \leq
+        \langle\sigma_A\rangle_{\Z^d,\beta}^\f
+        \langle\sigma_B\rangle_{\Z^d,\beta}^\f
+        .
+    \]
+    Fix $u$, and
+    consider an extremely large finite domain $\Lambda\supset A\cup (B+u)$.
+    By the switching lemma, it is straightforward to deduce that
+    \[
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Lambda,\beta}^\f
+        \leq
+        \langle\sigma_A\rangle_{\Lambda,\beta}^\f\langle\sigma_{B+u}\rangle_{\Lambda,\beta}^\f
+        +\sum_{x\in A,\,y\in B}\langle\sigma_x\sigma_{y+u}\rangle_{\Lambda,\beta}^\f.
+    \]
+    By sending $\Lambda\uparrow\Z^d$, we get
+    \[
+        \langle\sigma_A\sigma_{B+u}\rangle_{\Z^d,\beta}^\f
+        \leq
+        \langle\sigma_A\rangle_{\Z^d,\beta}^\f\langle\sigma_B\rangle_{\Z^d,\beta}^\f
+        +\sum_{x\in A,\,y\in B}\langle\sigma_x\sigma_{y+u}\rangle_{\Z^d,\beta}^\f.
+    \]
+    The error term vanishes by our additional assumption in the statement of the theorem.
+\end{proof}
