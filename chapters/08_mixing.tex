@@ -50,9 +50,24 @@ In this section, we consider the Ising model on the infinite square lattice $\Z^
     $A_\Lambda$
     such that
     $\langle \ind{A\Delta A_\Lambda}\rangle<\epsilon$.
-    Write $p':=\langle \ind{A_\Lambda}\rangle$.
-    Then for any $u\in\Z^d$,
-    the event $A_{\Lambda+u}:=\tau_uA_\Lambda\in\calF_{\Lambda+u}$
+    Write $p':=\langle \ind{A_\Lambda}\rangle$;
+    notice that $|p'-p|<\epsilon$.
+    Define $A_{\Lambda+u}:=\tau_uA_\Lambda\in\calF_{\Lambda+u}$.
+    We claim that there exists some $u\in\Z^d$ such that:
+    \[
+        \langle \ind{A_\Lambda\Delta A_{\Lambda+u}}\rangle
+        <2\epsilon
+        \qquad
+        \text{and}
+        \qquad
+        \langle \ind{A_\Lambda\Delta A_{\Lambda+u}}\rangle
+        \geq 2p'(1-p')-\epsilon.
+    \]
+    This yields the desired contradiction when $\epsilon$ is small enough.
+
+    The inequality on the left is easy to obtain:
+    for any $u\in\Z^d$,
+    the event $A_{\Lambda+u}$
     also satisfies
     $\langle \ind{A\Delta A_{\Lambda+u}}\rangle=\langle \ind{A\Delta A_\Lambda}\rangle<\epsilon$.
     By the triangular inequality, we have
@@ -60,7 +75,9 @@ In this section, we consider the Ising model on the infinite square lattice $\Z^
         \langle \ind{A_\Lambda\Delta A_{\Lambda+u}}\rangle
         <2\epsilon.
     \)
-    But by mixing, we also have
+
+    For the inequality on the right, we use mixing:
+    we get
     \[
         \langle \ind{A_\Lambda\Delta A_{\Lambda+u}}\rangle
         =
@@ -71,9 +88,7 @@ In this section, we consider the Ising model on the infinite square lattice $\Z^
         p'+p'-2p'p'
         =2p'(1-p').
     \]
-    Since $|p'-p|<\epsilon$,
-    we clearly have $2p'(1-p')>2\epsilon$ for $\epsilon$ small enough,
-    a contradiction.
+    We then simply choose $u$ such that $\|u\|_2$ is sufficiently large.
 \end{proof}
 
 
