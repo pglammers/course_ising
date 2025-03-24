@@ -1,0 +1,80 @@
+\section{Mixing properties of the infinite-volume limit}
+
+In this section, we consider the Ising model on the infinite square lattice $\Z^d$.
+
+\begin{definition}
+    Consider a measure $\langle\blank\rangle\in\calP(\Omega,\calF)$.
+    \begin{itemize}
+        \item For any $u\in\Z^d$, we define the \emph{shift operator} $\tau_u:\Omega\to\Omega$ by
+        \[
+            (\tau_u\sigma)_x = \sigma_{x-u}.
+        \]
+        An event $A$ is \emph{shift-invariant} if $\tau_uA:=\{\tau_u\sigma:\sigma\in A\}$ for any $u\in\Z^d$.
+        \item The measure is called \emph{shift-invariant} if
+        \[
+            \langle X\circ\tau_u \rangle = \langle X\rangle
+        \]
+        for any vertex $u\in\Z^d$ and
+        for any bounded local observable $X$.
+        \item The measure is called \emph{mixing} if
+        \[
+            \lim_{\|u\|_2\to\infty}
+            \left(\langle X(Y\circ\tau_u)\rangle-\langle X\rangle\langle Y\circ\tau_u\rangle\right)
+            =0
+        \]
+        for any bounded local observables $X$ and $Y$.
+        \item The measure is called \emph{ergodic}
+        if it is shift-invariant
+        and
+        \[\langle\ind{A}\rangle\in\{0,1\}\]
+        for any shift-invariant event $A\in\calF$.
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}[Mixing implies ergodicity]
+    If a shift-invariant measure is mixing, then it is ergodic.
+\end{lemma}
+
+\begin{proof}
+    Let $\langle\blank\rangle$ denote a shift-invariant measure that is mixing, but not ergodic.
+    We aim to derive a contradiction.
+    Let $A$ denote a shift-invariant event with $p:=\langle\ind{A}\rangle\in(0,1)$.
+    We shall derive a contradiction by constructing two events which
+    are both extremely correlated with $A$ (using ergodicity),
+    while also being almost independent (using mixing).
+
+    Fix $\epsilon>0$.
+    By the martingale convergence theorem,
+    there exists a finite domain $\Lambda\subset\Z^d$
+    and an $\calF_\Lambda$-measurable event
+    $A_\Lambda$
+    such that
+    $\langle \ind{A\Delta A_\Lambda}\rangle<\epsilon$.
+    Write $p':=\langle \ind{A_\Lambda}\rangle$.
+    Then for any $u\in\Z^d$,
+    the event $A_{\Lambda+u}:=\tau_uA_\Lambda\in\calF_{\Lambda+u}$
+    also satisfies
+    $\langle \ind{A\Delta A_{\Lambda+u}}\rangle=\langle \ind{A\Delta A_\Lambda}\rangle<\epsilon$.
+    By the triangular inequality, we have
+    \(
+        \langle \ind{A_\Lambda\Delta A_{\Lambda+u}}\rangle
+        <2\epsilon.
+    \)
+    But by mixing, we also have
+    \[
+        \langle \ind{A_\Lambda\Delta A_{\Lambda+u}}\rangle
+        =
+        \langle \ind{A_\Lambda}+\ind{A_{\Lambda+u}}
+        -
+        2 \ind{A_\Lambda}\ind{A_{\Lambda+u}}\rangle
+        \to_{\|u\|_2\to\infty}
+        p'+p'-2p'p'
+        =2p'(1-p').
+    \]
+    Since $|p'-p|<\epsilon$,
+    we clearly have $2p'(1-p')>2\epsilon$ for $\epsilon$ small enough,
+    a contradiction.
+\end{proof}
+
+
+
