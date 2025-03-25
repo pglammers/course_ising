@@ -1,0 +1,124 @@
+\section{Continuity of the magnetisation in dimension $d\geq 3$}
+
+The objective of this section is to prove the following deep theorems.
+
+\begin{theorem}[Continuity in dimension $d\geq 3$]
+    \label{thm:continuity}
+    Consider the Ising model on the square lattice graph $G=\Z^d$
+    in dimension $d\in\Z_{\geq 3}$.
+    Then $m(\beta_c)=0$,
+    that is, the magnetisation is continuous at $\beta=\beta_c$.
+    Moreover, for $\beta\in[0,\beta_c]$,
+    we have $\langle\blank\rangle^\f_{\Z^d,\beta}=\langle\blank\rangle^+_{\Z^d,\beta}$.
+\end{theorem}
+
+The proof presented here works only in dimension $d\geq 3$,
+because we use an essential input called the \emph{infrared bound}.
+The infrared bound is a classical tool in the analysis of spin systems.
+Unfortunately, its proof is beyond the scope of these lecture notes.
+
+\begin{theorem}[Infrared bound]
+    Consider the Ising model on the square lattice graph $\Z^d$ for fixed $d\in\Z_{\geq 1}$.
+    Then there exists a constant $C\in\R_{\geq 0}$ such that
+    \[
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
+        \leq C\frac1{\|y-x\|_2^{d-2}}
+    \]
+    for any $\beta\in[0,\beta_c]$.
+    In particular, if $d\geq 3$,
+    then
+    \begin{equation}
+        \lim_{\|y-x\|_2\to\infty}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f=0.
+    \end{equation}    
+\end{theorem}
+
+Thus, we aim to prove that the infrared bound implies continuity (Theorem~\ref{thm:continuity}).
+In fact, once we proved that $m(\beta_c)=0$,
+it is quite easy to deduce the last part of Theorem~\ref{thm:continuity}.
+We focus on proving that $m(\beta_c)=0$ for now.
+Globally, the proof consists of the following two lemmas.
+
+\begin{lemma}[Continuity, Step~1]
+    Consider the Ising model on $\Z^d$ for $d\in\Z_{\geq 1}$ at $\beta\in[0,\infty)$.
+    Then
+    \[
+        m(\beta)^2=\inf_{x,y}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^+.
+    \]
+\end{lemma}
+
+\begin{lemma}[Continuity, Step~2]
+    Consider the Ising model on $\Z^d$ for $d\in\Z_{\geq 3}$ at $\beta\in[0,\beta_c]$.
+    Then
+    \[
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^+
+        =
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f.
+    \]
+    for any $x,y\in\Z^d$.
+    More generally, for any subset $A\subset\Z^d$ of even cardinal, we have 
+    \[
+        \langle\sigma_A\rangle_{\Z^d,\beta}^+
+        =
+        \langle\sigma_A\rangle_{\Z^d,\beta}^\f.
+    \]
+\end{lemma}
+
+Suppose that we have proved these two lemmas.
+The infrared bound then tells us that at $\beta_c$ the two point function tends
+to zero with the distance (for both free and wired boundary conditions, due to Step~2).
+Step~1 then tells us that the magnetisation vanishes.
+Step~2 is the hard step; we start with a proof of Step~1.
+
+\begin{proof}[Proof of Continuity, Step~1]
+    Fix $x,y\in\Z^d$.
+    For any finite domain $\Lambda\ni x,y$,
+    we have
+    \[
+        \langle\sigma_x\rangle_{\Lambda,\beta}^+
+        \langle\sigma_y\rangle_{\Lambda,\beta}^+
+        =
+        \langle\sigma_x\sigma_\frakg\rangle_{\Lambda^\frakg,\beta}
+        \langle\sigma_y\sigma_\frakg\rangle_{\Lambda^\frakg,\beta}
+        \leq
+        \langle\sigma_x\sigma_y\rangle_{\Lambda,\beta}^+
+    \]
+    by the second Griffiths inequality.
+    Sending $\Lambda\uparrow\Z^d$ yields
+    \[
+        m(\beta)^2\leq \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^+.
+    \]
+    It suffices to prove the other bound.
+
+    Fix $x=0\in\Z^d$, and let $\Lambda\ni x$ denote a large finite domain.
+    For any $y\in\Z^d$, let $\Lambda_y:=\Lambda\cup(\Lambda+y)$.
+    Then
+    \[
+        \limsup_{\|y\|_2\to\infty}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^+
+        \leq
+        \limsup_{\|y\|_2\to\infty}\langle\sigma_x\sigma_y\rangle_{\Lambda_y,\beta}^+
+        =
+        (\langle\sigma_x\rangle_{\Lambda,\beta}^+)^2
+        \to_{\Lambda\uparrow\Z^d}m(\beta)^2.
+    \]
+    The equality holds true because for $\|y\|_2$ sufficiently large,
+    $\Lambda$ and $\Lambda+y$ are no longer adjancent,
+    and therefore the restrictions $\sigma|_\Lambda$
+    and $\sigma|_{\Lambda+y}$ behave like independent Ising models.
+\end{proof}
+
+
+
+\begin{proof}[Proof of continuity in dimension $d\geq 3$]
+    We have already seen that $m(\beta_c)=0$
+    (and also $m(\beta)=0$ for $\beta\leq\beta_c$).
+    It suffices to prove that $\langle\blank\rangle^+_{\Z^d,\beta}=\langle\blank\rangle^\f_{\Z^d,\beta}$.
+    We shall prove that
+    \[
+        \langle\sigma_A\rangle^+_{\Z^d,\beta}=\langle\sigma_A\rangle^\f_{\Z^d,\beta}
+    \]
+    for any finite $A\subset\Z^d$.
+    If $|A|$ is even then this also follows from Step~2.
+    If $|A|$ is odd then we must simply show that $\langle\sigma_A\rangle^+_{\Z^d,\beta}=0$.
+    For $|A|=1$ this is just the statement that $m(\beta)=0$.
+    For $|A|>1$ we can deduce this from the pairing bound (Lemma~\ref{???}).
+\end{proof}
