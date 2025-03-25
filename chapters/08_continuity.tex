@@ -63,10 +63,13 @@ Globally, the proof consists of the following two lemmas.
     \]
 \end{lemma}
 
-Suppose that we have proved these two lemmas.
-The infrared bound then tells us that at $\beta_c$ the two point function tends
-to zero with the distance (for both free and wired boundary conditions, due to Step~2).
-Step~1 then tells us that the magnetisation vanishes.
+\begin{proof}[Proof that the two steps imply that $m(\beta_c)=0$]
+    Suppose that we have proved these two lemmas.
+    The infrared bound then tells us that at $\beta_c$ the two point function tends
+    to zero with the distance (for both free and wired boundary conditions, due to Step~2).
+    Step~1 then tells us that the magnetisation vanishes.    
+\end{proof}
+
 Step~2 is the hard step; we start with a proof of Step~1.
 
 \begin{proof}[Proof of Continuity, Step~1]
@@ -106,12 +109,209 @@ Step~2 is the hard step; we start with a proof of Step~1.
     and $\sigma|_{\Lambda+y}$ behave like independent Ising models.
 \end{proof}
 
+We now turn to the proof of Step~2. Fix $A\subset\Z^d$
+with $|A|$ even.
+We want to prove that
+\begin{equation}
+    \label{eq:continuity_target_limit}
+    \lim_{\Lambda\uparrow\infty}
+    \left(
+    \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}
+    -\langle\sigma_A\rangle_{\Lambda^\f,\beta}
+    \right)
+    =
+    0.
+\end{equation}
+The switching lemma is not yet adapted to this setup,
+since (until now) we only compared correlation functions on the same graph.
+To state our new switching lemma, we introduce some new notations:
+for any finite graph $G=(V,E)$ and any source set $A\subset V$,
+we define the probability measure on random currents
+\[
+    \P_{G}^A:=\frac1{Z_G \langle\sigma_A\rangle_G} \M_G[\{\partial\n=A\}\cap(\blank)].
+\]
+If $G':=(V',E')$ is another finite graph,
+then we view a current $\n\in(\Z_{\geq 0})^E$
+also as a current on $E\cup E'$, by setting $\n_{xy}:=0$ for $xy\in E'\setminus E$,
+and vice versa.
+
+\begin{lemma}[Continuity, Step~2a]
+    Fix $\Lambda\subset\Z^d$ finite, fix $\beta\in[0,\infty)$,
+    and fix $A\subset\Lambda$ of even cardinal.
+    Consider the random pair $(\n,\m)\sim \P_{\Lambda^\frakg,\beta}^A\times\P_{\Lambda^\f,\beta}^\emptyset$
+    Then
+    \begin{equation}
+        \frac{
+            \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}
+            -\langle\sigma_A\rangle_{\Lambda^\f,\beta}
+        }{
+            \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}
+        }
+        =
+        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+        [\{(\widehat{\n+\m}\cap E(\Lambda^\f))\not\in\calE_A\}].
+    \end{equation}
+    The event on the right means that in order to pair up the vertices in $A$
+    with edges in $\widehat{\n+\m}$,
+    one must necessarily use the edges incident to the ghost.
+\end{lemma}
+
+\begin{proof}
+    
+\end{proof}
+
+By the previous lemma,
+it suffices to prove that
+\[
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+        [\{(\widehat{\n+\m}\cap E(\Lambda^\f))\not\in\calE_A\}]=0.
+\]
+But if the ghost is required to pair up the vertices in $A$,
+then at least one of the vertices in $A$ must be connected to the ghost.
+Therefore it suffices to prove that
+\[
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+        [\{A \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
+\]
+
+This is roughly proved as follows.
+Imagine that we can somehow exchange the limit with the measure:
+we first take a limit in the measures (in the local convergence topology),
+then we evaluate the event.
+Then the appropriate ``limit event'' should of course be the event that
+$A$ intersects an infinite component of the percolation $\widehat{\n+\m}$.
+
+Formally, we would like to say that
+\begin{align}
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+    [\{A \xleftrightarrow{\widehat{\n+\m}}\frakg\}]
+    &
+    \leq
+    \lim_{\Delta\uparrow\Z^d}
+    \left(
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+    [\{A \xleftrightarrow{\widehat{\n+\m}}\partial\Delta\}]
+    \right) 
+    \\&
+    =
+    \lim_{\Delta\uparrow\Z^d}
+    \left(
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+    \right)
+    [\{A \xleftrightarrow{\widehat{\n+\m}}\partial\Delta\}]
+    \\&
+    =
+    \left(
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+    \right)
+    [\{A \xleftrightarrow{\widehat{\n+\m}}\infty\}]
+    \\&\leq
+    \left(
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+    \right)
+    [\{\text{$\widehat{\n+\m}$ percolates}\}]=0.
+\end{align}
+To justify these relations, we must verify two statements:
+\begin{itemize}
+    \item The limit $\P^{A,\emptyset}:=\left(
+        \lim_{\Lambda\uparrow\Z^d}
+        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset\right)
+        $ converges in the local convergence topology,
+    \item The currents $\widehat{\n+\m}$ do not percolate in this limit.
+\end{itemize}
+
+Both statements are nontrivial and require a proof.
+The first statement is straightforward, and follows
+from the convergence of the infinite-volume measures $\langle\blank\rangle^+_{\Z^d}$
+and $\langle\blank\rangle^\f_{\Z^d}$.
+For the second statement, we combine a simple version of the Burton--Keane argument
+with the infrared bound.
+
+\todo{Explain why we may work with $\P^{\emptyset,\emptyset}$}
+
+\begin{lemma}[Continuity, Step~2b]\label{lemma:continuity_step2b}
+    Consider the Ising model on $\Z^d$ with $d\in\Z_{\geq 1}$
+    and $\beta\in[0,\infty)$.
+    Then the limit $\P^{\emptyset,\emptyset}:=
+        \lim_{\Lambda\uparrow\Z^d}
+        \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
+        $ converges in the local convergence topology.
+\end{lemma}
+
+\begin{lemma}[Continuity, Step~2c]\label{lemma:continuity_step2c}
+    Consider the Ising model on $\Z^d$ with $d\in\Z_{\geq 3}$
+    and $\beta\in[0,\beta_c]$.
+    Then $\widehat{\n+\m}$ does not percolate in the limit $\P^{\emptyset,\emptyset}$ constructed
+    in Step~2b.
+\end{lemma}
+
+\begin{proof}[Proof of Continuity, Step~2b]
+    \todo{Write the proof}
+\end{proof}
+
+\begin{proof}[Proof of Continuity, Step~2c]
+    Let $N_\infty$ denote the random number of infinite connected components of $\widehat{\n+\m}$.
+    By a Burton--Keane argument using shift-invariance and insertion tolerance,
+    we have $\P^{\emptyset,\emptyset}[\{N_\infty=\infty\}]=0$.
+    Fix $N\in\Z_{\geq 1}$; our objective is to prove that
+    \[
+        \P^{\emptyset,\emptyset}[\{N_\infty= N\}]=:p=0.
+    \]
+
+    Suppose that $p>0$ in order to derive a contradiction.
+    The idea is to use shift-invariance and the infra-red bound.
+    Let
+    \[
+        \delta:=\P^{\emptyset,\emptyset}[\{0\xleftrightarrow{\widehat{\n+\m}}\infty\}|\{N_\infty= N\}]
+    \]
+    denote the (conditional) density of the infinite clusters.
+    Let $\Lambda_n:=\{-n,\dots,n\}^d\subset\Z^d$.
+    Then
+    \[
+        \P^{\emptyset,\emptyset}\left[\left\{|\{x\in\Lambda_n:x\leftrightarrow\infty\}|>\tfrac{\delta}2|\Lambda_n|\right\}\middle|\{N_\infty= N\}\right]
+        \geq
+        \frac\delta2.
+    \]
+    But if $|\{x\in\Lambda_n:x\leftrightarrow\infty\}|>\tfrac{\delta}2|\Lambda_n|$
+    and there are $N$ infinite clusters,
+    then $\Lambda_n$ contains at least $\tfrac{\delta}{2N}|\Lambda_n|$
+    vertices which are all connected to one another.
+    In particular,
+    \[
+        \E^{\emptyset,\emptyset}\left[|\{(x,y)\in\Lambda_n\times\Lambda_n:x\leftrightarrow y\}|\right]
+        \geq
+        p
+        \frac{\delta^2}{4N^2}|\Lambda_n|^2.
+    \]
+
+    But clearly
+    \[
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
+        \geq
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^+
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
+        \geq
+        \P^{\emptyset,\emptyset}[\{x\xleftrightarrow{\widehat{\n+\m}}y\}],
+    \]
+    and therefore the previous bound implies that
+    \[
+        \liminf_{n\to\infty}\frac1{|\Lambda_n|^2}\sum_{x,y\in\Lambda_n}
+        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
+        \geq p
+        \frac{\delta^2}{4N^2}>0.
+    \]
+    This contradicts the infrared bound, as desired.
+\end{proof}
 
 
-\begin{proof}[Proof of continuity in dimension $d\geq 3$]
-    We have already seen that $m(\beta_c)=0$
-    (and also $m(\beta)=0$ for $\beta\leq\beta_c$).
-    It suffices to prove that $\langle\blank\rangle^+_{\Z^d,\beta}=\langle\blank\rangle^\f_{\Z^d,\beta}$.
+\begin{proof}[Proof that $\langle\blank\rangle_{\Z^d,\beta}^+=\langle\blank\rangle_{\Z^d,\beta}^\f$ for $\beta\leq\beta_c$]
     We shall prove that
     \[
         \langle\sigma_A\rangle^+_{\Z^d,\beta}=\langle\sigma_A\rangle^\f_{\Z^d,\beta}
