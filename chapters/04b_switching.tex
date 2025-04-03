@@ -202,12 +202,13 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
 
 \begin{proof}
     Focus on the first inequality.
+    Let $\bfM':=\bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}$.
     Expanding the left hand side yields
     \[
         \frac{Z_GZ_{\Lambda^\f}}{2^{|V|}2^{|\Lambda|}}
         \langle\sigma_x\sigma_y\rangle_{G,\beta}
         =
-        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}].
+        \bfM'[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}].
     \]
     But on the event on the right,
     we have $\partial(\omega\Delta\omega')=\{x,y\}$,
@@ -225,21 +226,21 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     Using the switching lemma like for the pairing bound,
     we obtain
     \begin{align}
-        &\bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
+        &\bfM'[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
         \\&
         \leq 
         \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
-        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[
+        \bfM'[
         \{\omega\Delta\omega'=\eta,\,\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
         \\&
         =
         \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
-        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[
+        \bfM'[
         \{\omega\Delta\omega'=\eta,\,\partial\omega=\{y,z\},\,\partial\omega'=\{x,y\}\}]
         \\&
         \leq
         \sum\nolimits_{z\in\partial_\circ\Lambda}
-        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[
+        \bfM'[
         \{\partial\omega=\{y,z\},\,\partial\omega'=\{x,y\}\}]
         \\&=
         \frac{Z_GZ_{\Lambda^\f}}{2^{|V|}2^{|\Lambda|}}
@@ -250,6 +251,7 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     We use the switching lemma for the second inequality;
     we choose $Q$ to be a path from $x$ to $y$ in $\eta\cap E(\Lambda^\f)$
     to get an equality for each term.
+    This proves the first inequality in the statement of the theorem.
 
     For the second inequality we only give a proof outline.
     It is obtained in a similar fashion,
