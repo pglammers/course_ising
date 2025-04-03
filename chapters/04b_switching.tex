@@ -165,3 +165,102 @@ We can now prove some interesting bounds.
     \]
     which finishes the proof.
 \end{proof}
+
+Recall that if $G=(V,E)$ is a graph and $\Lambda\subset V$
+a subset, then $\partial\Lambda$ denotes the set of vertices in $V\setminus\Lambda$
+which are adjacent to $\Lambda$.
+Write $\partial_\circ\Lambda$ for the \emph{interior boundary},
+that is, the set of vertices in $\Lambda$ adjacent to $V\setminus\Lambda$.
+Write $\partial_e\Lambda$ for the \emph{edge boundary},
+that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
+
+\begin{theorem}[Simon's inequality]
+    Let $G=(V,E)$ denote a finite graph,
+    $\Lambda\subset V$ some domain,
+    and let $\beta\in[0,\infty)$.
+    Fix $x\in \Lambda$ and $y\in V\setminus\Lambda$.
+    \begin{itemize}
+        \item We have
+        \[
+            \langle\sigma_x\sigma_y\rangle_{G,\beta}
+            \leq
+            \sum_{z\in\partial_\circ\Lambda}
+            \langle\sigma_x\sigma_z\rangle_{\Lambda,\beta}^\f
+            \langle\sigma_y\sigma_z\rangle_{G,\beta}.
+        \]
+        \item We have
+        \[
+            \langle\sigma_x\sigma_y\rangle_{G,\beta}
+            \leq
+            (\tanh\beta)
+            \sum_{zz'\in\partial_e\Lambda}
+            \langle\sigma_x\sigma_z\rangle_{\Lambda,\beta}^\f
+            \langle\sigma_y\sigma_{z'}\rangle_{G,\beta}.
+        \]
+    \end{itemize}
+\end{theorem}
+
+\begin{proof}
+    Focus on the first inequality.
+    Expanding the left hand side yields
+    \[
+        \frac{Z_GZ_{\Lambda^\f}}{2^{|V|}2^{|\Lambda|}}
+        \langle\sigma_x\sigma_y\rangle_{G,\beta}
+        =
+        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}].
+    \]
+    But on the event on the right,
+    we have $\partial(\omega\Delta\omega')=\{x,y\}$,
+    which means that $\omega\Delta\omega'$ contains a path
+    from $x$ to at least one vertex in $\partial_\circ\Lambda$
+    that does not leave $\Lambda$.
+    In other words,
+    \begin{multline}
+        \true{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset}
+        \\
+        \leq
+        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
+        \true{\omega\Delta\omega'=\eta,\,\partial\omega=\{x,y\},\,\partial\omega'=\emptyset}.
+    \end{multline}
+    Using the switching lemma like for the pairing bound,
+    we obtain
+    \begin{align}
+        &\bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
+        \\&
+        \leq 
+        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
+        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[
+        \{\omega\Delta\omega'=\eta,\,\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
+        \\&
+        =
+        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
+        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[
+        \{\omega\Delta\omega'=\eta,\,\partial\omega=\{y,z\},\,\partial\omega'=\{x,y\}\}]
+        \\&
+        \leq
+        \sum\nolimits_{z\in\partial_\circ\Lambda}
+        \bfM_{G,\beta}\times\bfM_{\Lambda^\f,\beta}[
+        \{\partial\omega=\{y,z\},\,\partial\omega'=\{x,y\}\}]
+        \\&=
+        \frac{Z_GZ_{\Lambda^\f}}{2^{|V|}2^{|\Lambda|}}
+        \sum\nolimits_{z\in\partial_\circ\Lambda}
+        \langle\sigma_y\sigma_z\rangle_{G,\beta}
+        \langle\sigma_x\sigma_y\rangle_{\Lambda^\f,\beta}.
+    \end{align}
+    We use the switching lemma for the second inequality;
+    we choose $Q$ to be a path from $x$ to $y$ in $\eta\cap E(\Lambda^\f)$
+    to get an equality for each term.
+
+    For the second inequality we only give a proof outline.
+    It is obtained in a similar fashion,
+    noticing that if $\omega\Delta\omega'$ connects
+    $x$ and $y$,
+    then there must be some edge $zz'\in\partial_e\Lambda$
+    such that $\omega\Delta\omega'$ contains a self-avoiding path
+    from $x$ to $y$, which passes through $zz'$ 
+    and which does not leave $\Lambda$ before using this edge.
+    The switching lemma may then be applied in a similar fashion.
+    By switching the edge $zz'$, which only appears in the bigger
+    graph,
+    we make the extra factor $\tanh\beta$ appear.
+\end{proof}
