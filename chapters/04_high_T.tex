@@ -255,13 +255,14 @@ Moreover, for any $A\subset V$, it restricts to a bijection
 The measure $\bfM$ is not invariant under the involution $\Xi_Q$,
 but it is easy to see how the map affects the measure.
 More precisely, for any $\eta\in\{0,1\}^E$, we have
-\[
+\begin{equation}
+    \label{eq:reweighting}
     \bfM[\{\omega = \Xi_Q(\eta)\}]
     =
     (\tanh\beta)^{|Q\setminus\eta|-|Q\cap\eta|}
     \cdot
     \bfM[\{\omega = \eta\}].
-\]
+\end{equation}
 The prefactor is upper bounded by $(\tanh\beta)^{-|Q|}$.
 Thus, writing $\Xi_Q^*$ for the pushforward map,
 we obtain
@@ -307,6 +308,6 @@ We have now proved the following result.
 
 This lemma complements Theorem~\ref{thm:Exponential decay at high temperature}
 at high temperature, as the lemma asserts that the correlation functions cannot
-decay \emph{faster} than exponentially at any temperature
-(except when $\beta=0$).
+decay \emph{faster} than exponentially at any finite temperature
+(that is, when $\beta>0$).
 

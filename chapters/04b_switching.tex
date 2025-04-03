@@ -1,0 +1,167 @@
+\section{The high-temperature expansion and switching}
+
+We already used the high-temperature expansion to prove one correlation inequality:
+the first Griffiths inequality, which asserts that $\langle\sigma_A\rangle\geq 0$.
+This was an immediate consequence of the fact that the high-temperature expansion is a sum of positive terms.
+
+There are many other interested inequalities.
+Many of those are obtained via the \emph{switching lemma}.
+The switching lemma is traditionally stated for the random-current expansion
+(which is a refinement of the high-temperature expansion introduced in the next section),
+but we shall first state it in the context of the high-temperature expansion
+because the setup is a little bit simpler.
+We can already use it to prove three interesting inequalities:
+\begin{itemize}
+    \item The \emph{pairing bound}, which relates multi-point and two-point correlation functions,
+    \item The \emph{Simon--Lieb inequality}, which yields a finite-size criterion for exponential decay.
+\end{itemize}
+
+We first prove the following switching lemma.
+
+\begin{lemma}[Switching lemma for the high-temperature expansion]
+    Let $G=(V,E)$ and $G'=(V',E')$ denote two finite graphs and fix $\beta\in[0,\infty)$.
+    For $A\subset V$ and $A'\subset V'$,
+    write $S_{A,A'}:=\{\partial\omega=A,\,\partial\omega'=A'\}\subset \{0,1\}^E\times\{0,1\}^{E'}$.
+
+    Fix $\eta\subset E\cup E'$
+    and $Q\subset \eta\cap E\cap E'$.
+    Then for any $A\subset V$ and $A'\subset V'$,
+    we get
+    \begin{equation}
+        \bfM_{G,\beta}\times\bfM_{G',\beta}
+        [\{\omega\Delta\omega'=\eta\}\cap S_{A,A'}]
+        =
+        \bfM_{G,\beta}\times\bfM_{G',\beta}
+        [\{\omega\Delta\omega'=\eta\}\cap S_{A\Delta\partial Q,A'\Delta\partial Q}].
+    \end{equation}
+\end{lemma}
+
+\begin{proof}
+    Assume simply that $G=G'$.
+    This case is already sufficient for proving the pairing bound below.
+    The proof of the general case is similar,
+    we briefly discuss it at the end.
+
+    Write $\Xi_Q^2$ for the map
+    \[
+        \Xi_Q^2:
+        (\{0,1\}^E)^2
+        \to
+        (\{0,1\}^E)^2
+        ,\,(\omega,\omega')\mapsto (\omega\Delta Q,\omega'\Delta Q).
+    \]
+    We make two important observations:
+    \begin{itemize}
+        \item $\Xi_Q^2$ restricts to a involution on $\{\omega\Delta\omega'=\eta\}$,
+        \item On $\{\omega\Delta\omega'=\eta\}$, the map $\Xi_Q^2$ does not modify the total number $|\omega|+|\omega'|$
+        of edges.
+    \end{itemize} 
+    Since the weight of each configuration $(\omega,\omega')$ is a function of $|\omega|+|\omega'|$,
+    the two observations imply that
+    the measure \[\bfM_{G,\beta}\times\bfM_{G',\beta}
+        [\{\omega\Delta\omega'=\eta\}\cap (\blank)]\] is preserved by the involution
+    $\Xi_Q^2$.
+    The result follows since $\Xi_Q^2$ is is also a bijection from $S_{A,A'}$
+    to $S_{A\Delta\partial Q,A'\Delta\partial Q}$.
+
+    If $G\neq G'$ then we simply view $\Xi_Q^2$
+    as an involution on $\{0,1\}^E\times\{0,1\}^{E'}$.
+\end{proof}
+
+To apply this switching lemma,
+we need some simply combinatorial tools.
+
+\begin{definition}[Percolation events]
+    Let $G=(V,E)$ denote a graph and $\omega\subset E$ a percolation configuration.
+    Write \[\{u\xleftrightarrow{\omega}v\}\]
+    for the event there is an open path from $u$ to $v$
+    ($u$ and $v$ may represent vertices or sets of vertices).
+    For fixed $A\subset V$, we shall also write $\calE_A$ for the set
+    \[
+        \{\omega\subset E:\text{$|C\cap A|$ is even for any connected component $C\subset V$ of $(V,\omega)$}\}.
+    \]
+\end{definition}
+
+\begin{exercise}
+    Let $G$ denote a graph and 
+    $x,y\in V$  distinct vertices. Prove that:
+    \begin{itemize}
+        \item If $A=\{x,y\}$, then $\{\omega\in\calE_A\}=\{x\xleftrightarrow{\omega}y\}$,
+        \item If $\omega\in\calE_A$, then we may find a subset $\eta\subset\omega$ with $\partial\eta=A$,
+        \item If $G$ is a finite graph and $\partial\omega=A$, then $\omega\in\calE_A$,
+        \item For any $A\subset V$, the event $\{\omega\in\calE_A\}$ is an increasing event of the percolation $\omega$.
+    \end{itemize}
+\end{exercise}
+
+We can now prove some interesting bounds.
+
+\begin{theorem}[Pairing bound]
+    Let $G=(V,E)$ denote a finite graph and $\beta\in[0,\infty)$.
+    For any $x\in A\subset V$ we have
+    \begin{equation}
+        \langle\sigma_A\rangle
+        \leq
+        \sum_{y\in A\setminus\{x\}}
+        \langle\sigma_x\sigma_y\rangle
+        \langle \sigma_{A\setminus\{x,y\}}\rangle.
+    \end{equation}
+    In particular, iterating yields
+    \[
+        \langle\sigma_A\rangle
+        \leq
+        \sum_{\pi}
+        \prod_{xy\in\pi}
+        \langle\sigma_x\sigma_y\rangle,
+    \]
+    where $\pi$ runs over all \emph{pairings} of $A$,
+    that is, over all partitions of $A$ into pairs.
+\end{theorem}
+
+\begin{proof}
+    By the high-temperature expansion,
+    we get
+    \[
+        (2^{-|V|}Z)^2 \langle\sigma_A\rangle
+        =
+        \bfM^2[\{\partial\omega = A,\,\partial\omega'=\emptyset\}].
+    \]
+    But on this event we have $\partial(\omega\Delta\omega')=A$,
+    which means that $\omega\Delta\omega'$ contains a path
+    from $x$ to at least one other vertex in $A$ (see the exercise).
+    In other words,
+    \[
+        \true{\partial\omega = A,\,\partial\omega'=\emptyset}
+        \leq
+        \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
+        \true{\omega\Delta\omega'=\eta,\,\partial\omega = A,\,\partial\omega'=\emptyset}.
+    \]
+    We now claim that
+    \begin{align}
+        &\bfM^2[\{\partial\omega = A,\,\partial\omega'=\emptyset\}]
+        \\&\leq 
+            \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
+        \bfM^2[
+        \{\omega\Delta\omega'=\eta,\,\partial\omega = A,\,\partial\omega'=\emptyset\}
+        ]
+        \\&=
+            \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
+        \bfM^2[
+        \{\omega\Delta\omega'=\eta,\,\partial\omega = A\setminus\{x,y\},\,\partial\omega'=\{x,y\}\}
+        ].
+    \end{align}
+    The inequality is the previous inequality,
+    the equality is the switching lemma for the high-temperature expansion
+    applied to each term $(y,\eta)$,
+    where $Q$ is simply some path in $\eta$ from $x$ to $y$.
+
+    The final sum in the claim is upper bounded by
+    \[
+        \sum\nolimits_{y\in A\setminus\{x\}}
+        \bfM^2[
+        \{\partial\omega = A\setminus\{x,y\},\,\partial\omega'=\{x,y\}\}
+        ]
+        =
+        (2^{-|V|}Z)^2 \langle\sigma_{A\setminus\{x,y\}}\rangle\langle\sigma_x\sigma_y\rangle,
+    \]
+    which finishes the proof.
+\end{proof}

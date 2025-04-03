@@ -35,7 +35,52 @@ which is adapted to studying the Ising model at and around the critical temperat
     random variables with distribution $\operatorname{Poisson}(\beta)$.
 \end{remark}
 
-Currents can be used to encode correlation functions of the Ising model.
+The random-currents measure is a richer object than the high-temperature expansion.
+To see this, consider a single fixed edge $xy\in E$.
+Then we have the following correspondence between the high-temperature weights
+and the random-currents weights:
+\[
+    \cosh\beta = \sum_{\n\in 2\Z_{\geq 0}} \frac{\beta^\n}{\n!}
+    ;
+    \qquad
+    \sinh\beta = \sum_{\n\in 2\Z_{\geq 0}+1} \frac{\beta^\n}{\n!}.
+\]
+We may thus interpret the relation between $e^{-\beta|E|}\bfM$ and $e^{-\beta|E|}\M$ as follows:
+\begin{itemize}
+    \item $\M$ is a nonnormalised family of independent $\operatorname{Poisson}(\beta)$-variables $(\n_{xy})_{xy\in E}$,
+    \item $\bfM$ is obtained from $\M$ by writing $\omega_{xy}$ for the \emph{parity} of $\n_{xy}$,
+    \item In particular, $\partial\n\sim\M$ and $\partial\omega\sim\bfM$ have the same distribution,
+    \item Moreover, the percolation $\hat\n$ may be viewed as
+    \[
+        \hat\n = \omega \cup\{xy\in E: \n_{xy}\in\{2,4,8,\ldots\}\}.
+    \]
+    In particular, the following distributions are the same:
+    \[
+        \text{$\hat\n$ in the measure $\M$}
+        \qquad
+        \text{and}
+        \qquad
+        \text{$\omega\cup\eta$ in the measure $\bfM\times\P_{p}$,}
+    \]
+    where $\eta\sim\P_p$ is an independent bond percolation on $G$
+    with parameter
+    \[
+        p
+        =\frac{\cosh\beta-1}{\cosh\beta}
+        =\frac{
+            \sum_{\n\in 2\Z_{\geq 1}} \frac{\beta^\n}{\n!}
+        }{
+            \sum_{\n\in 2\Z_{\geq 0}} \frac{\beta^\n}{\n!}
+        }
+        .
+    \]
+\end{itemize}
+
+The last observation arises from the simple fact that edges carring an even current
+still have a probability $p$ of carrying a strictly positive even current.
+
+Theorem~\ref{thm:High-temperature expansion for correlation functions}
+translates to random currents as follows.
 
 \begin{theorem}[Current representation of correlation functions]
     \label{thm:current_representation_of_correlation_functions}
@@ -58,16 +103,10 @@ Currents can be used to encode correlation functions of the Ising model.
     \]
 \end{theorem}
 
-\begin{proof}
-    The numbers $\cosh\beta$ and $\sinh\beta$ are obtained from the expansion
-    $\sum_{\n=0}^\infty \beta^\n/\n!$ of $e^\beta$ by keeping only
-    the even and odd terms respectively.
-    The result then simply follows from
-    the high-temperature representation (Theorem~\ref{thm:High-temperature expansion for correlation functions})
-    by
-    expanding $\cosh\beta$ and $\sinh\beta$.
-\end{proof}
-
+What is the benefit of random currents?
+It is a finer representation than the high-temperature expansion,
+but the high-temperature expansion already encoded our correlation functions.
+The key benefit of this representation is the \emph{switching lemma}.
 
 \begin{remark}[Switching example]
     The above setup opens the door to a powerfull technique called \emph{switching}.
@@ -168,27 +207,6 @@ Slight variations of the proof will be used later.
     This is the desired equality.
 \end{proof}
 
-\begin{definition}[Percolation of currents]
-    Let $G$ denote a graph and $\n$ a current.
-    Write \[\{u\xleftrightarrow{\hat\n}v\}\]
-    for the event there is an open path from $u$ to $v$
-    ($u$ and $v$ may represent vertices or sets of vertices).
-    For fixed $S\subset V$, we shall also write $\calE_S$ for the set
-    \[
-        \{O\subset E:\text{$|C\cap S|$ is even for any connected component $C\subset V$ of $(V,O)$}\}.
-    \]
-\end{definition}
-
-\begin{exercise}
-    Let $G$ denote a graph and 
-    $x,y\in V$  distinct vertices. Prove the following.
-    \begin{itemize}
-        \item If $S=\{x,y\}$, then $\{\hat\n\in\calE_S\}=\{x\xleftrightarrow{\hat\n}y\}$.
-        \item If $\omega\in\calE_S$, then we may find a subset $\eta\subset\omega$ with $\partial\eta=S$.
-        \item If $G$ is a finite graph and $\partial\n=S$, then $\hat\n\in\calE_S$.
-        \item For any $S\subset V$, the event $\{\hat\n\in\calE_S\}$ is an increasing event of the current $\n$.
-    \end{itemize}
-\end{exercise}
 
 \begin{lemma}[Switching lemma]
     \label{lem:switching_lemma}
