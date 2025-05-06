@@ -10,13 +10,17 @@ The switching lemma is traditionally stated for the random-current expansion
 (which is a refinement of the high-temperature expansion introduced in the next section),
 but we shall first state it in the context of the high-temperature expansion
 because the setup is a little bit simpler.
-We can already use it to prove three interesting inequalities:
+We can already use it to prove two interesting inequalities:
 \begin{itemize}
     \item The \emph{pairing bound}, which relates multi-point and two-point correlation functions,
     \item The \emph{Simon--Lieb inequality}, which yields a finite-size criterion for exponential decay.
 \end{itemize}
 
 We first prove the following switching lemma.
+We state it in its most general form,
+namely for overlapping graphs $G$ and $G'$.
+In practice, we often care about the special case that $G=G'$, or the slightly more general
+case that $G\subset G'$.
 
 \begin{lemma}[Switching lemma for the high-temperature expansion]
     Let $G=(V,E)$ and $G'=(V',E')$ denote two finite graphs and fix $\beta\in[0,\infty)$.
@@ -37,11 +41,7 @@ We first prove the following switching lemma.
 \end{lemma}
 
 \begin{proof}
-    Assume simply that $G=G'$.
-    This case is already sufficient for proving the pairing bound below.
-    The proof of the general case is similar,
-    we briefly discuss it at the end.
-
+    First, assume simply that $G=G'$.
     Write $\Xi_Q^2$ for the map
     \[
         \Xi_Q^2:
@@ -65,11 +65,12 @@ We first prove the following switching lemma.
     to $S_{A\Delta\partial Q,A'\Delta\partial Q}$.
 
     If $G\neq G'$ then we simply view $\Xi_Q^2$
-    as an involution on $\{0,1\}^E\times\{0,1\}^{E'}$.
+    as an involution on $\{0,1\}^E\times\{0,1\}^{E'}$,
+    and the rest of the proof works in the same way.
 \end{proof}
 
 To apply this switching lemma,
-we need some simply combinatorial tools.
+it is useful to have some simple terminology for graphs and percolations.
 
 \begin{definition}[Percolation events]
     Let $G=(V,E)$ denote a graph and $\omega\subset E$ a percolation configuration.
@@ -87,13 +88,16 @@ we need some simply combinatorial tools.
     $x,y\in V$  distinct vertices. Prove that:
     \begin{itemize}
         \item If $A=\{x,y\}$, then $\{\omega\in\calE_A\}=\{x\xleftrightarrow{\omega}y\}$,
-        \item If $\omega\in\calE_A$, then we may find a subset $\eta\subset\omega$ with $\partial\eta=A$,
+        \item If $\omega\in\calE_A$, then we may find a finite subset $\eta\subset\omega$ with $\partial\eta=A$,
         \item If $G$ is a finite graph and $\partial\omega=A$, then $\omega\in\calE_A$,
         \item For any $A\subset V$, the event $\{\omega\in\calE_A\}$ is an increasing event of the percolation $\omega$.
     \end{itemize}
 \end{exercise}
 
 We can now prove some interesting bounds.
+The first bound is the pairing bound.
+This bound suggests that multi-correlation functions may be viewed
+as interacting paths which pair up the sources in our source set.
 
 \begin{theorem}[Pairing bound]
     Let $G=(V,E)$ denote a finite graph and $\beta\in[0,\infty)$.
@@ -154,7 +158,7 @@ We can now prove some interesting bounds.
     applied to each term $(y,\eta)$,
     where $Q$ is simply some path in $\eta$ from $x$ to $y$.
 
-    The final sum in the claim is upper bounded by
+    The final expression in the claim is equal to
     \[
         \sum\nolimits_{y\in A\setminus\{x\}}
         \bfM^2[
@@ -165,6 +169,11 @@ We can now prove some interesting bounds.
     \]
     which finishes the proof.
 \end{proof}
+
+Next, we focus on Simon's inequality.
+We already proved that there is exponential decay at high temperature.
+Simon's inequality says that \emph{if} there is exponential decay of correlations,
+then it can be detected within a finite volume.
 
 Recall that if $G=(V,E)$ is a graph and $\Lambda\subset V$
 a subset, then $\partial\Lambda$ denotes the set of vertices in $V\setminus\Lambda$
@@ -198,6 +207,9 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
             \langle\sigma_y\sigma_{z'}\rangle_{G,\beta}.
         \]
     \end{itemize}
+    In fact, the converse inequalities are also true if we 
+    multiply the right hand sides by $1/|\partial_\circ\Lambda|$
+    and $1/|\partial_e\Lambda|$ respectively.
 \end{theorem}
 
 \begin{proof}
@@ -213,10 +225,11 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     But on the event on the right,
     we have $\partial(\omega\Delta\omega')=\{x,y\}$,
     which means that $\omega\Delta\omega'$ contains a path
-    from $x$ to at least one vertex in $\partial_\circ\Lambda$
-    that does not leave $\Lambda$.
+    which remains in $\Lambda$
+    and which connects $x$ to some vertex in $\partial_\circ\Lambda$.
     In other words,
     \begin{multline}
+        \label{eq:converse}
         \true{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset}
         \\
         \leq
@@ -236,22 +249,25 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
         =
         \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
         \bfM'[
-        \{\omega\Delta\omega'=\eta,\,\partial\omega=\{y,z\},\,\partial\omega'=\{x,y\}\}]
+        \{\omega\Delta\omega'=\eta,\,\partial\omega=\{y,z\},\,\partial\omega'=\{x,z\}\}]
         \\&
-        \leq
+        =
         \sum\nolimits_{z\in\partial_\circ\Lambda}
         \bfM'[
-        \{\partial\omega=\{y,z\},\,\partial\omega'=\{x,y\}\}]
+        \{\partial\omega=\{y,z\},\,\partial\omega'=\{x,z\}\}]
         \\&=
         \frac{Z_GZ_{\Lambda^\f}}{2^{|V|}2^{|\Lambda|}}
         \sum\nolimits_{z\in\partial_\circ\Lambda}
         \langle\sigma_y\sigma_z\rangle_{G,\beta}
-        \langle\sigma_x\sigma_y\rangle_{\Lambda^\f,\beta}.
+        \langle\sigma_x\sigma_z\rangle_{\Lambda^\f,\beta}.
     \end{align}
-    We use the switching lemma for the second inequality;
-    we choose $Q$ to be a path from $x$ to $y$ in $\eta\cap E(\Lambda^\f)$
+    We use the switching lemma for the first equality;
+    we choose $Q$ to be a path from $x$ to $z$ in $\eta\cap E(\Lambda^\f)$
     to get an equality for each term.
     This proves the first inequality in the statement of the theorem.
+
+    The converse inequality is true simply because we may reverse the inequality in
+    Equation~\eqref{eq:converse} if we multiply the right hand side by $1/|\partial_\circ\Lambda|$.
 
     For the second inequality we only give a proof outline.
     It is obtained in a similar fashion,
@@ -266,3 +282,97 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     graph,
     we make the extra factor $\tanh\beta$ appear.
 \end{proof}
+
+\begin{corollary}[Finite size criterion]
+    Consider the Ising model on $\Z^d$ at inverse temperature $\beta$.
+    For any finite $\Lambda\subset\Z^d$ containing $0\in\Z^d$,
+    we define
+    \[
+        \phi_\beta(\Lambda):=
+        (\tanh\beta)
+        \sum_{zz'\in\partial_e\Lambda}
+            \langle\sigma_0\sigma_z\rangle_{\Lambda,\beta}^\f.
+    \]
+    If $\phi_\beta(\Lambda)<1$ for some $\Lambda$, then
+    there exists a constant $c=c_{d,\beta}>0$
+    such that
+    \[
+        \langle\sigma_x\rangle_{\Delta,\beta}^+
+        \leq \tfrac1ce^{-c \operatorname{Distance}(x,\Delta^c)}
+    \]
+    for any $x\in\Z^d$ and any domain $\Delta\subset\Z^d$.
+\end{corollary}
+
+\begin{proof}
+    Fix $\Lambda$ with $\phi_\beta(\Lambda)<1$,
+    and fix $\Delta$.
+    For any $x\in\Z^d$, define
+    \[
+        a(x):=\left\lfloor
+        \frac{
+            \operatorname{Distance}(x,\Delta^c)
+        }{
+            \operatorname{Diameter}(\Lambda)+1
+        }
+    \right\rfloor.
+    \]
+    It suffices to prove that for any $x\in\Z^d$ and $n\in\Z_{\geq 0}$, we have
+    \[
+        a(x)\geq n
+        \qquad\implies\qquad
+        \langle\sigma_x\rangle_{\Delta,\beta}^+ \leq \phi_\beta(\Lambda)^n.
+    \]
+    The induction basis $n=0$ is obvious; we limit this proof to the induction step.
+
+    Using Simon's inequality, we get
+    \[
+        \langle\sigma_x\rangle_{\Delta,\beta}^+
+        =
+        \langle\sigma_x\sigma_\frakg\rangle_{\Delta^\frakg,\beta}
+        \leq 
+        (\tanh\beta)
+            \sum_{zz'\in\partial_e(\Lambda+x)}
+            \langle\sigma_x\sigma_z\rangle_{\Lambda+x,\beta}^\f
+            \langle\sigma_\frakg\sigma_{z'}\rangle_{\Delta^\frakg,\beta}.
+    \]
+    By induction, we may bound $\langle\sigma_\frakg\sigma_{z'}\rangle_{\Delta^\frakg,\beta}=\langle\sigma_{z'}\rangle_{\Delta,\beta}^+\leq \phi_\beta(\Lambda)^{a(x)-1}$,
+    so that the previous line is upper bounded by
+    \[
+        \langle\sigma_x\rangle_{\Delta,\beta}^+
+        \leq
+        \left(\textstyle
+        (\tanh\beta)
+            \sum_{zz'\in\partial_e(\Lambda+x)}
+            \langle\sigma_x\sigma_z\rangle_{\Lambda+x,\beta}^\f
+            \right)
+            \phi_\beta(\Lambda)^{a(x)-1}
+            =
+            \phi_\beta(\Lambda)^{a(x)}.
+    \]
+    This is the desired bound.
+\end{proof}
+
+\begin{remark}
+    At this point, we have proved that
+    \[
+        \inf_\Lambda \phi_\beta(\Lambda) < 1
+        \qquad
+        \implies
+        \qquad
+        \text{exponential decay of correlations},
+    \]
+    but not the converse implication.
+
+    It is easy to see that the converse implication is also true.
+    Indeed, the converse version of the Simon inequality yields
+    \[
+        \langle \sigma_0\rangle_{\Lambda,\beta}^+
+        \geq \frac{\tanh\beta}{|\partial_e\Lambda|} 
+        \sum_{zz'\in\partial_e\Lambda}
+            \langle\sigma_0\sigma_z\rangle_{\Lambda,\beta}^\f
+            =\frac{\phi_\beta(S)}{|\partial_e\Lambda|}.
+    \]
+    If the left hand side decays exponentially fast in the distance from $0$ to the boundary,
+    then one may clearly choose $\Lambda$ so large that 
+    $\langle \sigma_0\rangle_{\Lambda,\beta}^+\leq 1/|\partial_e\Lambda|$, in which case $\phi_\beta(\Lambda)<1$.
+\end{remark}

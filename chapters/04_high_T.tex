@@ -135,6 +135,9 @@ We can use this theorem to state our first important \emph{correlation inequalit
     The previous theorem yields a nonnegative number for $Z\langle\sigma_A\rangle$.
 \end{proof}
 
+One advantage of the high temperature expansion is that it yields a straightforward
+proof of exponential decay of the correlation functions at high temperature.
+
 \begin{theorem}[Exponential decay at high temperature]
     \label{thm:Exponential decay at high temperature}
     Consider the Ising model with $+$ boundary conditions 
@@ -148,6 +151,8 @@ We can use this theorem to state our first important \emph{correlation inequalit
         \leq \tfrac1ce^{-c \operatorname{Distance}(x,\Lambda^c)}
     \]
     for any $x\in\Z^d$ and any domain $\Lambda\subset\Z^d$.
+
+    In particular, in dimension $d=1$, there is exponential decay at all temperatures.
 \end{theorem}
 
 We would like to use the high-temperature expansion,
@@ -264,10 +269,10 @@ More precisely, for any $\eta\in\{0,1\}^E$, we have
     \bfM[\{\omega = \eta\}].
 \end{equation}
 The prefactor is upper bounded by $(\tanh\beta)^{-|Q|}$.
-Thus, writing $\Xi_Q^*$ for the pushforward map,
+Thus, writing $(\Xi_Q)_*$ for the pushforward map,
 we obtain
 \[
-    \Xi_Q^*\bfM\leq (\tanh\beta)^{-|Q|}
+    (\Xi_Q)_*\bfM\leq (\tanh\beta)^{-|Q|}
     \cdot
     \bfM.
 \]
