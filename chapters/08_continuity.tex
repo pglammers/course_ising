@@ -207,70 +207,28 @@ we now use the previous lemma to make a number of reductions.
         \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
             [\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
     \end{equation}
+    \item 
+    By inclusion of events, it suffices to show that
+    \begin{equation}
+        \lim_{N\to\infty}\lim_{\Lambda\uparrow\Z^d}
+        \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
+            [\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}]=0.
+    \end{equation}
+    In fact, the event $\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}$
+    is a \emph{local} event.
+    We shall show below that the measures $\P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset$
+    converge in the local convergence topology as $\Lambda\uparrow\Z^d$.
+    Thus, if we write $\P^{\emptyset,\emptyset}$ for its limit, it then suffices
+    to show that
+    \[
+        \lim_{N\to\infty}\P^{\emptyset,\emptyset}
+            [\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}]=0.
+    \]
+    Since $n$ is arbitrary, this is equivalent to showing
+    that $\widehat{\n+\m}$ does not percolate $\P^{\emptyset,\emptyset}$-almost surely.
 \end{itemize}
  
-
-
-
-This is roughly proved as follows.
-Imagine that we can somehow exchange the limit with the measure:
-we first take a limit in the measures (in the local convergence topology),
-then we evaluate the event.
-Then the appropriate ``limit event'' should of course be the event that
-$A$ intersects an infinite component of the percolation $\widehat{\n+\m}$.
-
-Formally, we would like to say that
-\begin{align}
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-    [\{A \xleftrightarrow{\widehat{\n+\m}}\frakg\}]
-    &
-    \leq
-    \lim_{\Delta\uparrow\Z^d}
-    \left(
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-    [\{A \xleftrightarrow{\widehat{\n+\m}}\partial\Delta\}]
-    \right) 
-    \\&
-    =
-    \lim_{\Delta\uparrow\Z^d}
-    \left(
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-    \right)
-    [\{A \xleftrightarrow{\widehat{\n+\m}}\partial\Delta\}]
-    \\&
-    =
-    \left(
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-    \right)
-    [\{A \xleftrightarrow{\widehat{\n+\m}}\infty\}]
-    \\&\leq
-    \left(
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-    \right)
-    [\{\text{$\widehat{\n+\m}$ percolates}\}]=0.
-\end{align}
-To justify these relations, we must verify two statements:
-\begin{itemize}
-    \item The limit $\P^{A,\emptyset}:=\left(
-        \lim_{\Lambda\uparrow\Z^d}
-        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset\right)
-        $ converges in the local convergence topology,
-    \item The currents $\widehat{\n+\m}$ do not percolate in this limit.
-\end{itemize}
-
-Both statements are nontrivial and require a proof.
-The first statement is straightforward, and follows
-from the convergence of the infinite-volume measures $\langle\blank\rangle^+_{\Z^d}$
-and $\langle\blank\rangle^\f_{\Z^d}$.
-For the second statement, we combine a simple version of the Burton--Keane argument
-with the infrared bound.
-
-\todo{Explain why we may work with $\P^{\emptyset,\emptyset}$}
+Thus, as explained above, it suffices to prove the following two steps.
 
 \begin{lemma}[Continuity, Step~2b]\label{lemma:continuity_step2b}
     Consider the Ising model on $\Z^d$ with $d\in\Z_{\geq 1}$
@@ -287,6 +245,13 @@ with the infrared bound.
     Then $\widehat{\n+\m}$ does not percolate in the limit $\P^{\emptyset,\emptyset}$ constructed
     in Step~2b.
 \end{lemma}
+
+The first statement is straightforward, and follows
+from the convergence of the infinite-volume measures $\langle\blank\rangle^+_{\Z^d}$
+and $\langle\blank\rangle^\f_{\Z^d}$.
+For the second statement, we combine a simple version of the Burton--Keane argument
+with the infrared bound.
+
 
 \begin{proof}[Proof of Continuity, Step~2b]
     \todo{Write the proof}
