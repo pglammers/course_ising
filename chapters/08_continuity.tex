@@ -1,6 +1,6 @@
 \section{Continuity of the magnetisation in dimension $d\geq 3$}
 
-The objective of this section is to prove the following deep theorems.
+The objective of this section is to prove the following deep theorem.
 
 \begin{theorem}[Continuity in dimension $d\geq 3$]
     \label{thm:continuity}
@@ -63,11 +63,13 @@ Globally, the proof consists of the following two lemmas.
     \]
 \end{lemma}
 
-\begin{proof}[Proof that the two steps imply that $m(\beta_c)=0$]
-    Suppose that we have proved these two lemmas.
-    The infrared bound then tells us that at $\beta_c$ the two point function tends
+\begin{proof}[Proof that the two steps imply Theorem~\ref{thm:continuity}]
+    Assume the two lemmas.
+    The infrared bound then tells us that at $\beta_c$ the two-point function tends
     to zero with the distance (for both free and wired boundary conditions, due to Step~2).
-    Step~1 then tells us that the magnetisation vanishes.    
+    Step~1 then tells us that the magnetisation vanishes.
+    All odd correlation functions then vanish for $\langle\blank\rangle^+$ by Theorem~\ref{thm:vanishing_magnetisation}.
+    The even correlation functions match those of $\langle\blank\rangle^\f$ by the last part of Step~2.
 \end{proof}
 
 Step~2 is the hard step; we start with a proof of Step~1.
@@ -114,7 +116,7 @@ with $|A|$ even.
 We want to prove that
 \begin{equation}
     \label{eq:continuity_target_limit}
-    \lim_{\Lambda\uparrow\infty}
+    \lim_{\Lambda\uparrow\Z^d}
     \left(
     \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}
     -\langle\sigma_A\rangle_{\Lambda^\f,\beta}
@@ -122,18 +124,11 @@ We want to prove that
     =
     0.
 \end{equation}
-The switching lemma is not yet adapted to this setup,
-since (until now) we only compared correlation functions on the same graph.
-To state our new switching lemma, we introduce some new notations:
-for any finite graph $G=(V,E)$ and any source set $A\subset V$,
-we define the probability measure on random currents
+In order to state a useful upper bound,
+let us first introduce the probability measure
 \[
-    \P_{G}^A:=\frac1{Z_G \langle\sigma_A\rangle_G} \M_G[\{\partial\n=A\}\cap(\blank)].
+    \P_{G}^A:=\frac{2^{|V|}}{Z_G \langle\sigma_A\rangle_G} \M_G[\{\partial\n=A\}\cap(\blank)].
 \]
-If $G':=(V',E')$ is another finite graph,
-then we view a current $\n\in(\Z_{\geq 0})^E$
-also as a current on $E\cup E'$, by setting $\n_{xy}:=0$ for $xy\in E'\setminus E$,
-and vice versa.
 
 \begin{lemma}[Continuity, Step~2a]
     Fix $\Lambda\subset\Z^d$ finite, fix $\beta\in[0,\infty)$,
@@ -153,28 +148,69 @@ and vice versa.
     \end{equation}
     The event on the right means that in order to pair up the vertices in $A$
     with edges in $\widehat{\n+\m}$,
-    one must necessarily use the edges incident to the ghost.
+    it is necessary to include a path through the ghost.
 \end{lemma}
 
 \begin{proof}
-    
+    We have
+    \begin{multline}
+        Z_{\Lambda^\frakg}Z_{\Lambda^\f}\langle\sigma_A\rangle_{\Lambda^\f,\beta}=
+        2^{2|\Lambda|+1}\M_{\Lambda^\frakg}\times\M_{\Lambda^\f}[\{\partial\n=\emptyset,\,\partial\m= A\}]
+        \\
+        =
+        2^{2|\Lambda|+1}\M_{\Lambda^\frakg}\times\M_{\Lambda^\f}[\{\partial\n=A,\,\partial\m= \emptyset\}\cap\{\widehat{\n+\m}\cap E(\Lambda^\f)\in\calE_A\}],
+    \end{multline}
+    where we use switching for the last equality.
+    In other words,
+    \[
+        \langle\sigma_A\rangle_{\Lambda^\f,\beta}=
+        \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}\cdot
+        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+        [\{(\widehat{\n+\m}\cap E(\Lambda^\f))\in\calE_A\}].
+    \]
+    This implies the desired identity.
 \end{proof}
 
-By the previous lemma,
-it suffices to prove that
-\[
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-        [\{(\widehat{\n+\m}\cap E(\Lambda^\f))\not\in\calE_A\}]=0.
-\]
-But if the ghost is required to pair up the vertices in $A$,
-then at least one of the vertices in $A$ must be connected to the ghost.
-Therefore it suffices to prove that
-\[
-    \lim_{\Lambda\uparrow\Z^d}
-    \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
-        [\{A \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
-\]
+In order to prove Step~2 (or equivalently, Equation~\eqref{eq:continuity_target_limit}),
+we now use the previous lemma to make a number of reductions.
+\begin{itemize}
+    \item By the previous lemma,
+    proving Equation~\eqref{eq:continuity_target_limit} is equivalent to proving that 
+    \[
+        \lim_{\Lambda\uparrow\Z^d}
+        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+            [\{(\widehat{\n+\m}\cap E(\Lambda^\f))\not\in\calE_A\}]=0.
+    \]
+    \item Let $B_n=[-n,n]^d\cap \Z^d$ denote an extremely large box
+    containing $A$.
+    If the ghost is required to pair up the vertices in $A$,
+    then $B_n$ must be connected to the ghost.
+    Therefore it suffices to prove that
+    \begin{equation}
+        \label{eq:targetinter}
+        \lim_{\Lambda\uparrow\Z^d}
+        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+            [\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
+    \end{equation}
+    \item The percolation measure $\P_{\Lambda^\frakg}^A$ may be viewed
+    as a normalised version of \[\bfM_{\Lambda^\frakg}[\{\partial\omega=A\}\cap(\blank)]\times \P_p,\] see Equation~\eqref{eq:equivalence}.
+    Fix $Q\subset E(B_n)$ such that $\partial Q=A$.
+    Equation~\eqref{eq:XiQ} relates the measures $\bfM_{\Lambda^\frakg}^A$
+    and $\bfM_{\Lambda^\frakg}^\emptyset$:
+    the map $\Xi_Q$ acts as a pushforward map
+    between the measures, up to a Radon--Nikodym derivative which is uniformly
+    lower- and upper bounded.
+    Since $\Xi_Q$ only modifies the edges in $E(B_n)$, it leaves the event \[\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}\] invariant.
+    This implies that Equation~\eqref{eq:targetinter} is equivalent to 
+    \begin{equation}
+        \lim_{\Lambda\uparrow\Z^d}
+        \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
+            [\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
+    \end{equation}
+\end{itemize}
+ 
+
+
 
 This is roughly proved as follows.
 Imagine that we can somehow exchange the limit with the measure:
@@ -308,17 +344,4 @@ with the infrared bound.
         \frac{\delta^2}{4N^2}>0.
     \]
     This contradicts the infrared bound, as desired.
-\end{proof}
-
-
-\begin{proof}[Proof that $\langle\blank\rangle_{\Z^d,\beta}^+=\langle\blank\rangle_{\Z^d,\beta}^\f$ for $\beta\leq\beta_c$]
-    We shall prove that
-    \[
-        \langle\sigma_A\rangle^+_{\Z^d,\beta}=\langle\sigma_A\rangle^\f_{\Z^d,\beta}
-    \]
-    for any finite $A\subset\Z^d$.
-    If $|A|$ is even then this also follows from Step~2.
-    If $|A|$ is odd then we must simply show that $\langle\sigma_A\rangle^+_{\Z^d,\beta}=0$.
-    For $|A|=1$ this is just the statement that $m(\beta)=0$.
-    For $|A|>1$ we can deduce this from the pairing bound (Lemma~\ref{???}).
 \end{proof}

@@ -1,10 +1,15 @@
 \section{The random-currents expansion}
 
-Previous sections explained the existence of a phase transition in dimension
-$d\geq 2$, by demonstrating that the qualitative behaviour of the model 
-is different at low and high temperature.
-This section introduces a new representation of the Ising model
-which is adapted to studying the Ising model at and around the critical temperature.
+Next, we introduce random currents.
+Random currents are a refinement of the high-temperature expansion.
+Let us make precise what we mean, before turning to the details.
+A significant drawback of Lemma~\ref{lemma:switching_high_t}
+is the fact that we can switch subsets of the \emph{symmetric difference}
+$\omega\Delta\omega'$, but not of the \emph{union} $\omega\cup\omega'$.
+Random currents carry slightly more information than high-temperature expansion,
+which enables this ``upgrade''.
+Switching over the union of the two percolations is important for several
+new correlation inequalities, and eventually the proof of continuity of the phase transition.
 
 \begin{definition}[Currents]
     Let $G=(V,E)$ denote a graph.
@@ -55,13 +60,14 @@ We may thus interpret the relation between $e^{-\beta|E|}\bfM$ and $e^{-\beta|E|
         \hat\n = \omega \cup\{xy\in E: \n_{xy}\in\{2,4,8,\ldots\}\}.
     \]
     In particular, the following distributions are the same:
-    \[
+    \begin{equation}
+        \label{eq:equivalence}
         \text{$\hat\n$ in the measure $\M$}
         \qquad
         \text{and}
         \qquad
         \text{$\omega\cup\eta$ in the measure $\bfM\times\P_{p}$,}
-    \]
+    \end{equation}
     where $\eta\sim\P_p$ is an independent bond percolation on $G$
     with parameter
     \[
@@ -103,17 +109,10 @@ translates to random currents as follows.
     \]
 \end{theorem}
 
-What is the benefit of random currents?
-It is a finer representation than the high-temperature expansion,
-but the high-temperature expansion already encoded our correlation functions.
-The key benefit of this representation is the \emph{switching lemma}.
+We will now explain how random currents allow us to ``upgrade'' from switching
+over subsets of $\omega\Delta\omega'$ to subsets of $\hat\n\cup\hat\m$.
 
-\begin{remark}[Switching example]
-    The above setup opens the door to a powerfull technique called \emph{switching}.
-    Two elements are key to switching:
-    Poisson randomness, and parity constraints
-    (both of which are present in the currents representation of correlation functions).
-    Let us quickly describe how switching may be applied to a simple example.
+\begin{exercise}[Poisson switching]
     Suppose that we record cars traversing a bridge on a road.
     Blue cars pass according to a Poisson point process with rate $1$ (per second).
     Let $X_B$ denote the number of blue cars that pass after recording $\beta$ seconds.
@@ -125,120 +124,80 @@ The key benefit of this representation is the \emph{switching lemma}.
     Suppose that there are also yellow cars,
     which arrive according to an independent Poisson process with the same rate.
     Let $X_Y$ denote the number of yellow cars that passed.
-    Suppose that, after waiting $\beta$ seconds, $X_B+X_Y=N>0$ cars passed.
-    What is the \emph{conditional} probability that $X_B$ is even?
 
-    Well, we must have $\P[\{\text{$X_B$ is even}\}|\{X_B+X_Y=N\}]=1/2$.
-    Indeed, by the properties Poisson point processes,
-    the $n$-th car (for $1\leq n\leq N$) is blue or yellow with equal probability, 
-    independently of the other cars.
-    Thus, we may condition on the colours of the first $N-1$ cars,
-    then flip a fair coin to decide the colour of the last car
-    and thus the parity of $X_B$.
-    Equivalently, we observe that \emph{repainting} or \emph{switching}
-    the colour of the last car leaves the conditional distribution invariant.
+    By considering the colour of the \emph{last} car that passed the bridge, prove that:
+    \begin{enumerate}
+        \item $\P[\{\text{$X_B$ is even}\}|\{X_B+X_Y= N \}]=\frac12$ whenever $N>0$,
+        \item $\P[\{\text{$X_B$ is even}\}|\{X_B+X_Y= N \}]=0$ whenever $N=0$,
+        \item $\P[\{\text{$X_B$ is even}\}]-\P[\{\text{$X_B$ is odd}\}]=\P[\{\text{$X_B+X_Y=0$}\}]\geq 0$.
+    \end{enumerate}
+\end{exercise}
 
-    But we cannot always do the switch.
-    If $N=X_B+X_Y=0$
-    then there is no car to repaint, and also
-    $X_B=0$.
-    Thus, we conclude that
-    \[
-        \P[\{\text{$X_B$ is even}\}]-\P[\{\text{$X_B$ is odd}\}]=\P[\{X_B+X_Y=0\}]\geq 0.
-    \]
-    
-    Notice that we originally asked a question about blue cars,
-    but introducing yellow cars allowed us to answer it.
-    This is the essence of the switching lemma.
-\end{remark}
-
-\begin{lemma}[Explicit switching lemma]
+\begin{lemma}[Switching lemma]
     \label{lem:explicit_switching_lemma}
-    Let $G$ denote a finite graph and $\beta\in[0,\infty)$.
-    Consider the measurable pair $(\n,\m)\sim \M^2=\M_{G,\beta}^2$.
-    Fix $\s\in(\Z_{\geq 0})^E$ and $\eta\subset\hat\s$.
-    Then for any $A\subset V$,
-    we have
-    \[
-        \M^2[\{\n+\m=\s\}\cap\{\partial\n=A\}]
+    Let $G$ and $G'$ denote two finite graphs and fix $\beta\in[0,\infty)$.
+    If $A\subset V$, $\s\in(\Z_{\geq 0})^{E\cup E'}$, and $Q\subset \hat\s\cap E\cap E'$,
+    then 
+    \begin{equation}
+        \M_{G,\beta}\times\M_{G',\beta}
+        [\{\n+\m=\s\}\cap \{\partial\n=A\}]
         =
-        \M^2[\{\n+\m=\s\}\cap\{\partial\n=A\Delta\partial\eta\}].
-    \]
+        \M_{G,\beta}\times\M_{G',\beta}
+        [\{\n+\m=\s\}\cap \{\partial\n= A\Delta\partial Q\}].
+    \end{equation}
     Notice also that if $\n+\m=\s$, then $\partial\s=(\partial\n)\Delta(\partial\m)$.
 \end{lemma}
 
-Slight variations of the proof will be used later.
-
 \begin{proof}
-    Introduce the probability measure $\P:\propto\M^2[\{\n+\m=\s\}\cap(\blank)]$.
-    Our objective is to prove that
+    By induction, we may simply suppose that $|Q|=1$, say $Q=\{xy\}$.
+    Introduce the probability measure
     \[
-        \P[\{\partial\n=A\}]
-        =
-        \P[\{\partial\n=A\Delta\partial\eta\}].
+        \P:\propto  \M_{G,\beta}\times\M_{G',\beta}
+        [\{\n+\m=\s,\,\n|_{Q^c}=\a,\,\m|_{Q^c}=\b\}\cap(\blank)];
     \]
-
-    In the probability measure $\P$, the family $((\n_{xy},\m_{xy}))_{xy\in E}$
-    is independent over the edges $xy\in E$,
-    and each pair $(\n_{xy},\m_{xy})$ follows the distrubution of two independent 
-    distributions $\operatorname{Poisson}(\beta)$ conditioned to sum to $\s_{xy}$.
-    By analogy with the example of blue and yellow cars,
-    we may interpret $\P$ as follows:
-    \begin{itemize}
-        \item $\calM=\calM_\s$ is the fixed multigraph $\{(xy,k)\in E\times\Z_{\geq 0}:k<\s_{xy}\}$,
-        \item $\calA$ is a uniformly random subset of $\calM$,
-        \item $\calB$ is the complement of $\calA$ in $\calM$,
-        \item $\n_{xy}=\n_{xy}(\calA)$ is the number of multi-edges in $\calA$ between $x$ and $y$,
-        \item $\m_{xy}=\m_{xy}(\calB)$ is the number of multi-edges in $\calB$ between $x$ and $y$.
-    \end{itemize}
-
-    Define $\tilde\eta:=\eta\times\{0\}\subset\calM$.
-    Since $\calA$ is a uniformly random subset of $\calM$ in the measure $\P$,
-    the set $\calA\Delta\tilde\eta$ is also uniformly random in $\calM$.
-    Therefore we have
+    for the claimed identity it suffices to derive, for fixed $\a$ and $\b$, the stronger equality
     \[
-        \P[\{\partial\n=A\}]=
-        \P[\{\partial\n(\calA)=A\}]
-        =
-        \P[\{\partial\n(\calA\Delta\tilde\eta)=A\}]
-        =
-        \P[\{\partial\n=A\Delta\partial\eta\}].
+        \P[\{\partial\n=A\}]=\P[\{\partial\n=A\Delta\partial Q\}].
     \]
-    This is the desired equality.
+    But the only randomness that is left in the measure $\P$,
+    are the values of $\n_{xy}$ and $\m_{xy}$,
+    which are independent Poisson random variables conditioned to sum to $\s_{xy}>0$.
+    By the previous exercise, the parity of $\n_{xy}$ has the distribution of a fair coin flip,
+    which proves the previous identity.
 \end{proof}
 
 
-\begin{lemma}[Switching lemma]
-    \label{lem:switching_lemma}
-    Let $G$ denote a finite graph and $\beta\in[0,\infty)$.
-    Consider the measurable pair $(\n,\m)\sim \M^2=\M_{G,\beta}^2$.
-    Then for any $A,B,S\subset V$ and for any bounded function $F:(\Z_{\geq 0})^E\to\C$,
-    we have
-    \begin{align}
-        &\M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A}\true{\partial\m=B}]
-        \\={}&
-        \M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A\Delta S}\true{\partial\m=B\Delta S}].
-    \end{align}
-\end{lemma}
+% \begin{lemma}[Switching lemma]
+%     \label{lem:switching_lemma}
+%     Let $G$ denote a finite graph and $\beta\in[0,\infty)$.
+%     Consider the measurable pair $(\n,\m)\sim \M^2=\M_{G,\beta}^2$.
+%     Then for any $A,B,S\subset V$ and for any bounded function $F:(\Z_{\geq 0})^E\to\C$,
+%     we have
+%     \begin{align}
+%         &\M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A}\true{\partial\m=B}]
+%         \\={}&
+%         \M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A\Delta S}\true{\partial\m=B\Delta S}].
+%     \end{align}
+% \end{lemma}
 
-\begin{proof}
-    By linearity of integration, it suffices to consider the case that $F(\n+\m):=\true{\n+\m=\s}$
-    for some fixed current $\s$ with $\hat\s\in\calE_S$.
-    By the previous exercise, we may find some $\eta\subset\hat\s$
-    such that $\partial\eta=S$.
-    The desired equality
-    \begin{align}
-    &
-    \M^2[\true{\n+\m =\s}\true{\partial\n=A}\true{\partial\m=B}]
-    \\={}&
-    \M^2[\true{\n+\m =\s}\true{\partial\n=A\Delta S}\true{\partial\m=B\Delta S}]
-    \end{align}
-    then follows by the explicit switching lemma.
-\end{proof}
+% \begin{proof}
+%     By linearity of integration, it suffices to consider the case that $F(\n+\m):=\true{\n+\m=\s}$
+%     for some fixed current $\s$ with $\hat\s\in\calE_S$.
+%     By the previous exercise, we may find some $\eta\subset\hat\s$
+%     such that $\partial\eta=S$.
+%     The desired equality
+%     \begin{align}
+%     &
+%     \M^2[\true{\n+\m =\s}\true{\partial\n=A}\true{\partial\m=B}]
+%     \\={}&
+%     \M^2[\true{\n+\m =\s}\true{\partial\n=A\Delta S}\true{\partial\m=B\Delta S}]
+%     \end{align}
+%     then follows by the explicit switching lemma.
+% \end{proof}
 
-In practice, we do not care so much about the function $F$, and simply set it to $F\equiv 1$.
+% In practice, we do not care so much about the function $F$, and simply set it to $F\equiv 1$.
 
-An important corollary of the switching lemma is the \emph{second Griffits inequality}.
+An important corollary of the switching lemma is the \emph{second Griffiths inequality}.
 
 \begin{lemma}[Second Griffiths inequality]
     Consider the Ising model on a finite graph $G$ at inverse temperature $\beta$.
@@ -264,17 +223,18 @@ This is typical for the switching lemma.
         &\qquad\leq
         \M^2[\{\partial\n=A\Delta B\}\cap\{\partial\m=\emptyset\}].
     \end{align}
-    The switch is just the switching lemma with $F\equiv 1$ and $S=B$.
     For the first equality, we simply observe that $\{\partial\m=B\}\subset \{\widehat{\n+\m} \in \calE_B\}$
-    (see the exercise above).
+    (see Exercice~\ref{exo:basic_perco}).
+    The switch is the switching lemma, where we switch over a subset of $\widehat{\n+\m}$ 
+    having $B$ as source set.
     The inequality is inclusion of events.
 
     By the random currents expansion of correlation functions (Theorem~\ref{thm:current_representation_of_correlation_functions}),
     the left- and rightmost expressions are given by
     \[
-        Z^2\langle\sigma_A\rangle\langle\sigma_B\rangle
+        Z^2\langle\sigma_A\rangle\langle\sigma_B\rangle/4^{|V|}
         \leq
-        Z^2\langle\sigma_A\sigma_B\rangle\langle\sigma_\emptyset\rangle.
+        Z^2\langle\sigma_A\sigma_B\rangle\langle\sigma_\emptyset\rangle/4^{|V|}.
     \]
     Since $\langle\sigma_\emptyset\rangle=1$, this is the desired inequality.
 \end{proof}
@@ -289,28 +249,28 @@ This is typical for the switching lemma.
     What does the percolation event $\calE_S$ look like in this case?
 \end{exercise}
 
-\begin{definition}[Probability measures on currents]
-    Consider the Ising model on a finite graph $G$
-    at inverse temperature $\beta$.
-    For any $A\subset V$,
-    define the probability measure $\P^A_{G,\beta}$ by
-    \[
-        \P^A:=\P^A_{G,\beta}:=\frac{2^{|V|}}{Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}}\M_{G,\beta}[\true{\partial\n=A}(\blank)].
-    \]
-    For any $A_1,\ldots,A_n$,
-    write $\P^{A_1,\ldots,A_n}:=\P^{A_1}\times\cdots\times\P^{A_n}$.
-\end{definition}
+% \begin{definition}[Probability measures on currents]
+%     Consider the Ising model on a finite graph $G$
+%     at inverse temperature $\beta$.
+%     For any $A\subset V$,
+%     define the probability measure $\P^A_{G,\beta}$ by
+%     \[
+%         \P^A:=\P^A_{G,\beta}:=\frac{2^{|V|}}{Z_{G,\beta}\langle\sigma_A\rangle_{G,\beta}}\M_{G,\beta}[\true{\partial\n=A}(\blank)].
+%     \]
+%     For any $A_1,\ldots,A_n$,
+%     write $\P^{A_1,\ldots,A_n}:=\P^{A_1}\times\cdots\times\P^{A_n}$.
+% \end{definition}
 
 \begin{exercise}[Correlation functions in terms of sourceless currents]
     Consider the Ising model on a finite graph $G$
     at inverse temperature $\beta$.
     Prove that for any $A\subset V$,
     \[
-        \langle\sigma_A\rangle^2
+        Z^2\langle\sigma_A\rangle^2/4^{|V|}
         =
-        \P^{\emptyset,\emptyset}[\{\widehat{\n+\m}\in\calE_A\}].
+        \M^2[\{\partial\n=\partial\m=\emptyset\}\cap\{\widehat{\n+\m}\in\calE_A\}].
     \]
 
     Observe that we can now express all correlation functions in terms of a single
-    fixed probability measure on sourceless random currents.
+    fixed probability measure $4^{|V|}\M^2[\{\partial\n=\partial\m=\emptyset\}\cap(\blank)]/Z^2$ on sourceless random currents.
 \end{exercise}

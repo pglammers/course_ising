@@ -23,28 +23,24 @@ In practice, we often care about the special case that $G=G'$, or the slightly m
 case that $G\subset G'$.
 
 \begin{lemma}[Switching lemma for the high-temperature expansion]
-    Let $G=(V,E)$ and $G'=(V',E')$ denote two finite graphs and fix $\beta\in[0,\infty)$.
-    For $A\subset V$ and $A'\subset V'$,
-    write $S_{A,A'}:=\{\partial\omega=A,\,\partial\omega'=A'\}\subset \{0,1\}^E\times\{0,1\}^{E'}$.
-
-    Fix $\eta\subset E\cup E'$
-    and $Q\subset \eta\cap E\cap E'$.
-    Then for any $A\subset V$ and $A'\subset V'$,
-    we get
+    \label{lemma:switching_high_t}
+    Let $G$ and $G'$ denote two finite graphs and fix $\beta\in[0,\infty)$.
+    If $A\subset V$, $\eta\subset E\cup E'$, and $Q\subset \eta\cap E\cap E'$,
+    then 
     \begin{equation}
         \bfM_{G,\beta}\times\bfM_{G',\beta}
-        [\{\omega\Delta\omega'=\eta\}\cap S_{A,A'}]
+        [\{\omega\Delta\omega'=\eta\}\cap \{\partial\omega=A\}]
         =
         \bfM_{G,\beta}\times\bfM_{G',\beta}
-        [\{\omega\Delta\omega'=\eta\}\cap S_{A\Delta\partial Q,A'\Delta\partial Q}].
+        [\{\omega\Delta\omega'=\eta\}\cap \{\partial\omega= A\Delta\partial Q\}].
     \end{equation}
 \end{lemma}
 
 \begin{proof}
     First, assume simply that $G=G'$.
-    Write $\Xi_Q^2$ for the map
+    Write $(\Xi_Q)^2$ for the map
     \[
-        \Xi_Q^2:
+        (\Xi_Q)^2:
         (\{0,1\}^E)^2
         \to
         (\{0,1\}^E)^2
@@ -52,19 +48,19 @@ case that $G\subset G'$.
     \]
     We make two important observations:
     \begin{itemize}
-        \item $\Xi_Q^2$ restricts to a involution on $\{\omega\Delta\omega'=\eta\}$,
-        \item On $\{\omega\Delta\omega'=\eta\}$, the map $\Xi_Q^2$ does not modify the total number $|\omega|+|\omega'|$
+        \item $(\Xi_Q)^2$ restricts to a involution on $\{\omega\Delta\omega'=\eta\}$,
+        \item On $\{\omega\Delta\omega'=\eta\}$, the map $(\Xi_Q)^2$ does not modify the number $|\omega|+|\omega'|$
         of edges.
     \end{itemize} 
     Since the weight of each configuration $(\omega,\omega')$ is a function of $|\omega|+|\omega'|$,
     the two observations imply that
     the measure \[\bfM_{G,\beta}\times\bfM_{G',\beta}
         [\{\omega\Delta\omega'=\eta\}\cap (\blank)]\] is preserved by the involution
-    $\Xi_Q^2$.
-    The result follows since $\Xi_Q^2$ is is also a bijection from $S_{A,A'}$
-    to $S_{A\Delta\partial Q,A'\Delta\partial Q}$.
+    $(\Xi_Q)^2$.
+    The result follows since $(\Xi_Q)^2$ is is also a bijection from $\{\partial\omega= A\}$
+    to $\{\partial\omega= A\Delta \partial Q\}$.
 
-    If $G\neq G'$ then we simply view $\Xi_Q^2$
+    If $G\neq G'$ then we simply view $(\Xi_Q)^2$
     as an involution on $\{0,1\}^E\times\{0,1\}^{E'}$,
     and the rest of the proof works in the same way.
 \end{proof}
@@ -84,6 +80,7 @@ it is useful to have some simple terminology for graphs and percolations.
 \end{definition}
 
 \begin{exercise}
+    \label{exo:basic_perco}
     Let $G$ denote a graph and 
     $x,y\in V$  distinct vertices. Prove that:
     \begin{itemize}
@@ -100,6 +97,7 @@ This bound suggests that multi-correlation functions may be viewed
 as interacting paths which pair up the sources in our source set.
 
 \begin{theorem}[Pairing bound]
+    \label{thm:pairing}
     Let $G=(V,E)$ denote a finite graph and $\beta\in[0,\infty)$.
     For any $x\in A\subset V$ we have
     \begin{equation}
