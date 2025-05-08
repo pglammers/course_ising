@@ -28,6 +28,7 @@ Unfortunately, its proof is beyond the scope of these lecture notes.
     In particular, if $d\geq 3$,
     then
     \begin{equation}
+        \label{eq:infrared_simple_decay}
         \lim_{\|y-x\|_2\to\infty}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f=0.
     \end{equation}    
 \end{theorem}
@@ -246,67 +247,93 @@ Thus, as explained above, it suffices to prove the following two steps.
     in Step~2b.
 \end{lemma}
 
-The first statement is straightforward, and follows
+Step~2b is straightforward, and follows
 from the convergence of the infinite-volume measures $\langle\blank\rangle^+_{\Z^d}$
 and $\langle\blank\rangle^\f_{\Z^d}$.
-For the second statement, we combine a simple version of the Burton--Keane argument
+For Step~2c we combine a simple version of the Burton--Keane argument
+(not using ergodicity)
 with the infrared bound.
 
+\begin{exercise}[Proof of Continuity, Step~2b]
+    We want to prove convergence
+    of $\P_{\Lambda^\frakg}^\emptyset$ and $\P_{\Lambda^\f}^\emptyset$;
+    the proof of convergence is the same for the two families,
+    and we focus on the second.
+    \begin{itemize}
+        \item Argue that the sprinkling relation implies that it suffices to prove that the probability measures
+        $\bfP_{\Lambda^\f}^\emptyset:\propto\bfM_{\Lambda^\f}[\{\partial\n=\emptyset\}\cap(\blank)]$
+        converges in the local convergence topology.
+        \item Prove that for a fixed edge $xy$,
+        we have 
+        \[
+            \bfP_{\Lambda^\f}^\emptyset[\{\omega_{xy}=a\}]\propto 
+            \langle
+            (\sigma_x\sigma_y\tanh\beta)^a e^{-\beta\sigma_x\sigma_y}
+            \rangle_{\Lambda^\f,\beta}
+        \]
+        as $a$ ranges over $\{0,1\}$.
+        Conclude that this value converges as $\Lambda\uparrow\Z^d$.
+        \item Let $Q\subset\E(\Z^d)$ finite.
+        Find a local observable $X_\zeta$ for each $\zeta\in\{0,1\}^Q$ such that
+        \[
+            \bfP_{\Lambda^\f}[\{\omega|_Q=\zeta\}]\propto \langle X_Q\rangle_{\Lambda^\f}.
+        \]
+        Argue that the probabilities on the left converge as $\Lambda\uparrow\Z^d$.
+    \end{itemize}
+\end{exercise}
 
-\begin{proof}[Proof of Continuity, Step~2b]
-    \todo{Write the proof}
-\end{proof}
+
+\begin{exercise}[Burton--Keane argument without ergodicity]
+    The measure $\P^{\emptyset,\emptyset}$ is insertion tolerant (due to sprinkling)
+    and shift-invariant.
+    Let $N_\infty$ denote the number of infinite clusters of $\hat\n\cup\hat\m$.
+    Prove that $\P^{\emptyset,\emptyset}[\{N_\infty>2\}]=0$
+    by appealing to trifurcation boxes.
+    Why can we not rule out that $\P^{\emptyset,\emptyset}[\{N_\infty=2\}]=0$
+    at this stage?
+\end{exercise}
+
+
 
 \begin{proof}[Proof of Continuity, Step~2c]
-    Let $N_\infty$ denote the random number of infinite connected components of $\widehat{\n+\m}$.
-    By a Burton--Keane argument using shift-invariance and insertion tolerance,
-    we have $\P^{\emptyset,\emptyset}[\{N_\infty=\infty\}]=0$.
-    Fix $N\in\Z_{\geq 1}$; our objective is to prove that
+    We want to prove that $p:=\P^{\emptyset,\emptyset}[\{0\xleftrightarrow{\widehat{\n+\m}}\infty\}]=0$.
+
+    Define the random set $C_\infty:=\{x:x\xleftrightarrow{\widehat{\n+\m}}\infty\}$.
+    Recall that $B_m:=[-m,m]^d\cap \Z^d$.
+    Shift-invariance implies that
     \[
-        \P^{\emptyset,\emptyset}[\{N_\infty= N\}]=:p=0.
+        \E^{\emptyset,\emptyset}[|C_\infty\cap B_m|^2]
+        \geq
+        \E^{\emptyset,\emptyset}[|C_\infty\cap B_m|]^2
+        =
+        p^2|B_m|^2.
+    \]
+    Since $N_\infty\leq 2$ almost surely,
+    we have
+    \[
+        \E^{\emptyset,\emptyset}[|\{(x,y)\in B_m\times B_m:x\xleftrightarrow{\widehat{\n+\m}}y\}|]
+        \geq
+        \frac12 \E^{\emptyset,\emptyset}[|C_\infty\cap B_m|^2]
+        \geq
+        \frac12 p^2 |B_m|^2.
     \]
 
-    Suppose that $p>0$ in order to derive a contradiction.
-    The idea is to use shift-invariance and the infra-red bound.
-    Let
-    \[
-        \delta:=\P^{\emptyset,\emptyset}[\{0\xleftrightarrow{\widehat{\n+\m}}\infty\}|\{N_\infty= N\}]
-    \]
-    denote the (conditional) density of the infinite clusters.
-    Let $\Lambda_n:=\{-n,\dots,n\}^d\subset\Z^d$.
-    Then
-    \[
-        \P^{\emptyset,\emptyset}\left[\left\{|\{x\in\Lambda_n:x\leftrightarrow\infty\}|>\tfrac{\delta}2|\Lambda_n|\right\}\middle|\{N_\infty= N\}\right]
-        \geq
-        \frac\delta2.
-    \]
-    But if $|\{x\in\Lambda_n:x\leftrightarrow\infty\}|>\tfrac{\delta}2|\Lambda_n|$
-    and there are $N$ infinite clusters,
-    then $\Lambda_n$ contains at least $\tfrac{\delta}{2N}|\Lambda_n|$
-    vertices which are all connected to one another.
-    In particular,
-    \[
-        \E^{\emptyset,\emptyset}\left[|\{(x,y)\in\Lambda_n\times\Lambda_n:x\leftrightarrow y\}|\right]
-        \geq
-        p
-        \frac{\delta^2}{4N^2}|\Lambda_n|^2.
-    \]
-
-    But clearly
+    By the switching lemma,
     \[
         \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
         \geq
         \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^+
         \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
         \geq
-        \P^{\emptyset,\emptyset}[\{x\xleftrightarrow{\widehat{\n+\m}}y\}],
+        \P^{\emptyset,\emptyset}[\{x\xleftrightarrow{\widehat{\n+\m}}y\}].
     \]
-    and therefore the previous bound implies that
+    Thus, the inequality above yields
     \[
-        \liminf_{n\to\infty}\frac1{|\Lambda_n|^2}\sum_{x,y\in\Lambda_n}
-        \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
-        \geq p
-        \frac{\delta^2}{4N^2}>0.
+        \sum_{x,y\in B_m}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
+        \geq \frac12 p^2 |B_m|^2.
     \]
-    This contradicts the infrared bound, as desired.
+    By 
+    the infrared bound (Equation~\eqref{eq:infrared_simple_decay}),
+    the left side is of order $o(|B_m|^2)$
+    as $m\to\infty$.
 \end{proof}
