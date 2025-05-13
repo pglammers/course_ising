@@ -1,0 +1,166 @@
+\section{Coupling from the past}
+
+Let us now set ourselves a practical objective:
+sampling a configuration of the Ising model using a computer.
+The general assumption is the following:
+our computer has access to a source of i.i.d.\ randomness,
+but it cannot immediately sample from complicated distributions.
+The difficulty therefore lies in transforming the i.i.d.\ randomness
+into a sample from the Ising model.
+
+This is typically done as follows: one uses the i.i.d.\ randomness
+to construct a Markov chain whose invariant distribution is the Ising model.
+A simple way to do this is the Metropolis--Hastings algorithm,
+which provides a generic way to construct such a Markov chain.
+Two problems arise when it is implemented in the simplest possible way:
+\begin{itemize}
+    \item The Markov chain \emph{approximates} the invariant distribution; there is no step at which the 
+    distribution of the Markov chain is exactly equal to its invariant distribution
+    and therefore we cannot use this method to take a perfect sample,
+    \item It may be difficult to know the \emph{mixing time}, that is,
+    the number of steps required to approximate the invariant distribution
+    up to a probability of some $\epsilon\in(0,1)$.
+\end{itemize}
+It turns out that there is a way to circumvent these problems,
+called \emph{coupling from the past}.
+This method does not only allow us to take perfect samples using a computer:
+it also has a number of interesting theoretical implications
+(such as uniqueness of the Gibbs measure, mixing properties, and ergodicity).
+There is also one drawback: this method is memory-intensive:
+to practically run it, we require a computer with a large amount of memory.
+
+\subsection{Coupling from the past on finite graphs}
+
+Consider first the Ising model on a finite graph $G$ at inverse temperature $\beta$.
+Fix $\sigma\in\Omega$ and erase the value $\sigma_x$ and at a single vertex $x\in V$.
+The conditional distribution of $\sigma_x$ is then given by
+\[
+    \P[\{\sigma_x=\pm\}]\propto e^{\pm\beta \sum_{y\sim x}\sigma_y}.
+\]
+More precisely,
+\[
+    \P[\{\sigma_x=-\}]=\frac{e^{-\beta \sum_{y\sim x}\sigma_y}}{2\cosh\beta\sum_{y\sim x}\sigma_x}
+    =\tau_\beta({\textstyle\sum_{y\sim x}\sigma_x});
+    \qquad
+    \tau_\beta(a):=\frac{e^{-\beta a}}{2\cosh\beta a}.
+\]
+This means that the value of $\sigma_x$ may be resampled as follows:
+first sample $U\sim U([0,1])$ (the uniform distribution on the unit interval),
+then set
+\[
+    \sigma_x:=\begin{cases}
+        - &\text{if $U\leq \tau_\beta(\sum_{y\sim x}\sigma_x)$,}\\
+        + &\text{if $U> \tau_\beta(\sum_{y\sim x}\sigma_x)$.}
+    \end{cases}
+\]
+
+\begin{definition}[Local update map]
+    For any $x\in V$ and $U\in[0,1]$, define the \emph{local update map}
+    \[
+        R_{x,U}:\Omega\to\Omega,\,\sigma\mapsto
+        \left(
+            z\mapsto \begin{cases}
+                \sigma_z&\text{if $z\neq x$}\\
+                - &\text{if $z=x$ and $U\leq \tau_\beta(\sum_{y\sim x}\sigma_y)$}\\
+                + &\text{if $z=x$ and $U>\tau_\beta(\sum_{y\sim x}\sigma_y)$}
+            \end{cases} 
+        \right).
+    \]
+\end{definition}
+
+Let $\P$ denote the uniform probability measure on $(x,U)\in V\times[0,1]$.
+Consider the Markov chain on $\Omega$ with transition matrix
+\[
+    A_{\sigma',\sigma}:=\P[\{R_{x,U}(\sigma)=\sigma'\}].
+\]
+
+\begin{exercise}[Glauber dynamics]
+    \begin{enumerate}
+        \item     Prove that $\langle\blank\rangle_{G,\beta}$ is a probability distribution on
+        $\Omega$ solving the detailed balance equations for the transition matrix $A$.
+        \item Argue that the Markov chain corresponding to $A$ is acyclic and irreducible.
+        \item Conclude that $\langle\blank\rangle_{G,\beta}$ is the unique limit distribution
+        of the finite state Markov chain $A$.
+    \end{enumerate}
+\end{exercise}
+
+Now let $((x_i,U_i))_{i\in\Z_{\leq 0}}$ denote a sequence of i.i.d.\ copies of
+the uniform random variable $(x,U)\in V\times[0,1]$,
+and write $\P$ for the corresponding measure.
+Write $R^{-n}$ for the random composition
+\[
+    R^{-n}:=R_{x_0,U_0}\circ R_{x_{-1},U_{-1}}\circ\cdots\circ R_{x_{-n+1},U_{-n+1}}.
+\]
+Then it is easy to see that the distribution of $R^{-n}(\sigma)$
+is given by
+\[
+    A^n\delta_\sigma.
+\]
+In particular, $A^n\delta_\sigma$ converges to $\langle\blank\rangle$ as $n\to\infty$
+(notice that $\R^\Omega$ is a finite dimensional vector space and therefore all reasonable topologies coincide).
+
+\begin{theorem}[Coupling from the past]
+    Consider the sequence $((x_i,U_i))_{i\in\Z_{\leq 0}}$ in the measure $\P$ as defined above.
+    Let $T\in\Z_{\geq 0}\cup\{\infty\}$ denote the random stopping time
+    defined via
+    \[
+        T:=\inf\{n\in\Z_{\geq 0}:\text{the function $R^{-n}:\Omega\to\Omega$ is constant as a function on $\Omega$}\}.
+    \]
+    Then all of the following are true:
+    \begin{itemize}
+        \item For any $S\geq T$, the function $R^{-S}:\Omega\to\Omega$ is also constant on $\Omega$, and $R^{-S}=R^{-T}$,
+        \item The distribution of function $R^{-T}$ is $\langle\blank\rangle$.
+    \end{itemize}
+    Here we simply write $R^{-T}$ for $R^{-T}(\sigma)$ (with $\sigma\in\Omega$ arbitrary)
+    whenever $R^{-T}$ is constant.
+\end{theorem}
+
+\begin{proof}
+    Fix $\sigma\in\Omega$.
+    Fix a sequence $(x_i,U_i)_i$.
+    If $R^{-n}$ is constant for some $n$, then
+    \[
+            R^{-(n+1)}=R^{-n}\circ R_{x_{-n},U_{-n}}=R^{-n}.
+    \]
+    In that case, we simply have
+    \[
+        \lim_{m\to\infty}R^{-m}(\sigma)=R^{-n}(\sigma).
+    \]
+    In particular, if $T<\infty$ almost surely,
+    then almost surely
+    \[
+        \lim_{m\to\infty} R^{-m}(\sigma)=R^{-T}.
+    \]
+    Since the distribution of $R^{-m}(\sigma)$ converges to $\langle\blank\rangle$
+    as $m\to\infty$,
+    we also have $R^{-T}\sim\langle\blank\rangle$.
+\end{proof}
+
+\begin{exercise}
+    Show that $T$ is almost surely finite
+    in the context of the above theorem.
+    Hint: observe that almost surely,
+    there are $|\Lambda|$ consequitive entries in the sequence $((x_i,U_i))_{i\in\Z_{\leq 0}}$
+    for which $x_i$ enumerates $\Lambda$ and such that $U_i\approx 0$.
+\end{exercise}
+
+The algorithm can practically be implemented in a computer as follows.
+\begin{itemize}
+    \item Fix a strictly increasing sequence $(n_k)_{k\geq 0}$ of integers with $n_0=0$.
+    \item Set $k=0$, and repeat the following procedure as long as $R^{-n_k}$ is \emph{not} constant:
+    \begin{itemize}
+        \item Add $1$ to the counter $k$,
+        \item Draw $((x_i,U_i))_{-n_k< i\leq -n_{k-1}}$ from the independent source of randomness,
+        \item Calculate the map $R^{-n_k}$.
+    \end{itemize}
+    \item Output the constant value $R^{-n_k}$ as our sample from $\langle\blank\rangle$.
+\end{itemize}
+
+The algorithm has two problems:
+\begin{enumerate}
+    \item It requires memory to record $R^{-n_k}$ or $((x_i,U_i))_{-n_k< i\leq 0}$ between iterations,
+    \item It requires time to determine if $R^{-n_k}$ is constant on $\Omega$ (which has cardinal $2^{|V|}$).
+\end{enumerate}
+
+It turns out that there is an easy way to get around the second problem,
+thanks to \emph{monotonicity} in the model.
