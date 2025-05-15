@@ -19,7 +19,7 @@ and then takes the final state as the sample.
 This strategy has two drawbacks:
 \begin{itemize}
     \item The Markov chain approximates its invariant distribution;
-    the sample is not ``perfect'',
+    no sample is ``perfect'',
     \item The number $N$ required for the desired precision is often hard to calculate.
 \end{itemize}
 
@@ -41,8 +41,8 @@ on a finite graph $G$ at inverse temperature $\beta$.
     The value $\tau_\beta$ is called the \emph{treshold value}.
 \end{definition}
 
-This means that the value of $\sigma_x$ may be resampled as follows:
-first sample $U\sim U([0,1])$ (the uniform distribution on the unit interval),
+The conditional value of $\sigma_x$ may thus be sampled as follows:
+first draw $U\sim U([0,1])$ (the uniform distribution on the unit interval),
 then set
 \[
     \sigma_x:=\begin{cases}
@@ -50,9 +50,11 @@ then set
         + &\text{if $U> \tau_\beta(\sum_{y\sim x}\sigma_x)$.}
     \end{cases}
 \]
+In order to rigorously implement this conditional resampling into a Glauber dynamic,
+we first describe an explicit Glauber map.
 
-\begin{definition}[Local update map]
-    For any $x\in V$ and $U\in[0,1]$, define the \emph{local update map}
+\begin{definition}[Glauber map]
+    For any $x\in V$ and $U\in[0,1]$, define the \emph{Glauber map}
     \[
         R_{x,U}:\Omega\to\Omega,\,\sigma\mapsto
         \left(
@@ -63,138 +65,158 @@ then set
             \end{cases} 
         \right).
     \]
+    This map potentially flips the spin at $x$, while leaving all other spins invariant.
 \end{definition}
 
-Let $\P$ denote the uniform probability measure on $(x,U)\in V\times[0,1]$.
-Consider the Markov chain on $\Omega$ with transition matrix
-\[
-    A_{\sigma',\sigma}:=\P[\{R_{x,U}(\sigma)=\sigma'\}].
-\]
+\newcommand\Piid{\P_{\operatorname{iid}}}
 
-\begin{exercise}[Glauber dynamics]
-    \begin{enumerate}
-        \item     Prove that $\langle\blank\rangle_{G,\beta}$ is a probability distribution on
-        $\Omega$ solving the detailed balance equations for the transition matrix $A$.
-        \item Argue that the Markov chain corresponding to $A$ is acyclic and irreducible.
-        \item Conclude that $\langle\blank\rangle_{G,\beta}$ is the unique limit distribution
-        of the finite state Markov chain $A$.
-    \end{enumerate}
-\end{exercise}
+Let $\Piid$ denote a new probability measure in which
+ $((x_k,U_k))_{k\in\Z}$ is an i.i.d.\ sequence of
+uniform random variables in $V\times[0,1]$.
+The idea is to use the i.i.d.\ randomness in this sequence to set up a Markov chain
+mixing to $\langle\blank\rangle_{G,\beta}$ (as described above).
+In this probability space, we write $R^{k,\ell}$ for the random map
+\[
+    R^{k,\ell}:=R_{x_{k+1},U_{k+1}}\circ R_{x_{k+2},U_{k+2}} \circ \cdots \circ R_{x_{\ell},U_{\ell}}
+\]
+for any $k,\ell\in\Z$ with $k\leq\ell$.
 
-Now let $((x_i,U_i))_{i\in\Z_{\leq 0}}$ denote a sequence of i.i.d.\ copies of
-the uniform random variable $(x,U)\in V\times[0,1]$,
-and write $\P$ for the corresponding measure.
-Write $R^{-n}$ for the random composition
-\[
-    R^{-n}:=R_{x_0,U_0}\circ R_{x_{-1},U_{-1}}\circ\cdots\circ R_{x_{-n+1},U_{-n+1}}.
-\]
-Then it is easy to see that the distribution of $R^{-n}(\sigma)$
-is given by
-\[
-    A^n\delta_\sigma.
-\]
-In particular, $A^n\delta_\sigma$ converges to $\langle\blank\rangle$ as $n\to\infty$
-(notice that $\R^\Omega$ is a finite dimensional vector space and therefore all reasonable topologies coincide).
+This setups is intrinsically linked to a Markov chain, described in the proposition below.
+We leave its proof to the reader.
+
+\begin{proposition}[Glauber dynamics]
+    Let $G$ denote a finite graph and let $\beta\in[0,\infty)$.
+    Consider the measure $\Piid$ introduced above.
+    Define the stochastic $|\Omega|\times|\Omega|$-matrix $A$ via
+    \[
+        A_{\sigma',\sigma}:=\Piid[\{R_{x_0,U_0}(\sigma)=\sigma'\}].
+    \]
+    Then all of the following hold true.
+    \begin{itemize}
+        \item The matrix $A$ is the transition kernel of an irreducible aperiodic Markov chain.
+        \item $\langle\blank\rangle_{G,\beta}$ solves the detailed balance equations for $A$.
+        \item For any $\sigma\in\Omega$ and $k\in\Z$, the random sequence
+        \(
+            (R^{k,k+n}(\sigma))_{n\geq 0}
+        \)
+        in $\Piid$
+        has the law of the Markov chain with transition kernel $A$, started from $\sigma$.
+    \end{itemize}
+\end{proposition}
+
+\emph{Coupling from the past} relies on one crucial idea:
+one should not consider the asymptotic ($n\to\infty$) distribution of $R^{0,n}(\sigma)$,
+but rather of $R^{-n,0}(\sigma)$.
 
 \begin{theorem}[Coupling from the past]
     \label{thm:coupling_from_the_past}
-    Consider the sequence $((x_i,U_i))_{i\in\Z_{\leq 0}}$ in the measure $\P$ as defined above.
+    Let $G$ denote a finite graph and let $\beta\in[0,\infty)$.
+    Consider the measure $\Piid$ introduced above.
     Let $T\in\Z_{\geq 0}\cup\{\infty\}$ denote the random stopping time
     defined via
     \[
-        T:=\inf\{n\in\Z_{\geq 0}:\text{the function $R^{-n}:\Omega\to\Omega$ is constant as a function on $\Omega$}\}.
+        T:=\inf\{n\in\Z_{\geq 0}:\text{the function $R^{-n,0}:\Omega\to\Omega$ is constant as a function on $\Omega$}\}.
     \]
     Suppose that $\P(\{T<\infty\})=1$.
     Then all of the following are true:
     \begin{itemize}
-        \item For any $S\geq T$, the function $R^{-S}:\Omega\to\Omega$ is also constant on $\Omega$, and $R^{-S}=R^{-T}$,
-        \item The distribution of function $R^{-T}$ is $\langle\blank\rangle$.
+        \item For any $S\geq T$, the function $R^{-S,0}$ is also constant on $\Omega$, and $R^{-S,0}=R^{-T,0}$,
+        \item The distribution of function $R^{-T,0}$ is $\langle\blank\rangle_{G,\beta}$.
     \end{itemize}
-    Here we simply write $R^{-T}$ for $R^{-T}(\sigma)$ (with $\sigma\in\Omega$ arbitrary)
-    whenever $R^{-T}$ is constant.
+    Here we simply write $R^{-T,0}$ for $R^{-T,0}(\sigma)$ (with $\sigma\in\Omega$ arbitrary)
+    whenever $R^{-T,0}$ is constant.
 \end{theorem}
 
 \begin{proof}
-    Fix $\sigma\in\Omega$.
-    Fix a sequence $(x_i,U_i)_i$.
-    If $R^{-n}$ is constant for some $n$, then
+    Fix a configuration $\sigma\in\Omega$
+    and a sequence $((x_k,U_k))_k$.
+    If $R^{-n,0}$ is constant for some $n$, then
     \[
-            R^{-(n+1)}=R^{-n}\circ R_{x_{-n},U_{-n}}=R^{-n}.
+            R^{-(n+1),0}=R^{-n,0}\circ R_{x_{-n},U_{-n}}=R^{-n,0}.
     \]
     In that case, we simply have
     \[
-        \lim_{m\to\infty}R^{-m}(\sigma)=R^{-n}(\sigma).
+        \lim_{m\to\infty}R^{-m,0}(\sigma)=R^{-n,0}(\sigma)\equiv R^{-n,0}.
     \]
-    In particular, if $T<\infty$ almost surely,
-    then almost surely
+    In particular, if $\Piid(\{T<\infty\})=1$,
+    then $\Piid$-almost surely
     \[
-        \lim_{m\to\infty} R^{-m}(\sigma)=R^{-T}.
+        \lim_{m\to\infty} R^{-m,0}(\sigma)=R^{-T,0}.
     \]
-    Since the distribution of $R^{-m}(\sigma)$ converges to $\langle\blank\rangle$
-    as $m\to\infty$,
-    we also have $R^{-T}\sim\langle\blank\rangle$.
+    The distribution of $R^{-m,0}(\sigma)$ converges to $\langle\blank\rangle_{G,\beta}$
+    as $m\to\infty$ (see the previous proposition),
+    and therefore $R^{-T,0}\sim\langle\blank\rangle_{G,\beta}$.
 \end{proof}
 
-It is clearly important that $\P(\{T<\infty\})=1$.
+It is clearly important that $\Piid(\{T<\infty\})=1$.
 We invite the reader to prove this in the following exercise.
 Another proof is provided later.
 
 \begin{exercise}[Coupling from the past: convergence (generic)]
-    Show that $T$ is almost surely finite
-    in the context of the above theorem.
-    Hint: observe that almost surely,
-    there are $|\Lambda|$ consequitive entries in the sequence $((x_i,U_i))_{i\in\Z_{\leq 0}}$
-    for which $x_i$ enumerates $\Lambda$ and such that $U_i\approx 0$.
+    Show that the stopping time $T$ in the theorem above is almost surely finite.
+    Hint: observe that $\Piid$-almost surely,
+    there are $|\Lambda|$ consecutive entries in the sequence $((x_k,U_k))_{k\in\Z_{\leq 0}}$
+    where $x_k$ enumerates $\Lambda$ and where $U_k\approx 0$.
 \end{exercise}
 
-The algorithm can practically be implemented in a computer as follows.
+\begin{remark}[Algorithm description]
+    The algorithm can practically be implemented in a computer as follows.
 \begin{enumerate}
     \item Fix a strictly increasing sequence $(n_k)_{k\geq 0}$ of integers with $n_0=0$.
-    \item Set $k=0$, and repeat the following procedure as long as $R^{-n_k}$ is \emph{not} constant:
+    \item Set $k=0$, and repeat the following procedure as long as $R^{-n_k,0}$ is \emph{not} constant:
     \begin{enumerate}
         \item Add $1$ to the counter $k$,
         \item Draw $((x_i,U_i))_{-n_k< i\leq -n_{k-1}}$ from the independent source of randomness,
-        \item Calculate the map $R^{-n_k}$.
+        \item Calculate the map $R^{-n_k,0}$.
     \end{enumerate}
-    \item Output the constant value $R^{-n_k}$ as our sample from $\langle\blank\rangle$.
+    \item Output the constant value $R^{-n_k,0}$ as our sample from $\langle\blank\rangle_{G,\beta}$.
 \end{enumerate}
+\end{remark}
 
-The algorithm has two problems:
+The algorithm has two drawbacks:
 \begin{itemize}
-    \item It requires memory to record $R^{-n_k}$ or $((x_i,U_i))_{-n_k< i\leq 0}$ between iterations,
-    \item It requires time to determine if $R^{-n_k}$ is constant on $\Omega$ (which has cardinal $2^{|V|}$).
+    \item It requires memory to record $R^{-n_k,0}$ or $((x_i,U_i))_{-n_k< i\leq 0}$ between iterations,
+    \item It requires time to determine if $R^{-n_k,0}$ is constant on $\Omega$ (which has cardinal $2^{|V|}$).
 \end{itemize}
 
-It turns out that there is an easy way to get around the second problem,
-thanks to \emph{monotonicity} in the model.
-This monotonicity is relative to the partial ordering $\leq$
-on the sample space $\Omega=\{\pm\}^V$.
+We now describe an important ingredient not mentioned so far: \emph{monotonicity}.
+With monotonicity, it is much easier to see that \emph{coupling from the past}
+converges (more precisely, that $\Piid(\{T<\infty\})=1$).
+It is also much easier to check if the map $R^{-n,0}$ is constant or not.
+The monotonicity is relative to the partial ordering $\leq$
+on the sample space $\Omega=\{\pm\}^V$;
+we say that $\sigma\leq\sigma'$ whenever $\sigma_x\leq\sigma'_x$ for all $x\in V$.
+Everything follows from the basic observation that each map $R_{x_k,U_k}$ preserves
+$\leq$, in the sense that
+\[
+    \sigma\leq\sigma' \qquad \implies \qquad R_{x_k,U_k}(\sigma)\leq R_{x_k,U_k}(\sigma').
+\]
 
 \begin{lemma}[Monotonicity of Glauber dynamics]
-    Consider $((x_i,U_i))_{i\in\Z_{\leq 0}}$ fixed. Then:
+    Consider $((x_i,U_i))_{i\in\Z}$ fixed. Then:
     \begin{enumerate}
-        \item Each map $R_{x_i,U_i}:\Omega\to\Omega$ is increasing, that is, it preserves $\leq$,
-        \item Each map $R^{-n}:\Omega\to\Omega$ is increasing, that is, it preserves $\leq$,
-        \item $(R^{-n}(\sigma^{\max}))_n$ is decreasing in $n$, where $\sigma^{\max}\equiv+\in\Omega$ is the maximal element,
-        \item $(R^{-n}(\sigma^{\min}))_n$ is increasing in $n$, where $\sigma^{\min}\equiv+\in\Omega$ is the minimal element,
-        \item We have $R^{-\infty}(\sigma^{\min})\leq R^{-\infty}(\sigma^{\max})$,
-        where $R^{-\infty}(\cdots)$ denotes the $n\to\infty$ limit,
-        \item If  $R^{-n}(\sigma^{\min})= R^{-n}(\sigma^{\max})$, then the map $R^{-n}$ is constant.
+        \item Each map $R_{x_i,U_i}:\Omega\to\Omega$ preserves $\leq$,
+        \item Each map $R^{i,j}:\Omega\to\Omega$ preserves $\leq$,
+        \item $(R^{-n,0}(\sigma^{\max}))_n$ is decreasing in $n$, where $\sigma^{\max}\equiv+\in\Omega$ is the maximal element,
+        \item $(R^{-n,0}(\sigma^{\min}))_n$ is increasing in $n$, where $\sigma^{\min}\equiv-\in\Omega$ is the minimal element,
+        \item We have $R^{-\infty,0}(\sigma^{\min})\leq R^{-\infty,0}(\sigma^{\max})$,
+        where $R^{-\infty,0}(\cdots)$ denotes the $n\to\infty$ limit,
+        \item If  $R^{-n,0}(\sigma^{\min})= R^{-n,0}(\sigma^{\max})$, then the map $R^{-n,0}$ is constant.
     \end{enumerate}
 \end{lemma}
 
 \begin{proof}
     The first item can be proved by simply inspecting the definition of $R_{x_i,U_i}$.
     The second item then follows: indeed, a composition of increasing functions is increasing.
-    For the third item (and similarly, the fourth item), observe that monotonicity of $R^{-n}$ implies:
+    For the third item (and similarly, the fourth item), observe that monotonicity of $R^{-n,0}$ implies:
     \[
-        R^{-(n+1)}(\sigma^{\max})
+        R^{-(n+1),0}(\sigma^{\max})
         =
-        R^{-n}(R_{x_{-n},U_{-n}}(\sigma^{\max}))
+        R^{-n,0}(R_{x_{-n},U_{-n}}(\sigma^{\max}))
         \leq
-        R^{-n}(\sigma^{\max})
+        R^{-n,0}(\sigma^{\max}).
     \]
-    The last two items follow from monotonicity of the map $R^{-n}$ (the second item).
+    The last two items follow from monotonicity of the map $R^{-n,0}$ (the second item).
 \end{proof}
 
 
@@ -202,16 +224,27 @@ on the sample space $\Omega=\{\pm\}^V$.
     Recall the context of Theorem~\ref{thm:coupling_from_the_past}.
     Then we have
     \[
-        \{T<\infty\}=\{R^{-\infty}(\sigma^{\max})=R^{-\infty}(\sigma^{\min})\},
+        T=\inf\{n\in\Z_{\geq 0}:R^{-n,0}(\sigma^{\max})=R^{-n,0}(\sigma^{\min})\},
     \]
-    and this event occurs $\P$-almost surely.
+    and this random variable is $\Piid$-almost surely finite.
 \end{lemma}
 
 \begin{proof}
-    The reformulation of the event is valid thanks to the previous lemma.
-    It suffices to prove that it occurs almost surely.
-    Notice that the distribution of both $R^{-\infty}(\sigma^{\max})$ and $R^{-\infty}(\sigma^{\min})$
-    is given by $\langle\blank\rangle$.
-    Since they have the same distribution and are almost surely $\leq$-ordered in $\P$,
+    The reformulation of the stopping time is valid thanks to the previous lemma.
+    It suffices to prove that it is almost surely finite.
+    Notice that the distribution of both $R^{-\infty,0}(\sigma^{\max})$ and $R^{-\infty,0}(\sigma^{\min})$
+    is given by $\langle\blank\rangle_{G,\beta}$.
+    Since they have the same distribution and are almost surely $\leq$-ordered in $\Piid$,
     they must be almost surely equal.
+    Since the state space $\Omega$ is discrete,
+    this means that $\Piid$-almost surely
+    there is some $n\in\Z_{\geq 0}$ such that
+    \[
+        R^{-\infty,0}(\sigma^{\max})=R^{-n,0}(\sigma^{\max})
+        \qquad
+        \text{and}
+        \qquad
+        R^{-\infty,0}(\sigma^{\min})=R^{-n,0}(\sigma^{\min}).
+    \]
+    This finishes the proof.
 \end{proof}
