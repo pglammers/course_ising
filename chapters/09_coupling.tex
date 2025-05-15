@@ -54,6 +54,7 @@ In order to rigorously implement this conditional resampling into a Glauber dyna
 we first describe an explicit Glauber map.
 
 \begin{definition}[Glauber map]
+    Let $G$ denote any locally finite graph.
     For any $x\in V$ and $U\in[0,1]$, define the \emph{Glauber map}
     \[
         R_{x,U}:\Omega\to\Omega,\,\sigma\mapsto
@@ -240,11 +241,13 @@ $\leq$, in the sense that
     this means that $\Piid$-almost surely
     there is some $n\in\Z_{\geq 0}$ such that
     \[
-        R^{-\infty,0}(\sigma^{\max})=R^{-n,0}(\sigma^{\max})
+        R^{-n,0}(\sigma^{\max})=
+        R^{-\infty,0}(\sigma^{\max})
         \qquad
         \text{and}
         \qquad
-        R^{-\infty,0}(\sigma^{\min})=R^{-n,0}(\sigma^{\min}).
+        R^{-n,0}(\sigma^{\min})=
+        R^{-\infty,0}(\sigma^{\min}).
     \]
     This finishes the proof.
 \end{proof}
