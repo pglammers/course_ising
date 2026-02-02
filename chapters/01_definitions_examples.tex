@@ -1,7 +1,7 @@
 \section{The Curie--Weiss model}
 \label{sec:definitions_examples}
 
-At the end of the 19th century, Curie published his experimental results on 
+At the end of the 19th century, Pierre Curie published his experimental results on 
 \emph{ferromagnetism}:
 the
 magnetic properties of metals.
@@ -24,12 +24,12 @@ the system's behaviour undergoes a qualitative change.
 The third observation entails an important property of this phase transition.
 
 The first mathematical explanation for Curie's experimental results came from
-Weiss.
-He proposed the following mathematical axioms for studying the magnetic properties of metals.
+Pierre Weiss.
+He proposed the following mathematical axioms in order to give a mathematical explanation for Curie's observations.
 \begin{itemize}
     \item The metal consists of $n$ atoms.
     \item Each atom acts like a small magnet in itself.
-    It is in one of two states, denoted $\pm$.
+    It is in one of two states: $\{+1,-1\}$.
     \item The total strength of the metal is obtained by summing the states of all atoms.
     \item Each atom interacts with all other atoms.
     The atoms prefer to \emph{align}, that is, to be in the same state.
@@ -37,12 +37,12 @@ He proposed the following mathematical axioms for studying the magnetic properti
 \end{itemize}
 Physically, it makes sense that the temperature regulates the interaction strength.
 When atoms move slowly, they will stabilise, oriented in alignment with the magnetic field imposed by the other atoms.
-When atoms move fast, they will not bother with the states of the other atoms, and simply align themselves randomly.
+When atoms move fast, they will not be bothered by the states of the other atoms, and simply align themselves randomly.
 It is thus natural to think of the interaction strength as the \emph{inverse temperature}.
 
-\begin{definition}[Curie-Weiss model]
-    The Curie-Weiss model is the probability measure $\P^{\operatorname{CW}}_{n,\beta}$
-    on $\sigma\in\Omega:=\{+,-\}^n$
+\begin{definition}[Curie--Weiss model]
+    The Curie--Weiss model is the probability measure $\P^{\operatorname{CW}}_{n,\beta}$
+    on $\sigma\in\Omega:=\{+1,-1\}^n$
     defined via
     \[
         \P(\sigma):=\P^{\operatorname{CW}}_{n,\beta}(\sigma)
@@ -56,7 +56,8 @@ It is thus natural to think of the interaction strength as the \emph{inverse tem
     where $n\in\Z_{\geq 1}$ and $\beta\in[0,\infty)$.
     The parameter $\beta$ is called the \emph{interaction strength} or \emph{inverse temperature}.
     The function $H$ is called the \emph{Hamiltonian} and captures the \emph{energy} in the system.
-    The probability measure $\P$ is also called the \emph{Boltzmann distribution}.
+    The probability measure $\P$ is also called the \emph{Boltzmann distribution}
+    or the \emph{Gibbs measure}.
 \end{definition}
 
 Let $n_+=n_+(\sigma)$ denote the number of vertices with spin $+$ in a configuration $\sigma\in\Omega$.
@@ -89,8 +90,8 @@ with rate function $f_{\beta}$ and speed $n$.
 In particular, the random variable $n_+/n$ concentrates
 around the minimisers of the function $f_{\beta}$.
 
-\begin{exercise}[The rate function of the Curie--Weiss model]
-    \begin{enumerate}
+\begin{exercise}[The rate function of the Curie--Weiss model]~
+    \begin{enumerate}[label=(\roman*)]
         \item Show that for small $\beta$, the function \( f_{\beta} \) has a single minimum at $x=1/2$, which means that the random variable \( n_+/n \) concentrates around the value \( 1/2 \).
         \item Show that for large $\beta$, the function \( f_{\beta} \) has two minima at \( (1 \pm m)/2 \) for some $m>0$, which means that the random variable \( n_+/n \) is concentrated around these minima.
         The value of $m$ is called the \emph{magnetisation}.
@@ -101,7 +102,7 @@ around the minimisers of the function $f_{\beta}$.
 
 \begin{remark}[Entropy versus energy in the Curie--Weiss model]
     Reconsider Equation~\eqref{eq:CurieWeissDistribution}.
-    In this equation, the competition between the two factors is extremely transparent.
+    In this equation, the competition between the two factors is transparent.
     \begin{itemize}
         \item     First, there is a combinatorial term or \emph{entropy}, which favours values $k$ for the random variable
         $n_+$ such that the cardinality of the set $\{n_+=k\}$ is large.

@@ -1,0 +1,89 @@
+% \input{preamble/final}
+\input{preamble/draft}
+\mathtoolsset{showonlyrefs}
+
+\makeatletter
+\@namedef{subjclassname@2020}{\textup{2020} Mathematics Subject Classification}
+\makeatother
+
+
+\title{A course on the Ising model}
+\subjclass[2020]{82-01, 82B20}
+
+
+\author{Piet Lammers}
+\address{CNRS and Sorbonne Université, LPSM}
+\email{piet.lammers@cnrs.fr}
+
+\date{\today}
+% \keywords{%
+%     [keyword 1],
+%     [keyword 2]
+% }
+
+\newcommand\n{\mathbf{n}}
+\newcommand\m{\mathbf{m}}
+\newcommand\s{\mathbf{s}}
+\renewcommand\a{\mathbf{a}}
+\renewcommand\b{\mathbf{b}}
+\newcommand\f{{\operatorname{f}}}
+\newcommand\bfM{\mathbf{M}}
+\newcommand\bfP{\mathbf{P}}
+
+\thanks{This work is licensed under CC BY-NC-SA 4.0.\\\indent To view a copy of this license, visit \url{https://creativecommons.org/licenses/by-nc-sa/4.0/}}
+
+\begin{document}
+
+
+\maketitle
+
+\tableofcontents
+% \begin{abstract}
+%     [Abstract text]
+% \end{abstract}
+
+
+\section*{Preface}
+These lecture notes are written progressively during the 2026 spring semester,
+as the course is taught at Sorbonne university in the M2 (second-year masters) programme.
+Its purpose is to give a broad introduction to the rigorous analysis of the Ising model.
+% The main focus is on four techniques and their applications:
+% \begin{itemize}
+%     \item The Peierls argument,
+%     \item The random-currents representation,
+%     \item The FKG inequality for the Ising spins,
+%     \item The FKG inequality for the random-cluster (FK) representation.
+% \end{itemize}
+
+% A basic understanding of analysis and probability theory is essential for following this course.
+% Experience with other models in statistical mechanics (such as the Bernoulli percolation model)
+% is a plus but by no means essential.
+
+% The appendices contain overviews of the main definitions, expansions, and inequalities in this text.
+
+% These notes are inspired by the lecture notes \emph{Lectures on the Ising and Potts models on the hypercubic lattice}
+% and the overview \emph{100 Years of the (Critical) Ising Model on the Hypercubic Lattice},
+% both due to Hugo Duminil-Copin.
+% The main text does not contain references at this stage; they will be added at a later time.
+
+
+\input{chapters/01_definitions_examples.tex}
+\input{chapters/02_ising.tex}
+\input{chapters/03_peierls.tex}
+% \input{chapters/04_high_T.tex}
+% \input{chapters/04b_switching.tex}
+
+% \input{chapters/05_random_currents.tex}
+% \input{chapters/06_monotonicity_in_T.tex}
+% \input{chapters/07_vanishing_magnetisation.tex}
+% \input{chapters/08_continuity.tex}
+% \input{chapters/09_coupling.tex}
+% \input{chapters/11_coupling_theor.tex}
+% \input{chapters/08_mixing.tex}
+
+% \input{chapters/xx_correlation_fkg.tex}
+% \input{chapters/xx_correlation_fkg_ising.tex}
+
+\bibliographystyle{amsalpha}
+\bibliography{}
+\end{document}
