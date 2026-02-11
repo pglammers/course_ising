@@ -220,6 +220,26 @@ This is the key to proving Theorem~\ref{thm:peierls}.
     and tends to zero as $\beta$ tends to infinity.
 \end{proof}
 
+\begin{exercise}[Peierls argument on the square lattice]
+    Fix $d=2$.
+    Now let $G_n$ be the nearest-neighbour graph on the vertex set $\Z^d\cap [-n,n]^d$.
+    Write $\partial G_n$ for the vertices of $G_n$ at an $\ell^\infty$-distance of exactly $n$ from the origin.
+    Prove that for sufficiently large $\beta$, we have
+    \[
+        \inf_n\mu_{G_n,\beta}[\sigma_0|\{\sigma|_{\partial G_n}\equiv +\}]>0.
+    \]
+    \emph{Hint.}
+    The natural analogue of ``loop configurations'' are
+    ``interface configurations'', which are subsets $\gamma$ of the dual edges
+    such that every dual vertex is given an even degree by $\gamma$.
+    It is now possible that $\gamma$ gives degree four to some dual vertices.
+    While this means that the connected components of $\gamma$ are not necessarily loops,
+    it is still possible to implement the argument above with minimal modifications.
+\end{exercise}
+
+\begin{exercise}[Harder: Peierls argument in higher dimensions]
+    Prove the same results in a fixed dimension $d\in\Z_{>2}$.
+\end{exercise}
 
 
 
