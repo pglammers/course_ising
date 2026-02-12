@@ -1,0 +1,73 @@
+\section{Dynamics of the Ising model}
+
+The Ising model is a correlated model, meaning that the spins are not independent
+(except, of course, when $\beta=0$).
+A broad strategy for analysing correlated models is by somehow decomposing them into independent pieces.
+It is often difficult to implement such a scheme, and strategies vary wildly between models.
+
+In this section, we describe how the Ising model is the unique stationary distribution
+of a certain Markov chain, called the \emph{Glauber dynamics}.
+This Markov chain can be sampled using independent randomness at each step,
+which gives a decomposition of the Ising model into independent pieces.
+On the one hand, Glauber dynamics are useful because it gives a simple
+way to \emph{simulate} the Ising model (take approximate samples from it using a computer).
+The Glauber dynamic is closely related to the \emph{Metropolis--Hastings algorithm},
+and belongs to a class of \emph{Markov Chain Monte Carlo} (MCMC) algorithms.
+On the other hand, we can analyse this Markov chain to rigorously prove
+a number of theoretical results about the Ising model.
+
+\begin{definition}[Glauber dynamics]
+    Let $G=(V,E)$ be a simple graph, and fix $\beta\in[0,\infty)$.
+    Recall that $\Omega:=\{\pm1\}^V$.
+    The \emph{Glauber dynamics} is the Markov chain on $\Omega$ defined as follows:
+    \begin{itemize}
+        \item At each step, pick a vertex $v\in V$ uniformly at random,
+        \item Erase the value of $\sigma_v$,
+        \item Sample the value of $\sigma_v$ from the conditional measure $\mu_{G,\beta}[\blank|(\sigma_u)_{u\neq v}]$.
+    \end{itemize}
+\end{definition}
+
+\begin{lemma}[Stationarity of the Ising model]
+    Let $G=(V,E)$ be a simple graph and fix $\beta\in[0,\infty)$.
+    Then $\mu_{G,\beta}$ is the unique stationary distribution of the Glauber dynamics on $G$ at inverse temperature $\beta$.
+    Moreover, it is reversible in equilibrium.
+\end{lemma}
+
+\begin{proof}
+    \begin{itemize}
+        \item \emph{Irreducibility and aperiodicity.}
+        The state space $\Omega$ is finite, and every state has a strictly postive probability.
+        Thus, at each step, any of the spins in $V$ is flipped with a positive probability.
+        This means that one can get from any state $\sigma\in\Omega$ to any other state $\sigma'\in\Omega$ in at most $|V|$ steps, by flipping the spins that differ between $\sigma$ and $\sigma'$.
+        This shows that the Markov chain is irreducible.
+        Moreover, the probability of staying in the same state is positive, so the Markov chain
+        is aperiodic.
+        \item \emph{Stationarity and reversibility.}
+        It suffices to prove the detailed balance equation.
+        Let $\sigma,\sigma'\in\Omega$ be two states that differ at exactly one vertex $v\in V$.
+        Let $Q$ denote the event that some spin configuration equals $\sigma$ on $V\setminus\{v\}$.
+        Then
+        \begin{align*}
+            \mu_{G,\beta}[\sigma]P(\sigma\to\sigma')
+            &=\mu_{G,\beta}[\sigma]\frac{1}{|V|}\mu_{G,\beta}[\sigma'|Q]\\
+            &=\frac1{|V|} \mu_{G,\beta}[Q]\mu_{G,\beta}[\sigma|Q]\mu_{G,\beta}[\sigma'|Q].
+        \end{align*}
+        This formula is symmetric in $\sigma$ and $\sigma'$, this implies detailed balance.
+        \qedhere
+    \end{itemize}
+\end{proof}
+
+We now explicitly describe the ``computer algorithm'' for sampling the Markov chain.
+The idea is to run each Markov step by sampling an independent pair $(x,\iota)\in V\times[0,1]$
+(where the vertex $x$ is uniformly random, and $\iota$ is sampled independently and uniformly from the unit interval).
+
+
+
+
+
+
+
+
+
+
+
