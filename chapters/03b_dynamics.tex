@@ -1,12 +1,14 @@
 \section{Dynamics of the Ising model}
 
+\subsection{Purpose of the Glauber dynamic}
+
 The Ising model is a correlated model, meaning that the spins are not independent
 (except, of course, when $\beta=0$).
 A broad strategy for analysing correlated models is by somehow decomposing them into independent pieces.
 It is often difficult to implement such a scheme, and strategies vary wildly between models.
 
 In this section, we describe how the Ising model is the unique stationary distribution
-of a certain Markov chain, called the \emph{Glauber dynamics}.
+of a certain Markov chain, called the \emph{Glauber dynamic}.
 This Markov chain can be sampled using independent randomness at each step,
 which gives a decomposition of the Ising model into independent pieces.
 On the one hand, Glauber dynamics are useful because it gives a simple
@@ -16,52 +18,257 @@ and belongs to a class of \emph{Markov Chain Monte Carlo} (MCMC) algorithms.
 On the other hand, we can analyse this Markov chain to rigorously prove
 a number of theoretical results about the Ising model.
 
-\begin{definition}[Glauber dynamics]
-    Let $G=(V,E)$ be a simple graph, and fix $\beta\in[0,\infty)$.
-    Recall that $\Omega:=\{\pm1\}^V$.
-    The \emph{Glauber dynamics} is the Markov chain on $\Omega$ defined as follows:
-    \begin{itemize}
-        \item At each step, pick a vertex $v\in V$ uniformly at random,
-        \item Erase the value of $\sigma_v$,
-        \item Sample the value of $\sigma_v$ from the conditional measure $\mu_{G,\beta}[\blank|(\sigma_u)_{u\neq v}]$.
-    \end{itemize}
+\subsection{Definition of the Glauber dynamic}
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/glauber.pdf}
+    \caption{The Glauber dynamic randomly selects a vertex,
+    as well as a uniform random variable $\iota\in[0,1]$.
+    If $\iota$ is below the threshold value, then the chosen spin is set to $-1$;
+    if it is above, the spin is set to $+1$.
+    The threshold value is chosen in such a way that the Markov chain mixes to the desired distribution on $\Omega$.}
+    \label{fig:glauber}
+\end{figure}
+
+The idea of the Glauber dynamic is simple: at each step, we pick a vertex $v\in V$ uniformly at random,
+erase the value of $\sigma_v$,
+and then sample the value of $\sigma_v$ from the conditional measure $\mu[\blank|(\sigma_u)_{u\neq v}]$
+(see Figure~\ref{fig:glauber}).
+
+We first define a probability measure $\P$ that functions as a source of independent randomness for this Markov chain.
+
+\begin{definition}[Auxilliary randomness on finite graphs]
+    Let $G=(V,E)$ denote a finite simple graph.
+    Let $(u_i,\iota_i)_{i\geq 0}$ be an i.i.d.~sequence of random variables,
+    such that the law of $(u_i,\iota_i)$ is uniform in $V\times[0,1]$.
+    Write $\P$ for the associated probability measure.
 \end{definition}
 
-\begin{lemma}[Stationarity of the Ising model]
-    Let $G=(V,E)$ be a simple graph and fix $\beta\in[0,\infty)$.
-    Then $\mu_{G,\beta}$ is the unique stationary distribution of the Glauber dynamics on $G$ at inverse temperature $\beta$.
-    Moreover, it is reversible in equilibrium.
+Let us now describe how this randomness can be used to update a state $\sigma\in\Omega$.
+
+\begin{definition}[Update map]
+    Let $\mu$ denote a probability measure on $\Omega$,
+    and let $\sigma$ denote a state in the support of $\mu$.
+    For each pair $(u,\iota)\in V\times[0,1]$, we define
+    \[
+    R_{u,\iota}^\mu(\sigma):=
+    \begin{cases}
+        f_u^-(\sigma) & \text{if $\iota\leq\mu[\{\sigma_u=-1\}|(\sigma_v)_{v\neq u}]$},\\
+        f_u^+(\sigma) & \text{otherwise},
+    \end{cases}
+    \] where \[
+    f_u^\pm:\Omega\to\Omega,\,
+    \sigma\mapsto
+    \text{the state $\sigma$, except that $\sigma_u$ is set to $\pm1$}.
+    \]
+\end{definition}
+
+\begin{definition}[Glauber dynamic]
+    Let $G=(V,E)$ be a finite simple graph.
+    Let $\mu$ denote a probability measure on $\Omega$,
+    and $\sigma$ a state in the support of $\mu$.
+    The \emph{Glauber dynamic} is the Markov chain $X=X^\mu=(X^\mu_k)_{k\in\Z_{\geq 0}}$ defined via
+    $X^{\mu}_0=\sigma$ and
+    \[
+        X^{\mu}_{k+1}:=R_{u_k,\iota_k}^\mu(X^{\mu}_k).
+    \]
+    The dependency on $\sigma$ is implicit, and the reference to $\mu$ is sometimes omitted.
+\end{definition}
+
+We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
+
+\begin{lemma}[Convergence of the Glauber dynamic]
+    Let $G$ denote a finite simple graph,
+    and $\P$ the associated auxilliary randomness probability measure.
+    Let $\mu$ denote any probability measure on $\Omega$.
+    If the Markov chain $X^\mu$ is irreducible,
+    then for any starting state $\sigma$ in the support of $\mu$,
+    the distribution of $X^\mu_k$ converges to $\mu$ as $k\to\infty$.
 \end{lemma}
 
 \begin{proof}
-    \begin{itemize}
-        \item \emph{Irreducibility and aperiodicity.}
-        The state space $\Omega$ is finite, and every state has a strictly postive probability.
-        Thus, at each step, any of the spins in $V$ is flipped with a positive probability.
-        This means that one can get from any state $\sigma\in\Omega$ to any other state $\sigma'\in\Omega$ in at most $|V|$ steps, by flipping the spins that differ between $\sigma$ and $\sigma'$.
-        This shows that the Markov chain is irreducible.
-        Moreover, the probability of staying in the same state is positive, so the Markov chain
-        is aperiodic.
-        \item \emph{Stationarity and reversibility.}
-        It suffices to prove the detailed balance equation.
-        Let $\sigma,\sigma'\in\Omega$ be two states that differ at exactly one vertex $v\in V$.
-        Let $Q$ denote the event that some spin configuration equals $\sigma$ on $V\setminus\{v\}$.
-        Then
-        \begin{align*}
-            \mu_{G,\beta}[\sigma]P(\sigma\to\sigma')
-            &=\mu_{G,\beta}[\sigma]\frac{1}{|V|}\mu_{G,\beta}[\sigma'|Q]\\
-            &=\frac1{|V|} \mu_{G,\beta}[Q]\mu_{G,\beta}[\sigma|Q]\mu_{G,\beta}[\sigma'|Q].
-        \end{align*}
-        This formula is symmetric in $\sigma$ and $\sigma'$, this implies detailed balance.
-        \qedhere
-    \end{itemize}
+    \textbf{Aperiodicity.}
+    The Markov chain is aperiodic because the probability of staying in the same state is positive.
+    \textbf{Convergence.}
+    Since the Markov chain is irreducible and aperiodic,
+    it suffices to show that $\mu$ satisfies the detailed balance equation
+    for the matrix of transition probabilities of $X^\mu$.
+    Since the Markov chain can only transition between states that differ at a single vertex,
+    it suffices to check the detailed balance equation for pairs of states that differ at a single vertex.
+    Let $\sigma^-,\sigma^+\in\Omega$ be two states that differ at exactly one vertex $v\in V$,
+    where $\sigma^-_v=-1$ and $\sigma^+_v=+1$.
+    Let $Q$ denote the event that some spin configuration equals $\sigma^-$ on $V\setminus\{v\}$.
+    Then
+    \begin{align}
+        \mu[\sigma^-]
+        \cdot
+        \P[\{X^\mu_{1}=\sigma^+\}|\{X^\mu_0=\sigma^-\}]
+        &=\mu[\sigma^-]\cdot\P[\{R_{u_0,\iota_0}^\mu(\sigma^-)=\sigma^+\}]
+        \\&=
+        \mu[\sigma^-|Q]\mu[Q]\cdot\frac1{|V|}
+        \P\Big[\Big\{\iota_0 > \mu[\sigma^-|Q]\Big\}\Big]
+        \\&=
+        \mu[\sigma^-|Q]\mu[Q]\cdot\frac1{|V|}\mu[\sigma^+|Q].
+    \end{align}
+    We can also work out $\mu[\sigma^+]\cdot\P[\{X^\mu_{1}=\sigma^-\}|\{X^\mu_0=\sigma^+\}]$,
+    which yields the same expression (that is symmetric in $\sigma^-$ and $\sigma^+$).
+    This proves the detailed balance equation.
 \end{proof}
 
-We now explicitly describe the ``computer algorithm'' for sampling the Markov chain.
-The idea is to run each Markov step by sampling an independent pair $(x,\iota)\in V\times[0,1]$
-(where the vertex $x$ is uniformly random, and $\iota$ is sampled independently and uniformly from the unit interval).
+\begin{remark}
+    Consider the Ising model $\mu_{G,\beta}$ on a finite simple graph $G=(V,E)$ at inverse temperature $\beta\in[0,\infty)$.
+    It is then easy to see that every state has a positive probability of ocurring.
+    The Glauber dynamic can therefore flip any spin at each step.
+    It can therefore hop from one state to any other state in at most $|V|$
+    steps, proving irreducibility.
+    The Markov chain is very easy to implement in a computer,
+    and has been used by theoretical physicists to simulate the Ising model
+    in order to make meaningfull predictions.
+\end{remark}
+
+\subsection{Ferromagnetism in the Ising model}
+
+\begin{theorem}[The Ising model is ferromagnetic]
+    Fix a finite simple graph $G$ and a constant $\beta\in[0,\infty)$.
+    Consider a fixed vertex $u$.
+    Let $N_+(\sigma)$ denote the number of neighbours of $u$
+    at which $\sigma$ takes the value $+1$,
+    and $N_-(\sigma)$ the number of neighbours with value $-1$.
+    Write $\Delta(\sigma):=N_+(\sigma)-N_-(\sigma)$.
+    Then
+    \[
+        \mu_{G,\beta}[\{\sigma_u=+1\}|(\sigma_v)_{v\neq u}]
+        =
+        \frac{e^{\beta \Delta(\sigma)}}{2\cosh (\beta \Delta(\sigma))}.
+    \]
+    The function on the right is increasing in $\Delta(\sigma)$, which is an increasing function of $\sigma$.
+
+    \textbf{In other words, the more spins around $u$ are valued $+$,
+    the more likely it is that $\sigma_u=+$. This property is called \emph{ferromagnetism}
+    and it is an essential feature of the Ising model.}
+\end{theorem}
+
+\begin{proof}
+    If all spins but $\sigma_u$ are known,
+    then the likelyhood of $\sigma_u$ is proportional to $e^{\beta\Delta(\sigma)\sigma_u}$.
+    The formula in the theorem then follows.
+\end{proof}
 
 
+\begin{definition}[$\Omega$ as a partially ordered set]
+    Let $G$ denote a simple graph.
+    We introduce a partial order $\leq$ on $\Omega$ such that
+    $\sigma\leq\tau$ if and only if $\sigma_v\leq\tau_v$ for all $v\in V$.
+
+    Let $\calA$ and $\calB$ denote two arbitrary partially ordered sets.
+    We say that a function $X:\calA\to\calB$ is \emph{increasing} if $x\leq x'$ implies $X(x)\leq X(x')$ for all $x,x'\in\calA$.
+    We such a function \emph{decreasing} if $x\leq x'$ implies $X(x)\geq X(x')$ for all $x,x'\in\calA$.
+\end{definition}
+
+\begin{lemma}[Monotonicity of the Glauber update]
+    Let $G$ be a finite simple graph, and choose $\beta\in[0,\infty)$.
+    Then for any pair $(u,\iota)\in V\times[0,1]$ the map
+    \[
+        R_{u,\iota}^{\mu_{G,\beta}}:\Omega\to\Omega
+    \]
+    is an increasing function.
+
+    This remains true if we replace $\mu_{G,\beta}$ by $\mu_{G,\beta}[\blank|\{\sigma|_\Lambda=\zeta\}]$
+    for any $\Lambda\subset V$ and $\zeta\in\{\pm1\}^\Lambda$.
+\end{lemma}
+
+% \begin{proof}
+%     In fact, it is quite easy to give an explicit expression for $R_{u,\iota}^{\mu_{G,\beta}}$.
+
+% \end{proof}
+
+
+% \newpage
+
+
+% Above, we construced a simply way to turn uniform randomness into
+% a Markov chain that mixes towards $\mu_{G,\beta}$.
+% We can prove many useful properties by analysing this Markov chain.
+% We first give an important example of such a result,
+% then introduce some abstract concepts,
+% and then prove the example.
+
+% \begin{theorem}[First Griffiths inequality for the two-point function]
+%     \label{thm:First Griffiths inequality for the two-point function}
+%     Let $G=(V,E)$ be a finite simple graph, choose
+%     $\beta\in[0,\infty)$,
+%     and consider two distinct vertices $x,y\in V$.
+%     Then
+%     \[
+%         \Cov_{\mu_{G,\beta}}[\sigma_x,\sigma_y]
+%         =
+%         \mu_{G,\beta}[\sigma_x\sigma_y]
+%         =
+%         \langle \sigma_x\sigma_y \rangle_{G,\beta}
+%         \geq 0.
+%     \]
+%     This quantity is called the \emph{two-point correlation function}.
+% \end{theorem}
+
+% The equalities are trivial:
+% the first one follows from flip-symmetry,
+% the second is just a definition.
+% We are interested in proving the inequality.
+% We first introduce two more definitions.
+
+
+% \begin{definition}[Stochastic domination]
+
+%     Let $\mu$ and $\nu$ denote two probability measures on $\calA$.
+%     We say that $\mu$ is \emph{stochastically dominated} by $\nu$ (and write $\mu\preceq\nu$)
+%     if for any bounded increasing function $X:\calA\to\R$, we have $\mu[X]\leq\nu[X]$.
+% \end{definition}
+
+% In this new language, we can state the following lemma.
+
+% \begin{lemma}
+%     \label{lemma:easiest_example_of_stochastic_domination}
+%     Consider the Ising model measure $\mu_{G,\beta}$ of Theorem~\ref{thm:First Griffiths inequality for the two-point function}.
+%     Then for any $x\in V$, we have
+%     \[
+%         \mu\preceq\mu_{G,\beta}[\blank|\{\sigma_x=+1\}].
+%     \]
+% \end{lemma}
+
+% This lemma implies the theorem.
+
+% \begin{proof}[Proof of Theorem~\ref{thm:First Griffiths inequality for the two-point function}]
+%     By the definition of $\preceq$ and by flip symmetry, we get 
+%     \[
+%         \mu_{G,\beta}[\sigma_y|\{\sigma_x=+1\}] \geq \mu_{G,\beta}[\sigma_y]=0.
+%     \]
+%     Using flip-symmetry again, we get
+%     \[
+%         \mu_{G,\beta}[\sigma_y|\{\sigma_x=-1\}]
+%         =
+%         -
+%         \mu_{G,\beta}[\sigma_y|\{\sigma_x=+1\}]
+%         \leq 0.
+%     \]
+%     It is now clear that $\langle\sigma_x\sigma_y\rangle_{G,\beta}\geq 0$.
+% \end{proof}
+
+% We are now going to prove the lemma.
+% The proof contains some important information,
+% and will later serve as a blueprint for more general proofs.
+
+% \begin{proof}[Proof of Lemma~\ref{lemma:easiest_example_of_stochastic_domination}]
+%     Let $\mu:=\mu_{G,\beta}$ and $\nu:=\mu_{G,\beta}[\blank|\{\sigma_x=+1\}]$.
+%     We first state a claim, then see how the claim implies the lemma,
+%     and then prove the claim.
+
+%     More precisely, we claim that
+%     \begin{equation}
+%         R_{u,\iota}^\mu \leq R_{u,\iota}^\nu
+%     \end{equation}
+%     (which means that )
+% \end{proof}
 
 
 
