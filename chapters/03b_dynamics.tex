@@ -48,6 +48,7 @@ We first define a probability measure $\P$ that functions as a source of indepen
 Let us now describe how this randomness can be used to update a state $\sigma\in\Omega$.
 
 \begin{definition}[Update map]
+    \label{def:Update map}
     Let $\mu$ denote a probability measure on $\Omega$,
     and let $\sigma$ denote a state in the support of $\mu$.
     For each pair $(u,\iota)\in V\times[0,1]$, we define
@@ -129,7 +130,8 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
 
 \subsection{Ferromagnetism in the Ising model}
 
-\begin{theorem}[The Ising model is ferromagnetic]
+\begin{theorem}[Ferromagnetism]
+    \label{thm:Ferromagnetism}
     Fix a finite simple graph $G$ and a constant $\beta\in[0,\infty)$.
     Consider a fixed vertex $u$.
     Let $N_+(\sigma)$ denote the number of neighbours of $u$
@@ -155,6 +157,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     The formula in the theorem then follows.
 \end{proof}
 
+For the avoidance of doubt, let us define what we mean by an \emph{increasing function}.
 
 \begin{definition}[$\Omega$ as a partially ordered set]
     Let $G$ denote a simple graph.
@@ -166,115 +169,44 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     We such a function \emph{decreasing} if $x\leq x'$ implies $X(x)\geq X(x')$ for all $x,x'\in\calA$.
 \end{definition}
 
-\begin{lemma}[Monotonicity of the Glauber update]
+\begin{figure}
+    \centering
+    \includegraphics{figures/mono.pdf}
+    \caption{Ferromagnetism of the Ising model implies that applying the Glauber update
+    with the same input data $(u,\iota)$ preserves the ordering of the configurations.}
+    \label{fig:mono}
+\end{figure}
+
+\begin{lemma}[Monotonicity of the Glauber update, cf.~Figure~\ref{fig:mono}]
     Let $G$ be a finite simple graph, and choose $\beta\in[0,\infty)$.
     Then for any pair $(u,\iota)\in V\times[0,1]$ the map
-    \[
+    \begin{equation}
+        \label{eq:Monotonicity of the Glauber update:free}
         R_{u,\iota}^{\mu_{G,\beta}}:\Omega\to\Omega
-    \]
+    \end{equation}
     is an increasing function.
-
-    This remains true if we replace $\mu_{G,\beta}$ by $\mu_{G,\beta}[\blank|\{\sigma|_\Lambda=\zeta\}]$
-    for any $\Lambda\subset V$ and $\zeta\in\{\pm1\}^\Lambda$.
 \end{lemma}
 
-% \begin{proof}
-%     In fact, it is quite easy to give an explicit expression for $R_{u,\iota}^{\mu_{G,\beta}}$.
+\begin{proof}
+    Write $\mu:=\mu_{G,\beta}$.
+    Recall Definition~\ref{def:Update map} and focus on Equation~\eqref{eq:Monotonicity of the Glauber update:free}.
+    Observe that the threshold value $\mu[\{\sigma_u=-1\}|(\sigma_v)_{v\neq u}]$
+    is a \emph{decreasing} function of $\sigma$, by ferromagnetism (Theorem~\ref{thm:Ferromagnetism}).
+    Since $\sigma_u$ is set to $+1$ when $\iota$ exceeds the threshold value,
+    it is easy to see that $R_{u,\iota}^\mu$ is an increasing function of $\sigma$
+    for fixed $u$ and $\iota$.
+\end{proof}
 
-% \end{proof}
+\begin{lemma}[Glauber update for conditioned measures]
+    Consider a finite simple graph $G=(V,E)$.
+    Consider a probability measure on $\Omega$ such that every state has a positive probability.
+    For $\Lambda\subset V$ and $\zeta\in\{\pm1\}^\Lambda$,
+    define the measure $\nu:=\mu[\blank|\{\sigma|_\Lambda=\zeta\}]$.
+    Then:
+    \begin{itemize}
+        \item For $u\in\Lambda^\complement$, we have $R_{u,\iota}^\nu=R_{u,\iota}^\mu$ (at least on the set $\{\sigma|_\Lambda=\zeta\}$),
+        \item For $u\in\Lambda$, we have $R_{u,\iota}^\nu=f_u^{\zeta_u}$ (at least on the set $\{\sigma|_\Lambda=\zeta\}$).
+    \end{itemize}
 
-
-% \newpage
-
-
-% Above, we construced a simply way to turn uniform randomness into
-% a Markov chain that mixes towards $\mu_{G,\beta}$.
-% We can prove many useful properties by analysing this Markov chain.
-% We first give an important example of such a result,
-% then introduce some abstract concepts,
-% and then prove the example.
-
-% \begin{theorem}[First Griffiths inequality for the two-point function]
-%     \label{thm:First Griffiths inequality for the two-point function}
-%     Let $G=(V,E)$ be a finite simple graph, choose
-%     $\beta\in[0,\infty)$,
-%     and consider two distinct vertices $x,y\in V$.
-%     Then
-%     \[
-%         \Cov_{\mu_{G,\beta}}[\sigma_x,\sigma_y]
-%         =
-%         \mu_{G,\beta}[\sigma_x\sigma_y]
-%         =
-%         \langle \sigma_x\sigma_y \rangle_{G,\beta}
-%         \geq 0.
-%     \]
-%     This quantity is called the \emph{two-point correlation function}.
-% \end{theorem}
-
-% The equalities are trivial:
-% the first one follows from flip-symmetry,
-% the second is just a definition.
-% We are interested in proving the inequality.
-% We first introduce two more definitions.
-
-
-% \begin{definition}[Stochastic domination]
-
-%     Let $\mu$ and $\nu$ denote two probability measures on $\calA$.
-%     We say that $\mu$ is \emph{stochastically dominated} by $\nu$ (and write $\mu\preceq\nu$)
-%     if for any bounded increasing function $X:\calA\to\R$, we have $\mu[X]\leq\nu[X]$.
-% \end{definition}
-
-% In this new language, we can state the following lemma.
-
-% \begin{lemma}
-%     \label{lemma:easiest_example_of_stochastic_domination}
-%     Consider the Ising model measure $\mu_{G,\beta}$ of Theorem~\ref{thm:First Griffiths inequality for the two-point function}.
-%     Then for any $x\in V$, we have
-%     \[
-%         \mu\preceq\mu_{G,\beta}[\blank|\{\sigma_x=+1\}].
-%     \]
-% \end{lemma}
-
-% This lemma implies the theorem.
-
-% \begin{proof}[Proof of Theorem~\ref{thm:First Griffiths inequality for the two-point function}]
-%     By the definition of $\preceq$ and by flip symmetry, we get 
-%     \[
-%         \mu_{G,\beta}[\sigma_y|\{\sigma_x=+1\}] \geq \mu_{G,\beta}[\sigma_y]=0.
-%     \]
-%     Using flip-symmetry again, we get
-%     \[
-%         \mu_{G,\beta}[\sigma_y|\{\sigma_x=-1\}]
-%         =
-%         -
-%         \mu_{G,\beta}[\sigma_y|\{\sigma_x=+1\}]
-%         \leq 0.
-%     \]
-%     It is now clear that $\langle\sigma_x\sigma_y\rangle_{G,\beta}\geq 0$.
-% \end{proof}
-
-% We are now going to prove the lemma.
-% The proof contains some important information,
-% and will later serve as a blueprint for more general proofs.
-
-% \begin{proof}[Proof of Lemma~\ref{lemma:easiest_example_of_stochastic_domination}]
-%     Let $\mu:=\mu_{G,\beta}$ and $\nu:=\mu_{G,\beta}[\blank|\{\sigma_x=+1\}]$.
-%     We first state a claim, then see how the claim implies the lemma,
-%     and then prove the claim.
-
-%     More precisely, we claim that
-%     \begin{equation}
-%         R_{u,\iota}^\mu \leq R_{u,\iota}^\nu
-%     \end{equation}
-%     (which means that )
-% \end{proof}
-
-
-
-
-
-
-
-
-
+    In particular, if $\mu$ is an Ising model, then $R_{u,\iota}^\nu$ is an increasing function.
+\end{lemma}
