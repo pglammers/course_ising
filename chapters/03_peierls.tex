@@ -3,7 +3,7 @@
 
 \begin{figure}[b]
     \includegraphics{figures/triangular.pdf}
-    \caption{The triangular lattice graph $\T_3$ with $+$ spins on the boundary.}
+    \caption{The triangular lattice graph $\bar\T_3$ with $+$ spins on the boundary.}
     \label{fig:triangular}
 \end{figure}
 
@@ -11,16 +11,16 @@ Peierls disproved Ising's conjecture for the absence of phase transition
 in dimension $d\geq 2$.
 For simplicity, we state and prove his result on the two-dimensional triangular lattice graph.
 The triangular lattice $\T$ is the nearest-neighbour graph on the vertex set $\Z+\Z e^{i\pi/3}\subset\C$.
-We write $\T_n$ for the subgraph induced by vertices at a graph distance of at most $n$ from the origin,
+We write $\T_n$ for the subgraph induced by vertices at a graph distance strictly smaller than $n$ from the origin,
 and $\partial\T_n$ for the set of vertices at a graph distance of exactly $n$ from the origin.
-We are interested in the Ising model on $\T_n$ with $+$ boundary conditions imposed on $\partial\T_n$,
+We are interested in the Ising model $\langle\blank\rangle_{\T_n,\beta}^+$,
 see Figure~\ref{fig:triangular}.
 
 \begin{theorem}[Peierls, 1936]
     \label{thm:peierls}
     For sufficiently large $\beta\in[0,\infty)$, we have
     \[
-        \inf_n\mu_{\T_n,\beta}[\sigma_0|\{\sigma|_{\partial\T_n}\equiv +\}]>0.
+        \inf_n\langle\sigma_0\rangle_{\T_n,\beta}^+>0.
     \]
     In other words, the centre spin remains positively correlated with the boundary,
     uniformly in the system size.
@@ -33,20 +33,20 @@ In the figure, we represented the vertices by hexagons in such a way that they f
 Although this is no more than a visual trick, the picture suggests that $\sigma$ can be represented by a collection of \emph{loops}.
 
 We now make this formal.
-Let $\T_n^*=(V_n^*,E_n^*)$ denote the \emph{dual graph} of $\T_n$.
-Its vertex set is the set of centres of triangles of $\T_n$.
+Let $\T_n^*=(V_n^*,E_n^*)$ denote the \emph{dual graph} of $\bar\T_n$.
+Its vertex set is the set of centres of triangles of $V(\bar\T_n)$.
 Its edge set connects nearest-neighbour vertices.
 See Figure~\ref{fig:peierls} (Right).
-For any spin configuration $\sigma$ on $\T_n$ which equals $+$ on $\partial\T_n$,
+For any spin configuration $\sigma$ on $\bar\T_n$ which equals $+$ on $\partial\T_n$,
 we define its \emph{interface} $\calI(\sigma)\subset E_n^*$ as the set of dual edges separating two spins with a distinct value.
 See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its interface $\calI(\sigma)$.
 
 \begin{figure}[b]
     \includegraphics{figures/Peierls.pdf}
     \caption{
-        Left: A spin configuration $\sigma$ on $\T_3$ with $+$ boundary conditions.
+        Left: A spin configuration $\sigma$ on $\bar\T_3$ with $+$ boundary conditions.
         The spins are represented by hexagons in such a way that they fill up the space.
-        Right: The triangular lattice graph $\T_3$ (in grey)
+        Right: The triangular lattice graph $\bar\T_3$ (in grey)
         and its planar dual $\T_3^*$ (in black).
         It also depicts the loops of the interface $\calI(\sigma)$ for the configuration $\sigma$ on the left.
     }
@@ -63,7 +63,7 @@ See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its inte
     Fix $n$ and $\beta$.
     All of the following are true.
     \begin{enumerate}
-        \item The map $\sigma\mapsto\calI(\sigma)$ is a bijection from the set of spin configurations $\sigma$ on $\T_n$
+        \item The map $\sigma\mapsto\calI(\sigma)$ is a bijection from the set of spin configurations $\sigma$ on $\bar\T_n$
         with $\sigma|_{\partial\T_n}\equiv +$ to the set of loop configurations on $\T_n$.
         \item If $\sigma$ is such a spin configuration, then
         \begin{equation}
@@ -73,7 +73,7 @@ See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its inte
         \item For any loop configuration $\gamma$, we have
     \begin{equation}
         \label{eq:peierls_energy}
-        \mu_{\T_n,\beta}[\{\calI(\sigma)=\gamma\}]\propto e^{-2\beta|\gamma|}.
+        \mu_{\T_n,\beta}^+[\{\calI(\sigma)=\gamma\}]\propto e^{-2\beta|\gamma|}.
     \end{equation}
     \end{enumerate}
 \end{lemma}
@@ -93,16 +93,16 @@ See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its inte
         and that $\calI(\sigma)=\gamma$.
         This proves that $\calI$ is a bijection, and that Equation~\eqref{eq:peierls_reconstruction} holds.
         \item\textbf{Proof of Equation~\eqref{eq:peierls_energy}.}
-        Notice that $|\calI(\sigma)|$ equals the number of $\T_n$-edges
+        Notice that $|\calI(\sigma)|$ equals the number of $\bar\T_n$-edges
         on which $\sigma$ disagrees.
         In particular, we have
         \[
             H(\sigma)=-\beta\sum_{u\sim v}\sigma_u\sigma_v=
-            -\beta\sum_{u\sim v}1 + 2\beta|\calI(\sigma)|,
+            -\beta|E(\bar\T_n)| + 2\beta|\calI(\sigma)|,
         \]
         from which it follows that
         \[
-            \mu_{\T_n,\beta}[\{\calI(\sigma)=\gamma\}]\propto
+            \mu_{\T_n,\beta}^+[\{\calI(\sigma)=\gamma\}]\propto
             e^{-2\beta|\gamma|}.
         \]
     \end{itemize}
@@ -114,7 +114,7 @@ See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its inte
     Fix $n$ and $\beta$.
     Then for any loop configuration $\gamma$, we have
     \[
-        \mu_{\T_n,\beta}[\{\gamma\subset\calI(\sigma)\}]\leq e^{-2\beta|\gamma|}.
+        \mu_{\T_n,\beta}^+[\{\gamma\subset\calI(\sigma)\}]\leq e^{-2\beta|\gamma|}.
     \]
 \end{lemma}
 
@@ -122,10 +122,10 @@ See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its inte
     It suffices to prove that
     \[
         \frac{
-            \mu_{\T_n,\beta}[\{\gamma\subset\calI(\sigma)\}]
+            \mu_{\T_n,\beta}^+[\{\gamma\subset\calI(\sigma)\}]
         }
         {
-            \mu_{\T_n,\beta}[\{\gamma\cap\calI(\sigma)=\emptyset\}]
+            \mu_{\T_n,\beta}^+[\{\gamma\cap\calI(\sigma)=\emptyset\}]
         }
         = e^{-2\beta|\gamma|}.
     \]
@@ -158,12 +158,12 @@ By a \emph{loop}, we simply mean a connected component of a loop configuration.
     and consider a dual edge $uv\in E_n^*$.
     Then for any $\ell\in\Z_{\geq 1}$,
     \[
-        \mu_{\T_n,\beta}[\{\text{$uv$ belongs to a $\calI(\sigma)$-loop of length $\ell$}\}]
+        \mu_{\T_n,\beta}^+[\{\text{$uv$ belongs to a $\calI(\sigma)$-loop of length $\ell$}\}]
         \leq (2e^{-2\beta})^\ell.
     \]
     In particular, if $2e^{-2\beta}<1$, then 
     \[
-        \mu_{\T_n,\beta}[\{\text{$uv$ belongs to a $\calI(\sigma)$-loop of length $\geq\ell$}\}]
+        \mu_{\T_n,\beta}^+[\{\text{$uv$ belongs to a $\calI(\sigma)$-loop of length $\geq\ell$}\}]
         \leq \frac{(2e^{-2\beta})^\ell}{1-2e^{-2\beta}}.
     \]
 \end{lemma}
@@ -173,9 +173,9 @@ By a \emph{loop}, we simply mean a connected component of a loop configuration.
     Notice that $|L|\leq 2^\ell$.
     Then
     \begin{multline}
-        \mu_{\T_n,\beta}[\{\text{$uv$ belongs to a $\calI(\sigma)$-loop of length $\ell$}\}]
+        \mu_{\T_n,\beta}^+[\{\text{$uv$ belongs to a $\calI(\sigma)$-loop of length $\ell$}\}]
         \\=
-        \sum_{\gamma\in L} \mu_{\T_n,\beta}[\{\gamma\subset\calI(\sigma)\}]
+        \sum_{\gamma\in L} \mu_{\T_n,\beta}^+[\{\gamma\subset\calI(\sigma)\}]
         \leq
         \sum_{\gamma\in L} e^{-2\beta|\gamma|}
         \leq
@@ -193,14 +193,14 @@ This is the key to proving Theorem~\ref{thm:peierls}.
 \begin{proof}[Proof of Theorem~\ref{thm:peierls}]
     It suffices to prove that
     \[
-        \mu_{\T_n,\beta}[\{\sigma_0=-\}|\{\sigma|_{\partial\T_n}\equiv +\}]
+        \mu_{\T_n,\beta}^+[\{\sigma_0=-\}]
         \leq \frac13.
     \]
     By the loop representation (Lemma~\ref{lem:peierls_loop_representation}),
     if $\sigma_0=-$, then $\calI(\sigma)$ contains at least one loop around $0$.
     Therefore it suffices to prove that
     \[
-        \mu_{\T_n,\beta}[\{\text{$\calI(\sigma)$ contains a loop around $0$}\}]
+        \mu_{\T_n,\beta}^+[\{\text{$\calI(\sigma)$ contains a loop around $0$}\}]
         \leq \frac13.
     \]
     Any such loop must hit the half-line starting at $0$ and going straight up
@@ -209,9 +209,9 @@ This is the key to proving Theorem~\ref{thm:peierls}.
     Thus, if $\calI(\sigma)$ contains a loop around $0$, then it must contain a loop of length at least $i$ through $e_i$ for some $i\geq 1$.
     In particular, we get
     \begin{multline}
-        \mu_{\T_n,\beta}[\{\sigma_0=-\}|\{\sigma|_{\partial\T_n}\equiv +\}]
+        \mu_{\T_n,\beta}^+[\{\sigma_0=-\}]
         \\\leq
-        \sum_{i=1}^\infty \mu_{\T_n,\beta}[\{\text{$\calI(\sigma)$ contains a loop of length at least $i$ through $e_i$}\}]
+        \sum_{i=1}^\infty \mu_{\T_n,\beta}^+[\{\text{$\calI(\sigma)$ contains a loop of length at least $i$ through $e_i$}\}]
         \\\leq
         \sum_{i=1}^\infty \frac{(2e^{-2\beta})^i}{1-2e^{-2\beta}}
         =
@@ -230,17 +230,17 @@ This is the key to proving Theorem~\ref{thm:peierls}.
 
 \begin{exercise}[Peierls argument in the Potts model]
     Now change the model: fix $N\in\Z_{\geq 2}$ and $\beta\in[0,\infty)$,
-    and consider the probability measure $\mu_n$ defined on $\{1,\ldots,N\}^{\T_n}$
+    and consider the probability measure $\mu_n$ defined on $\{1,\ldots,N\}^{\bar\T_n}$
     such that
     \[
-        \mu_n[\sigma]\propto \exp\beta \sum_{uv\in E(\T_n)} \begin{cases}
+        \mu_n[\sigma]\propto \exp\beta \sum_{uv\in E(\bar\T_n)} \begin{cases}
             +1 &\text{if $\sigma_u=\sigma_v$,}
             \\
             -1 &\text{if $\sigma_u\neq\sigma_v$.}
         \end{cases}
     \]
     We think of $\mu_n$ as assigning one of $N$ distinct \emph{colours}
-    to the vertices of $\T_n$, in such a way that configurations with fewer
+    to the vertices of $\bar\T_n$, in such a way that configurations with fewer
     disagreement edges are favoured.
     This model is called the \emph{$N$-state Potts model}.
 
@@ -261,7 +261,7 @@ This is the key to proving Theorem~\ref{thm:peierls}.
     for any loop $\gamma$.
 
     \emph{Hint.}
-    If we consider $\sigma\in(\Z/N\Z)^{\T_n}$, then for any fixed loop $\gamma$
+    If we consider $\sigma\in(\Z/N\Z)^{\bar\T_n}$, then for any fixed loop $\gamma$
     and shift $k\in(\Z/N\Z)$, we can define the configuration $S_{\gamma,k}(\sigma)$
     defined by
     \[
@@ -274,11 +274,11 @@ This is the key to proving Theorem~\ref{thm:peierls}.
 
 \begin{exercise}[Peierls argument on the square lattice]
     Fix $d=2$.
-    Now let $G_n$ be the nearest-neighbour graph on the vertex set $\Z^d\cap [-n,n]^d$.
-    Write $\partial G_n$ for the vertices of $G_n$ at an $\ell^\infty$-distance of exactly $n$ from the origin.
+    Now let $\Lambda_n:=(-n,n)^d\cap\Z^d$ be a subset of vertices
+    of the square lattice graph $\Z^2$ (with nearest-neighbour connectivity).
     Prove that for sufficiently large $\beta$, we have
     \[
-        \inf_n\mu_{G_n,\beta}[\sigma_0|\{\sigma|_{\partial G_n}\equiv +\}]>0.
+        \inf_n\langle\sigma_0\rangle_{\Lambda_n,\beta}^+>0.
     \]
     \emph{Hint.}
     The natural analogue of ``loop configurations'' are

@@ -146,37 +146,82 @@ and with the precise value of the inverse temperature $\beta$.
 %     and it is denoted $\langle\blank\rangle_{\Lambda,\beta}^\pm$.
 % \end{definition}
 
-% \begin{exercise}[Markov property]
-%     Consider the Ising model on some finite graph $G=(V,E)$ at inverse temperature $\beta$.
-%     Fix some $\Lambda\subset V$ and let $(\Lambda_i)_i$ denote the partition of $\Lambda$ into connected components.
-%     Let $\zeta\in\{\pm\}^{\Lambda^c}$,
-%     and consider the conditional probability measure
-%     $\P[\blank|\{\sigma|_{\Lambda^c}=\zeta\}]$.
-%     \begin{itemize}
-%         \item Prove that $(\sigma|_{\Lambda_i})_i$ is a family of independent random variables in this measure.
-%         \item Prove that the law of $\sigma|_{\Lambda_i}$ is $\langle\blank\rangle_{\Lambda_i}^{\zeta|_{\partial\Lambda_i}}$.
-%     \end{itemize}
-%     \emph{Hint.}
-%     Decompose the Hamiltonian according to $H(\sigma)=C+\sum_i H_i(\sigma)$,
-%     where each $H_i$ is measurable in terms of $\zeta|_{\partial\Lambda_i}$ and $\sigma|_{\Lambda_i}$.
-% \end{exercise}
+\section{Markov property}
 
-% Ising proved that in one dimension, the Ising model exhibits exponential decay of correlations at all temperatures.
-% In other words, there is no phase transition.
-% We now state his result, without a proof.
-% While the proof is quite straightforward even with elementary methods,
-% its proof becomes entirely trivial after the introduction of more recent methods.
+We saw that the 1D Ising model is a Markov chain:
+conditional on any fixed spin, the spins ``in the past''
+are independent of the spins ``in the future''.
+This property generalises to arbitrary graphs
+and is called the \emph{Markov property} of the Ising model.
+In tandem with the Markov property, it is useful to introduce the notion of \emph{boundary conditions}.
 
-% \begin{theorem}[Ising, 1924]
-%     \label{thm:Ising}
-%     Consider the finite domains $\Lambda_n:=\{-n,\dots,n\}$ of the graph $\Z$.
-%     Then for any $\beta\in[0,\infty)$,
-%     there exists a constant $c=c_\beta>0$ such that
-%     \[
-%         \langle\sigma_0\rangle_{\Lambda_n,\beta}^+
-%         \leq \frac1ce^{-c_\beta\cdot n}.
-%     \]
-% \end{theorem}
+\begin{definition}[Boundary conditions, cf.~Figure~\ref{fig:triangular}]
+    Let $G=(V,E)$ denote a locally finite graph and $\Lambda\subset V$ a finite set.
+    Let $\partial\Lambda\subset V\setminus\Lambda$ denote the set of vertices adjacent to $\Lambda$.
+    Write $\bar\Lambda$ for the graph defined by
+    \[
+        V(\bar\Lambda):=\Lambda\cup\partial\Lambda;\qquad
+        E(\bar\Lambda):=\{xy\in E:xy\cap\Lambda\neq\emptyset\}.
+    \]
+    For any $\zeta\in\{\pm1\}^{\partial\Lambda}$,
+    we shall write $\langle\blank\rangle_{\Lambda,\beta}^\zeta$
+    for the measure
+    \[
+        \langle\blank\rangle_{\Lambda,\beta}^\zeta:=\mu_{\bar\Lambda,\beta}[\blank|\{\sigma|_{\partial\Lambda}=\zeta\}].
+    \]
+    This is called the \emph{fixed boundary Ising model} with boundary conditions $\zeta$.
+    The boundary condition $\zeta\equiv+1$ is of particular interest,
+    and it is denoted $\langle\blank\rangle_{\Lambda,\beta}^+$.
+    We write $\langle\blank\rangle_{\Lambda,\beta}^-$ for the boundary condition $\zeta\equiv-1$.
+\end{definition}
 
-% Unfortunately, Ising wrongly conjectured that the same would be true in higher dimension.
-% Disappointed with this prediction, he left academia.
+
+\begin{theorem}[Markov property of the Ising model]
+    Let $G$ denote a finite simple graph,
+    and consider the Ising model $\mu_{G,\beta}$ at inverse temperature $\beta\in[0,\infty)$.
+    Let $\Lambda\subset V$ be a subset of the vertices of $G$,
+    and let $\zeta\in\{\pm1\}^{V\setminus\Lambda}$ be a fixed spin configuration outside of $\Lambda$.
+    Let $(\Lambda_i)_i$ denote the partition of $\Lambda$ into connected components.
+    Then the conditional measure $\mu_{G,\beta}[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]$ satisfies the following properties:
+    \begin{enumerate}
+        \item The family of random variables $(\sigma|_{\bar\Lambda_i})_i$ is independent,
+        \item The law of $\sigma|_{\bar\Lambda_i}$ is $\langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Let $C$ be the constant defined by
+    \[
+        C:=-\beta\sum_{xy\in E,\,xy\subset\Lambda^\complement}\zeta_x\zeta_y.
+    \]
+    Then we can decompose the Hamiltonian for any $\sigma$ with $\sigma|_{\Lambda^\complement}=\zeta$ as
+    \[
+        H_{G,\beta}(\sigma)=C+\sum_i H_{\bar\Lambda_i,\beta}(\sigma),
+    \]
+    where each $H_{\bar\Lambda_i,\beta}$ is measurable in terms of $\zeta|_{\partial\Lambda_i}$ and $\sigma|_{\bar\Lambda_i}$.
+    This decomposition implies that
+    \[
+        \mu_{G,\beta}[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]
+        =\bigotimes_i \langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}.
+    \]
+    This implies the desired properties.
+\end{proof}
+
+\begin{remark}[Conditioning on multiple events]
+    Recall that when conditioning on multiple events,
+    the order of the conditioning does not matter
+    (the only thing that matters is that the intersection of the events has positive probability).
+    For example, if we take $\langle\blank\rangle_{\Lambda,\beta}^+$,
+    and condition on the state of more spins within $\Lambda$,
+    then this yields a new fixed boundary condition in a smaller domain.
+\end{remark}
+
+\begin{exercise}
+    Fix $\beta\in[0,\infty)$
+    and let $G=(V,E)$ denote a locally finite simple graph.
+    Let $\Lambda\subset\Delta\subset V$ denote two finite subsets.
+    Work out that $\langle\blank\rangle_{\Lambda,\beta}^+$ is the same as
+    $\mu_{\Delta,\beta}[\blank|\{\sigma|_{\Lambda^\complement}\equiv+1\}]$,
+    by going back to first principles (the definition of the Ising measure).
+\end{exercise}
+
