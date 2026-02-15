@@ -110,6 +110,7 @@ See Figure~\ref{fig:peierls} for such a spin configuration $\sigma$ and its inte
 \end{proof}
 
 \begin{lemma}[The energy of a loop]
+    \label{lemma:Peierls_loop_energy}
     Fix $n$ and $\beta$.
     Then for any loop configuration $\gamma$, we have
     \[
@@ -219,6 +220,57 @@ This is the key to proving Theorem~\ref{thm:peierls}.
     The bound on the right is uniform in $n$,
     and tends to zero as $\beta$ tends to infinity.
 \end{proof}
+
+\begin{figure}
+    \centering
+    \includegraphics{figures/Peierls_Potts.pdf}
+    \caption{A loop $\gamma\subset\calI(\sigma)$ in the three-state Potts model}
+    \label{fig:Peierls_Potts}
+\end{figure}
+
+\begin{exercise}[Peierls argument in the Potts model]
+    Now change the model: fix $N\in\Z_{\geq 2}$ and $\beta\in[0,\infty)$,
+    and consider the probability measure $\mu_n$ defined on $\{1,\ldots,N\}^{\T_n}$
+    such that
+    \[
+        \mu_n[\sigma]\propto \exp\beta \sum_{uv\in E(\T_n)} \begin{cases}
+            +1 &\text{if $\sigma_u=\sigma_v$,}
+            \\
+            -1 &\text{if $\sigma_u\neq\sigma_v$.}
+        \end{cases}
+    \]
+    We think of $\mu_n$ as assigning one of $N$ distinct \emph{colours}
+    to the vertices of $\T_n$, in such a way that configurations with fewer
+    disagreement edges are favoured.
+    This model is called the \emph{$N$-state Potts model}.
+
+    Prove that for fixed $N$, for sufficiently large $\beta$, we have
+    \begin{equation}
+        \label{eq:PeierlsPottsGoal}
+        \inf_n\mu_n[\{\sigma_0=1\}|\{\sigma|_{\partial\T_n}\equiv 1\}]\geq \frac1N.
+    \end{equation}
+
+    The prove this,
+    define $\calI(\sigma)$ as the dual edges of disagreement edges
+    (the union of coloured cluster boundaries in Figure~\ref{fig:Peierls_Potts}).
+    Notice that $\calI(\sigma)$ gives every vertex degree $0$, $2$, or $3$
+    (but never $1$).
+    To prove~\eqref{eq:PeierlsPottsGoal},
+    one should generalise Lemma~\ref{lemma:Peierls_loop_energy}, that is, upper bound
+    $\mu_n[\{\gamma\subset\calI(\sigma)\}|\{\sigma|_{\partial\T_n}\equiv 1\}]$
+    for any loop $\gamma$.
+
+    \emph{Hint.}
+    If we consider $\sigma\in(\Z/N\Z)^{\T_n}$, then for any fixed loop $\gamma$
+    and shift $k\in(\Z/N\Z)$, we can define the configuration $S_{\gamma,k}(\sigma)$
+    defined by
+    \[
+        S_{\gamma,k}(\sigma)_u:=\begin{cases}
+            \sigma_u &\text{if $u$ is not surrounded by $\gamma$,}\\
+            \sigma_u+k&\text{if $u$ is surrounded by $\gamma$.}
+        \end{cases}
+    \]
+\end{exercise}
 
 \begin{exercise}[Peierls argument on the square lattice]
     Fix $d=2$.
