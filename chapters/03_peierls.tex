@@ -10,7 +10,7 @@
 Peierls disproved Ising's conjecture for the absence of phase transition
 in dimension $d\geq 2$.
 For simplicity, we state and prove his result on the two-dimensional triangular lattice graph.
-The triangular lattice $\T$ is the nearest-neighbour graph on the vertex set $\Z+\Z e^{i\pi/3}\subset\C$.
+The triangular lattice $\T$ is the nearest-neighbour graph on the vertex set $i\Z+\Z e^{i\pi/6}\subset\C$.
 We write $\T_n$ for the subgraph induced by vertices at a graph distance strictly smaller than $n$ from the origin,
 and $\partial\T_n$ for the set of vertices at a graph distance of exactly $n$ from the origin.
 We are interested in the Ising model $\langle\blank\rangle_{\T_n,\beta}^+$,
@@ -229,8 +229,8 @@ This is the key to proving Theorem~\ref{thm:peierls}.
 \end{figure}
 
 \begin{exercise}[Peierls argument in the Potts model]
-    Now change the model: fix $N\in\Z_{\geq 2}$ and $\beta\in[0,\infty)$,
-    and consider the probability measure $\mu_n$ defined on $\{1,\ldots,N\}^{\bar\T_n}$
+    Now change the model: fix $q\in\Z_{\geq 2}$ and $\beta\in[0,\infty)$,
+    and consider the probability measure $\mu_n$ defined on $\{1,\ldots,q\}^{\bar\T_n}$
     such that
     \[
         \mu_n[\sigma]\propto \exp\beta \sum_{uv\in E(\bar\T_n)} \begin{cases}
@@ -239,15 +239,15 @@ This is the key to proving Theorem~\ref{thm:peierls}.
             -1 &\text{if $\sigma_u\neq\sigma_v$.}
         \end{cases}
     \]
-    We think of $\mu_n$ as assigning one of $N$ distinct \emph{colours}
+    We think of $\mu_n$ as assigning one of $q$ distinct \emph{colours}
     to the vertices of $\bar\T_n$, in such a way that configurations with fewer
     disagreement edges are favoured.
-    This model is called the \emph{$N$-state Potts model}.
+    This model is called the \emph{$q$-state Potts model}.
 
-    Prove that for fixed $N$, for sufficiently large $\beta$, we have
+    Prove that for fixed $q$, for sufficiently large $\beta$, we have
     \begin{equation}
         \label{eq:PeierlsPottsGoal}
-        \inf_n\mu_n[\{\sigma_0=1\}|\{\sigma|_{\partial\T_n}\equiv 1\}]\geq \frac1N.
+        \inf_n\mu_n[\{\sigma_0=1\}|\{\sigma|_{\partial\T_n}\equiv 1\}]> \frac1q.
     \end{equation}
 
     The prove this,
@@ -261,8 +261,8 @@ This is the key to proving Theorem~\ref{thm:peierls}.
     for any loop $\gamma$.
 
     \emph{Hint.}
-    If we consider $\sigma\in(\Z/N\Z)^{\bar\T_n}$, then for any fixed loop $\gamma$
-    and shift $k\in(\Z/N\Z)$, we can define the configuration $S_{\gamma,k}(\sigma)$
+    If we consider $\sigma\in(\Z/q\Z)^{\bar\T_n}$, then for any fixed loop $\gamma$
+    and shift $k\in(\Z/q\Z)$, we can define the configuration $S_{\gamma,k}(\sigma)$
     defined by
     \[
         S_{\gamma,k}(\sigma)_u:=\begin{cases}

@@ -163,6 +163,7 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
         V(\bar\Lambda):=\Lambda\cup\partial\Lambda;\qquad
         E(\bar\Lambda):=\{xy\in E:xy\cap\Lambda\neq\emptyset\}.
     \]
+    We shall also simply write $\bar\Lambda$ for $V(\bar\Lambda)$ when no confusion is likely to arise.
     For any $\zeta\in\{\pm1\}^{\partial\Lambda}$,
     we shall write $\langle\blank\rangle_{\Lambda,\beta}^\zeta$
     for the measure
@@ -187,6 +188,12 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
         \item The family of random variables $(\sigma|_{\bar\Lambda_i})_i$ is independent,
         \item The law of $\sigma|_{\bar\Lambda_i}$ is $\langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}$.
     \end{enumerate}
+    In other words, we have
+    \begin{equation}
+        \label{eq:markov_property}
+        \mu_{G,\beta}[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]
+        =\bigotimes_i \langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}.
+    \end{equation}
 \end{theorem}
 
 \begin{proof}
@@ -199,12 +206,7 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
         H_{G,\beta}(\sigma)=C+\sum_i H_{\bar\Lambda_i,\beta}(\sigma),
     \]
     where each $H_{\bar\Lambda_i,\beta}$ is measurable in terms of $\zeta|_{\partial\Lambda_i}$ and $\sigma|_{\bar\Lambda_i}$.
-    This decomposition implies that
-    \[
-        \mu_{G,\beta}[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]
-        =\bigotimes_i \langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}.
-    \]
-    This implies the desired properties.
+    This implies Equation~\eqref{eq:markov_property}.
 \end{proof}
 
 \begin{remark}[Conditioning on multiple events]
@@ -213,7 +215,7 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
     (the only thing that matters is that the intersection of the events has positive probability).
     For example, if we take $\langle\blank\rangle_{\Lambda,\beta}^+$,
     and condition on the state of more spins within $\Lambda$,
-    then this yields a new fixed boundary condition in a smaller domain.
+    then this yields a new fixed boundary condition Ising model in a smaller domain.
 \end{remark}
 
 \begin{exercise}
@@ -221,7 +223,7 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
     and let $G=(V,E)$ denote a locally finite simple graph.
     Let $\Lambda\subset\Delta\subset V$ denote two finite subsets.
     Work out that $\langle\blank\rangle_{\Lambda,\beta}^+$ is the same as
-    $\mu_{\Delta,\beta}[\blank|\{\sigma|_{\Lambda^\complement}\equiv+1\}]$,
+    $\mu_{\Delta,\beta}^+[\blank|\{\sigma|_{\Lambda^\complement}\equiv+1\}]$,
     by going back to first principles (the definition of the Ising measure).
 \end{exercise}
 

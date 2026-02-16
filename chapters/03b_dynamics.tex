@@ -36,7 +36,7 @@ erase the value of $\sigma_v$,
 and then sample the value of $\sigma_v$ from the conditional measure $\mu[\blank|(\sigma_u)_{u\neq v}]$
 (see Figure~\ref{fig:glauber}).
 
-We first define a probability measure $\P$ that functions as a source of independent randomness for this Markov chain.
+We first define a probability measure $\P$ that serves as a source of independent randomness for this Markov chain.
 
 \begin{definition}[Auxilliary randomness on finite graphs]
     Let $G=(V,E)$ denote a finite simple graph.
@@ -45,7 +45,7 @@ We first define a probability measure $\P$ that functions as a source of indepen
     Write $\P$ for the associated probability measure.
 \end{definition}
 
-Let us now describe how this randomness can be used to update a state $\sigma\in\Omega$.
+Let us now describe how this randomness can be used to update a state $\sigma\in\Omega=\{\pm1\}^V$.
 
 \begin{definition}[Update map]
     \label{def:Update map}
@@ -96,7 +96,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     it suffices to show that $\mu$ satisfies the detailed balance equation
     for the matrix of transition probabilities of $X^\mu$.
     Since the Markov chain can only transition between states that differ at a single vertex,
-    it suffices to check the detailed balance equation for pairs of states that differ at a single vertex.
+    it suffices to check the detailed balance equation such a pair of states.
     Let $\sigma^-,\sigma^+\in\Omega$ be two states that differ at exactly one vertex $v\in V$,
     where $\sigma^-_v=-1$ and $\sigma^+_v=+1$.
     Let $Q$ denote the event that some spin configuration equals $\sigma^-$ on $V\setminus\{v\}$.
@@ -121,7 +121,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     Consider the Ising model $\mu_{G,\beta}$ on a finite simple graph $G=(V,E)$ at inverse temperature $\beta\in[0,\infty)$.
     It is then easy to see that every state has a positive probability of ocurring.
     The Glauber dynamic can therefore flip any spin at each step.
-    It can therefore hop from one state to any other state in at most $|V|$
+    It can thus hop from one state to any other state in at most $|V|$
     steps, proving irreducibility.
     The Markov chain is very easy to implement in a computer,
     and has been used by theoretical physicists to simulate the Ising model
@@ -165,8 +165,8 @@ For the avoidance of doubt, let us define what we mean by an \emph{increasing fu
     $\sigma\leq\tau$ if and only if $\sigma_v\leq\tau_v$ for all $v\in V$.
 
     Let $\calA$ and $\calB$ denote two arbitrary partially ordered sets.
-    We say that a function $X:\calA\to\calB$ is \emph{increasing} if $x\leq x'$ implies $X(x)\leq X(x')$ for all $x,x'\in\calA$.
-    We such a function \emph{decreasing} if $x\leq x'$ implies $X(x)\geq X(x')$ for all $x,x'\in\calA$.
+    We say that a function $f:\calA\to\calB$ is \emph{increasing} if $\sigma\leq\tau$ implies $f(\sigma)\leq f(\tau)$ for all $\sigma,\tau\in\calA$.
+    Such a  function is called \emph{decreasing} if $\sigma\leq\tau$ implies $f(\sigma)\geq f(\tau)$ for all $\sigma,\tau\in\calA$.
 \end{definition}
 
 \begin{figure}
@@ -200,12 +200,12 @@ For the avoidance of doubt, let us define what we mean by an \emph{increasing fu
 \begin{lemma}[Glauber update for conditioned measures]
     Consider a finite simple graph $G=(V,E)$.
     Consider a probability measure on $\Omega$ such that every state has a positive probability.
-    For $\Lambda\subset V$ and $\zeta\in\{\pm1\}^\Lambda$,
-    define the measure $\nu:=\mu[\blank|\{\sigma|_\Lambda=\zeta\}]$.
+    For $\Lambda\subset V$ and $\zeta\in\{\pm1\}^{V\setminus\Lambda}$,
+    define the measure $\nu:=\mu[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]$.
     Then:
     \begin{itemize}
-        \item For $u\in\Lambda^\complement$, we have $R_{u,\iota}^\nu=R_{u,\iota}^\mu$ (at least on the set $\{\sigma|_\Lambda=\zeta\}$),
-        \item For $u\in\Lambda$, we have $R_{u,\iota}^\nu=f_u^{\zeta_u}$ (at least on the set $\{\sigma|_\Lambda=\zeta\}$).
+        \item For $u\in\Lambda$, we have $R_{u,\iota}^\nu=R_{u,\iota}^\mu$ (at least on the support of $\nu$),
+        \item For $u\in\Lambda^\complement$, we have $R_{u,\iota}^\nu=f_u^{\zeta_u}$ (at least on the support of $\nu$).
     \end{itemize}
 
     Moreover,
