@@ -40,7 +40,7 @@ We first define a probability measure $\P$ that serves as a source of independen
 
 \begin{definition}[Auxilliary randomness on finite graphs]
     Let $G=(V,E)$ denote a finite simple graph.
-    Let $(u_i,\iota_i)_{i\geq 0}$ be an i.i.d.~sequence of random variables,
+    Let $(u_i,\iota_i)_{i\geq 1}$ be an i.i.d.~sequence of random variables,
     such that the law of $(u_i,\iota_i)$ is uniform in $V\times[0,1]$.
     Write $\P$ for the associated probability measure.
 \end{definition}
@@ -74,7 +74,7 @@ Let us now describe how this randomness can be used to update a state $\sigma\in
     The \emph{Glauber dynamic} is the Markov chain $X=X^\mu=(X^\mu_k)_{k\in\Z_{\geq 0}}$ defined via
     $X^{\mu}_0=\sigma$ and
     \[
-        X^{\mu}_{k+1}:=R_{u_k,\iota_k}^\mu(X^{\mu}_k).
+        X^{\mu}_{k+1}:=R_{u_{k+1},\iota_{k+1}}^\mu(X^{\mu}_k).
     \]
     The dependency on $\sigma$ is implicit, and the reference to $\mu$ is sometimes omitted.
 \end{definition}
@@ -107,10 +107,10 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
         \mu[\sigma^-]
         \cdot
         \P[\{X^\mu_{1}=\sigma^+\}|\{X^\mu_0=\sigma^-\}]
-        &=\mu[\sigma^-]\cdot\P[\{R_{u_0,\iota_0}^\mu(\sigma^-)=\sigma^+\}]
+        &=\mu[\sigma^-]\cdot\P[\{R_{u_1,\iota_1}^\mu(\sigma^-)=\sigma^+\}]
         \\&=
         \mu[\sigma^-|Q]\mu[Q]\cdot\frac1{|V|}
-        \P\Big[\Big\{\iota_0 > \mu[\sigma^-|Q]\Big\}\Big]
+        \P\Big[\Big\{\iota_1 > \mu[\sigma^-|Q]\Big\}\Big]
         \\&=
         \mu[\sigma^-|Q]\mu[Q]\cdot\frac1{|V|}\mu[\sigma^+|Q].
     \end{align}
@@ -152,7 +152,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
 \begin{proof}
     Almost everything follows straightforwardly from the definitions.
     Remark that the Markov chain is irreducible and mixes to $\nu$:
-    almost surely, all vertices in $V\setminus\Lambda$ are given the correct spinat some point,
+    almost surely, all vertices in $V\setminus\Lambda$ are given the correct spin at some point,
     and the support of $\nu$ is connected by single sign flips.
 \end{proof}
 
@@ -221,8 +221,32 @@ We shall now prove that this is not the case: we prove that it also exhibits exp
 This holds true for any graph with a bounded degree.
 
 We insist that there are \emph{many} ways to prove this fact.
-We shall use the Glauber dynamic which is quite easy to analyse at high temperature.
+We shall use the Glauber dynamic which is quite easy to analyse at high temperature
+via the dependency structure.
 It recycles an energy vs.\ entropy calculation we saw before in the Peierls argument.
+
+\begin{definition}[Dependency structure]
+    Consider the Glauber dynamic on the Ising model $\mu:=\langle\blank\rangle_{\Lambda,\beta}^\zeta$
+    where $\Lambda$ is a finite vertex subset of some locally finite graph $G$,
+    and $\zeta$ a boundary condition.
+    Recall that the auxilliary measure $\P$ is the law of the i.i.d.~sequence $(u_i,\iota_i)_{i\geq 1}$,
+    where $(u_i,\iota_i)$ is uniform in $\bar\Lambda\times[0,1]$.
+
+    Let $\calD=\calD((u_i)_i)$ be the \emph{dependency graph} of the Glauber dynamic, defined as the following directed graph:
+    \begin{itemize}
+        \item Its vertices $V(\calD)\subset\bar\Lambda\times\Z_{\geq 0}$ are given by
+        \begin{equation}
+            V(\calD):=(\bar\Lambda\times\{0\})\;\cup\;(\partial\Lambda\times\Z_{\geq 0})\;\cup\;\{(u_i,i):i\in\Z_{> 0}\}.
+        \end{equation}
+        \item Its directed edges $E(\calD)$ are given by
+        \begin{equation}
+            E(\calD):=\{((u,i),(v,j))\in V(\calD)^2:j=\max\{j'<i:(v,j')\in V(\calD)\}\}.
+        \end{equation}
+    \end{itemize}
+    Notice that $\calD$ is a random directed graph in $\P$
+    that is measurable in terms of $(u_i)_i$.
+\end{definition}
+
 
 Suppose that $G=(V,E)$ is a simple graph whose max-degree is $K\in\Z_{\geq 0}$
 and fix $u\in V$.
