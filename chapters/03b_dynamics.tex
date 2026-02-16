@@ -52,13 +52,15 @@ Let us now describe how this randomness can be used to update a state $\sigma\in
     Let $\mu$ denote a probability measure on $\Omega$,
     and let $\sigma$ denote a state in the support of $\mu$.
     For each pair $(u,\iota)\in V\times[0,1]$, we define
-    \[
+    \begin{equation}
+        \label{eq:Update map}
     R_{u,\iota}^\mu(\sigma):=
     \begin{cases}
         f_u^-(\sigma) & \text{if $\iota\leq\mu[\{\sigma_u=-1\}|(\sigma_v)_{v\neq u}]$},\\
         f_u^+(\sigma) & \text{otherwise},
     \end{cases}
-    \] where \[
+    \end{equation}
+    where \[
     f_u^\pm:\Omega\to\Omega,\,
     \sigma\mapsto
     \text{the state $\sigma$, except that $\sigma_u$ is set to $\pm1$}.
@@ -128,6 +130,33 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     in order to make meaningfull predictions.
 \end{remark}
 
+\begin{lemma}[Glauber update for conditioned measures]
+    Consider a finite simple graph $G=(V,E)$.
+    Consider a probability measure $\mu$ on $\Omega$ such that every state has a positive probability.
+    For $\Lambda\subset V$ and $\zeta\in\{\pm1\}^{V\setminus\Lambda}$,
+    define the measure $\nu:=\mu[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]$.
+    Then:
+    \begin{itemize}
+        \item For $u\in\Lambda$, we have $R_{u,\iota}^\nu=R_{u,\iota}^\mu$ (at least on the support of $\nu$),
+        \item For $u\in\Lambda^\complement$, we have $R_{u,\iota}^\nu=f_u^{\zeta_u}$ (at least on the support of $\nu$).
+    \end{itemize}
+
+    Moreover,
+    \begin{itemize}
+        \item We may extend $R_{u,\iota}^\nu$ from $\operatorname{Support}(\nu)$ to $\Omega$ via the equalities above,
+        \item These extensions are still monotone,
+        \item The associated Markov chain in $\P$ is irreducible and mixes to $\nu$.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    Almost everything follows straightforwardly from the definitions.
+    Remark that the Markov chain is irreducible and mixes to $\nu$:
+    almost surely, all vertices in $V\setminus\Lambda$ are given the correct spinat some point,
+    and the support of $\nu$ is connected by single sign flips.
+\end{proof}
+
+
 \subsection{Ferromagnetism in the Ising model}
 
 \begin{theorem}[Ferromagnetism]
@@ -137,14 +166,15 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     Let $N_+(\sigma)$ denote the number of neighbours of $u$
     at which $\sigma$ takes the value $+1$,
     and $N_-(\sigma)$ the number of neighbours with value $-1$.
-    Write $\Delta(\sigma):=N_+(\sigma)-N_-(\sigma)$.
+    Write $(N_+(\sigma)-N_-(\sigma)):=N_+(\sigma)-N_-(\sigma)$.
     Then
-    \[
+    \begin{equation}
+        \label{eq:Ferromagnetism}
         \mu_{G,\beta}[\{\sigma_u=+1\}|(\sigma_v)_{v\neq u}]
         =
-        \frac{e^{\beta \Delta(\sigma)}}{2\cosh (\beta \Delta(\sigma))}.
-    \]
-    The function on the right is increasing in $\Delta(\sigma)$, which is an increasing function of $\sigma$.
+        \frac{e^{\beta (N_+(\sigma)-N_-(\sigma))}}{2\cosh (\beta (N_+(\sigma)-N_-(\sigma)))}.
+    \end{equation}
+    The function on the right is increasing in $(N_+(\sigma)-N_-(\sigma))$, which is an increasing function of $\sigma$.
 
     \textbf{In other words, the more spins around $u$ are valued $+$,
     the more likely it is that $\sigma_u=+$. This property is called \emph{ferromagnetism}
@@ -153,7 +183,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
 
 \begin{proof}
     If all spins but $\sigma_u$ are known,
-    then the likelyhood of $\sigma_u$ is proportional to $e^{\beta\Delta(\sigma)\sigma_u}$.
+    then the likelyhood of $\sigma_u$ is proportional to $e^{\beta(N_+(\sigma)-N_-(\sigma))\sigma_u}$.
     The formula in the theorem then follows.
 \end{proof}
 
@@ -177,6 +207,75 @@ For the avoidance of doubt, let us define what we mean by an \emph{increasing fu
     \label{fig:mono}
 \end{figure}
 
+The previous theorem has profound implications,
+that we will come back to very soon.
+We shall first use it to analyse the Glauber dynamic at very high temperature ($\beta\approx0$).
+
+\subsection{High-temperature Glauber dynamic}
+
+Ising proved that the 1D model does not undergo a phase transition (it has exponential decay at all temperatures),
+and Peierls proved that the 2D model does have a magnetised phase.
+We did not yet prove that the 2D model undergoes a phase transition,
+it could be magnetised at all temperatures.
+We shall now prove that this is not the case: we prove that it also exhibits exponential decay at high temperatures.
+This holds true for any graph with a bounded degree.
+
+We insist that there are \emph{many} ways to prove this fact.
+We shall use the Glauber dynamic which is quite easy to analyse at high temperature.
+It recycles an energy vs.\ entropy calculation we saw before in the Peierls argument.
+
+Suppose that $G=(V,E)$ is a simple graph whose max-degree is $K\in\Z_{\geq 0}$
+and fix $u\in V$.
+Then the expression in Equation~\eqref{eq:Ferromagnetism} lies in the interval
+\begin{equation}
+    \label{eq:constrained_interval}
+    [\tfrac12 - \tfrac12 \tanh (\beta K),\tfrac12 + \tfrac12 \tanh (\beta K)]=: I_{K,\beta}\subset [0,1].
+\end{equation}
+Now go back to the Glauber dynamic in the context of the Ising model.
+If $\iota\not\in I_{K,\beta}$,
+then we see from Equation~\eqref{eq:Update map} that the update map $R_{u,\iota}^{\mu_{G,\beta}}$
+does not actually care about $\sigma$ when deciding to set $\sigma_u$ to $+1$ or $-1$.
+More precisely, we have
+\[
+    R_{u,\iota}^{\mu_{G,\beta}}(\sigma)
+    =
+    \begin{cases}
+        f_u^-(\sigma) & \text{if $\iota < \tfrac12 - \tfrac12 \tanh (\beta K)$,} \\
+        f_u^+(\sigma) & \text{if $\iota > \tfrac12 + \tfrac12 \tanh (\beta K)$,} \\
+        f_u^{\text{``something depending on $N_+(\sigma)-N_-(\sigma)$''}}(\sigma) & \text{if $\iota\in I_{K,\beta}$.}
+    \end{cases}
+\]
+Thus, with probability $1-\tanh(\beta K)$,
+we have $\{\iota\not\in I_{K,\beta}\}$.
+This means that we do not need to inspect $\sigma$ before determining the new value of $\sigma_u$.
+With probability $\tanh(\beta K)$, we have $\{\iota\not\in I_{K,\beta}\}$,
+and the new value for $\sigma_u$ actually depends on the ``old'' values of $\sigma$
+at the neighbours of $u$.
+
+\begin{theorem}[Exponential decay at high temperature]
+    Let $G=(V,E)$ be a simple graph of maximum degree $K\in\Z_{\geq 0}$,
+    and fix $u\in V$.
+    Fix $\beta\in[0,\infty)$.
+    Let $\Lambda_n$ denote the set of vertices at a graph distance smaller than $n$ from $u$.
+    Then if $K\tanh(\beta K)<1$, the magnetisation of $\sigma_u$ vanishes exponentially fast in the distance to the boundary,
+    in the sense that for all $n$ we have
+    \[
+        |\langle\sigma_u\rangle_{\Lambda_n,\beta}^+| \leq C e^{-c n},
+    \]
+    where $c,C\in(0,\infty)$ are constant only depending on $K$ and $\beta$.
+
+    This theorem applies in particular to the setup of Theorem~\ref{thm:peierls}.
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
+
+
+
+\subsection{Consequences of ferromagnetism}
+
 \begin{lemma}[Monotonicity of the Glauber update, cf.~Figure~\ref{fig:mono}]
     Let $G$ be a finite simple graph, and choose $\beta\in[0,\infty)$.
     Then for any pair $(u,\iota)\in V\times[0,1]$ the map
@@ -197,28 +296,6 @@ For the avoidance of doubt, let us define what we mean by an \emph{increasing fu
     for fixed $u$ and $\iota$.
 \end{proof}
 
-\begin{lemma}[Glauber update for conditioned measures]
-    Consider a finite simple graph $G=(V,E)$.
-    Consider a probability measure on $\Omega$ such that every state has a positive probability.
-    For $\Lambda\subset V$ and $\zeta\in\{\pm1\}^{V\setminus\Lambda}$,
-    define the measure $\nu:=\mu[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]$.
-    Then:
-    \begin{itemize}
-        \item For $u\in\Lambda$, we have $R_{u,\iota}^\nu=R_{u,\iota}^\mu$ (at least on the support of $\nu$),
-        \item For $u\in\Lambda^\complement$, we have $R_{u,\iota}^\nu=f_u^{\zeta_u}$ (at least on the support of $\nu$).
-    \end{itemize}
-
-    Moreover,
-    \begin{itemize}
-        \item We may extend $R_{u,\iota}^\nu$ from $\operatorname{Support}(\nu)$ to $\Omega$ via the equalities above,
-        \item These extensions are still monotone,
-        \item The associated Markov chain in $\P$ is irreducible and mixes to $\nu$.
-    \end{itemize}
-\end{lemma}
-
-\begin{proof}
-    \todo{Write the proof}
-\end{proof}
 
 \begin{lemma}[Monotonicity of the grand coupling]
     Let $G$ denote a finite simple graph and consider $\beta\in[0,\infty)$.
