@@ -31,9 +31,9 @@ a number of theoretical results about the Ising model.
     \label{fig:glauber}
 \end{figure}
 
-The idea of the Glauber dynamic is simple: at each step, we pick a vertex $v\in V$ uniformly at random,
-erase the value of $\sigma_v$,
-and then sample the value of $\sigma_v$ from the conditional measure $\mu[\blank|(\sigma_u)_{u\neq v}]$
+The idea of the Glauber dynamic is simple: at each step, we pick a vertex $u\in V$ uniformly at random,
+erase the value of $\sigma_u$,
+and then sample the value of $\sigma_u$ from the conditional measure $\mu[\blank|(\sigma_v)_{v\neq u}]$
 (see Figure~\ref{fig:glauber}).
 
 We first define a probability measure $\P$ that serves as a source of independent randomness for this Markov chain.
@@ -144,13 +144,13 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
     Moreover,
     \begin{itemize}
         \item We may extend $R_{u,\iota}^\nu$ from $\operatorname{Support}(\nu)$ to $\Omega$ via the equalities above,
-        \item These extensions are still monotone,
+        % \item These extensions are still monotone,
         \item The associated Markov chain in $\P$ is irreducible and mixes to $\nu$.
     \end{itemize}
 \end{lemma}
 
 \begin{proof}
-    Almost everything follows straightforwardly from the definitions.
+    This follows straightforwardly from the definitions.
     Remark that the Markov chain is irreducible and mixes to $\nu$:
     almost surely, all vertices in $V\setminus\Lambda$ are given the correct spin at some point,
     and the support of $\nu$ is connected by single sign flips.
@@ -174,7 +174,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
         =
         \frac{e^{\beta (N_+(\sigma)-N_-(\sigma))}}{2\cosh (\beta (N_+(\sigma)-N_-(\sigma)))}.
     \end{equation}
-    The function on the right is increasing in $(N_+(\sigma)-N_-(\sigma))$, which is an increasing function of $\sigma$.
+    This function is increasing in $(N_+(\sigma)-N_-(\sigma))$, which is increasing in $\sigma$.
 
     \textbf{In other words, the more spins around $u$ are valued $+$,
     the more likely it is that $\sigma_u=+$. This property is called \emph{ferromagnetism}
@@ -182,8 +182,8 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
 \end{theorem}
 
 \begin{proof}
-    If all spins but $\sigma_u$ are known,
-    then the likelyhood of $\sigma_u$ is proportional to $e^{\beta(N_+(\sigma)-N_-(\sigma))\sigma_u}$.
+    If all spins except for the spin $\sigma_u$ are known,
+    then the likelyhood of the remaining spin $\sigma_u$ is proportional to $e^{\beta(N_+(\sigma)-N_-(\sigma))\sigma_u}$.
     The formula in the theorem then follows.
 \end{proof}
 
@@ -207,22 +207,22 @@ For the avoidance of doubt, let us define what we mean by an \emph{increasing fu
     \label{fig:mono}
 \end{figure}
 
-The previous theorem has profound implications,
+The monotonicity property in the previous theorem has profound implications,
 that we will come back to very soon.
-We shall first use it to analyse the Glauber dynamic at very high temperature ($\beta\approx0$).
+We shall first study the Glauber dynamic at very high temperature ($\beta\approx0$).
+In that case, Equation~\eqref{eq:Ferromagnetism} tells us that the threshold value is very close to $1/2$.
 
 \subsection{High-temperature Glauber dynamic}
 
 Ising proved that the 1D model does not undergo a phase transition (it has exponential decay at all temperatures),
 and Peierls proved that the 2D model does have a magnetised phase.
-We did not yet prove that the 2D model undergoes a phase transition,
+We did not yet prove that the 2D model undergoes a phase transition;
 it could be magnetised at all temperatures.
 We shall now prove that this is not the case: we prove that it also exhibits exponential decay at high temperatures.
 This holds true for any graph with a bounded degree.
 
-We insist that there are \emph{many} ways to prove this fact.
-We shall use the Glauber dynamic which is quite easy to analyse at high temperature
-via the dependency structure.
+There are \emph{many} ways to prove this fact.
+Here we use the dependency structure of the Glauber dynamic, which is easy to analyse at high temperatures.
 It recycles an energy vs.\ entropy calculation we saw before in the Peierls argument.
 
 \begin{figure}
@@ -233,7 +233,7 @@ It recycles an energy vs.\ entropy calculation we saw before in the Peierls argu
     On the right, we see the same structure,
     but with the edges emenating from ``good'' Glauber updates (in green) removed.
     The idea is that when $\beta$ is very small, then most of the Glauber updates are ``good''.
-    In that case, the dependency tree of each vertex is typically very small, and in particular it is very unlikely
+    In that case, the dependency tree of each vertex is typically very small, and in particular it is exponentially unlikely
     to reach $\partial\Lambda$ or the initial condition.}
     \label{fig:dependency}
 \end{figure}
@@ -266,15 +266,19 @@ It recycles an energy vs.\ entropy calculation we saw before in the Peierls argu
     where $\Lambda$ is a finite vertex subset of some locally finite graph $G$,
     and $\zeta$ a boundary condition.
 
-    Fix $v\in\Lambda$ and $k\in\Z_{\geq 0}$.
-    Let $i\leq k$ denote the largest index such that $(v,i)\in V(\calD)$.
-    Then the value of $X_k(u)$ is measurable in terms of:
+    Fix $v\in\Lambda$ and $T\in\Z_{\geq 0}$.
+    Let $i\leq T$ denote the largest index such that $(v,i)\in V(\calD)$.
+    Then the value of $X_T(v)$ is measurable in terms of:
     \begin{itemize}
-        \item The set $\calC_{v,k}$ of $\calD$-vertices reachable from $(v,i)$ by following \emph{outgoing} $\calD$-edges,
-        \item The values of the initial/boundary conditions on $\calC_{v,k}\cap\partial\calD$,
-        \item The values of $\iota$ on $\calC_{v,k}\setminus\partial\calD$.
+        \item The set $\calC^{v,T}$ of $\calD$-vertices reachable from $(v,i)$ by following \emph{outgoing} $\calD$-edges,
+        \item The values of the initial/boundary conditions on $\calC^{v,T}\cap\partial\calD$,
+        \item The values of $\iota$ on $\calC^{v,T}\setminus\partial\calD$.
     \end{itemize} 
 \end{lemma}
+
+\begin{proof}
+    This follows by definition of the Glauber dynamic and the dependency structure.
+\end{proof}
 
 Suppose that $G=(V,E)$ is a simple graph whose max-degree is $K\in\Z_{\geq 0}$.
 Then the expression in Equation~\eqref{eq:Ferromagnetism} lies in the interval
@@ -311,10 +315,8 @@ at the neighbours of $u$.
     Then if $K\tanh(\beta K)<1$, the magnetisation of $\sigma_v$ vanishes exponentially fast in the distance to the boundary,
     in the sense that for all $n$ we have
     \[
-        |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+| \leq C e^{-c n},
+        |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+| \leq \frac{(K\tanh(\beta K))^n}{1-K\tanh(\beta K)}.
     \]
-    where $c,C\in(0,\infty)$ are constant only depending on $K$ and $\beta$.
-
     This theorem applies in particular to the setup of Theorem~\ref{thm:peierls}.
 \end{theorem}
 
@@ -325,35 +327,36 @@ at the neighbours of $u$.
     Fix $T\in\Z_{\geq 0}$.
     Notice that:
     \begin{itemize}
-        \item Conditional on $\calC_{v,T}^n$, each vertex in $\calC_{v,T}^n\setminus\partial\calD_n$ is bad with probability $\tanh(\beta K)$,
+        \item Conditional on $\calC^{v,T}_n$, each vertex in $\calC^{v,T}_n\setminus\partial\calD_n$ is bad with probability $\tanh(\beta K)$,
         independently of the state of the other vertices,
-        \item If we furthermore condition on the event that $\calC_{v,T}^n$ does \emph{not} contain a path towards $\partial\calD_n$
-        consisting of only bad $\calD_n$-vertices, then the conditional law of $X_n(v)$ is that of a fair coin flip.
+        \item If we furthermore condition on the event that $\calC^{v,T}_n$ does \emph{not} contain a path towards $\partial\calD_n$
+        consisting of only bad $\calD_n$-vertices, then the conditional law of $X_{n,T}(v)$ is that of a fair coin flip.
     \end{itemize}
-    It suffices to prove that
+    It suffices to prove the second inequality in the following equation:
     \begin{equation}
-        \lim_{T\to\infty}
+        |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+| \leq\lim_{T\to\infty}
         \P_n[\{\text{there exists a bad path from $(v,T)$ to $\partial\calD_n$}\}]
         \leq
-        C e^{-c n}.
+        \frac{(K\tanh(\beta K))^n}{1-K\tanh(\beta K)}.
     \end{equation}
-    First of all, it is easy to see that the probability that the path reaches to the initial condition $\Lambda\times\{0\}$,
+    First of all, it is easy to see that the probability that a bad path reaches to the initial condition $\Lambda\times\{0\}$,
     tends to zero with $T$ (in fact, for fixed $n$, it tends to zero exponentially fast in $T$ by standard properties of finite state Markov chains).
     It suffices to prove that
         \begin{equation}
         \lim_{T\to\infty}
         \P_n[\{\text{there exists a bad path from $(v,T)$ to $\partial\Lambda\times\Z_{\geq 0}$}\}]
         \leq
-        C e^{-c n}.
+        \frac{(K\tanh(\beta K))^n}{1-K\tanh(\beta K)}.
     \end{equation}
     Now every path from $(v,T)$ to $\partial\Lambda\times\Z_{\geq 0}$ may be associated
-    with a unique $\bar\Lambda$, by simply forgetting the second coordinate (the time at which the Glauber updates were performed).
-    Such paths satisfy the following criteria:
+    with a unique $\bar\Lambda$-path, by simply forgetting the second coordinate (the time at which the Glauber updates were performed).
+    Such paths $\gamma$ satisfy the following criteria:
     \begin{itemize}
         \item They start at $v$,
         \item They end at $\partial\Lambda$, and never visit $\partial\Lambda$ except at the last step,
         \item They may visit the other vertices multiple times.
     \end{itemize}
+    Moreover, this ``projection of paths'' is injective when considering paths starting at the same point $(v,T)$.
     Thus, we get
     \begin{align}
         |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+|
@@ -361,9 +364,9 @@ at the neighbours of $u$.
         \lim_{T\to\infty}
         \P_n[\{\text{there exists a bad path from $(v,T)$ to $\partial\Lambda\times\Z_{\geq 0}$}\}]
         \\&\leq
-        \sum_{\omega:v\to\partial\Lambda_n}\lim_{T\to\infty} \P_n[\{\text{the path corresponding to $\omega$ is bad}\}]
+        \sum_{\gamma:v\to\partial\Lambda_n}\lim_{T\to\infty} \P_n[\{\text{the path corresponding to $\gamma$ is bad}\}]
         \\&=
-        \sum_{\omega:v\to\partial\Lambda_n} \tanh(\beta K)^{|\omega|}.
+        \sum_{\gamma:v\to\partial\Lambda_n} \tanh(\beta K)^{|\gamma|}.
     \end{align}
     Such a path must have a length of at least $n$,
     and there are at most $K^\ell$ paths of length $\ell$.
@@ -372,10 +375,27 @@ at the neighbours of $u$.
         |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+|
         \leq
         \sum_{\ell=n}^\infty (K\tanh(\beta K))^\ell
-        =  \frac{(K\tanh(\beta K))^n}{1-\tanh(\beta K)}.
+        =  \frac{(K\tanh(\beta K))^n}{1-K\tanh(\beta K)}.
     \end{equation}
     This is the desired exponential decay.
 \end{proof}
+
+\begin{exercise}[Exponential decay of correlation functions]
+    Consider the square lattice graph $\Z^d$ in dimension $d\in\Z_{\geq 2}$.
+    Fix $\beta\in[0,\infty)$ with $2d\tanh(2\beta d)<1$.
+    Write $\Lambda_n:=((-n,n)\cap\Z)^d$.
+
+    Now fix a finite subset $A\subset\Lambda_k$ for some fixed $k\in\Z_{\geq 1}$,
+    and prove that
+    \[
+        \textstyle
+        |\langle \prod_{v\in A} \sigma_{nv} \rangle_{\Lambda_{nk},\beta}^+|
+    \]
+    tends to zero exponentially fast in $n$.
+
+    \emph{Hint: start with $|A|=2$, and consider the dependency structure of both points in $A$.}
+\end{exercise}
+
 
 
 
