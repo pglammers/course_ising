@@ -225,7 +225,20 @@ We shall use the Glauber dynamic which is quite easy to analyse at high temperat
 via the dependency structure.
 It recycles an energy vs.\ entropy calculation we saw before in the Peierls argument.
 
-\begin{definition}[Dependency structure]
+\begin{figure}
+    \centering
+    \includegraphics{figures/dependency.pdf}
+    \caption{The set $\bar\Lambda\times\Z_{\geq 0}$.
+    On the left, we see the dependency structure of the Glauber dynamic.
+    On the right, we see the same structure,
+    but with the edges emenating from ``good'' Glauber updates (in green) removed.
+    The idea is that when $\beta$ is very small, then most of the Glauber updates are ``good''.
+    In that case, the dependency tree of each vertex is typically very small, and in particular it is very unlikely
+    to reach $\partial\Lambda$ or the initial condition.}
+    \label{fig:dependency}
+\end{figure}
+
+\begin{definition}[Dependency structure, Figure~\ref{fig:dependency}]
     Consider the Glauber dynamic on the Ising model $\mu:=\langle\blank\rangle_{\Lambda,\beta}^\zeta$
     where $\Lambda$ is a finite vertex subset of some locally finite graph $G$,
     and $\zeta$ a boundary condition.
@@ -240,16 +253,30 @@ It recycles an energy vs.\ entropy calculation we saw before in the Peierls argu
         \end{equation}
         \item Its directed edges $E(\calD)$ are given by
         \begin{equation}
-            E(\calD):=\{((u,i),(v,j))\in V(\calD)^2:\text{$u\in\Lambda$ and $j=\max\{j'<i:(v,j')\in V(\calD)$}\}\}.
+            E(\calD):=\{((u,i),(v,j))\in V(\calD)^2:\text{$u\in\Lambda$, $v\sim u$, and $j=\max\{j'<i:(v,j')\in V(\calD)$}\}\}.
         \end{equation}
     \end{itemize}
+    We shall also write $\partial\calD:=(\bar\Lambda\times\{0\})\cup(\partial\Lambda\times\Z_{\geq 0})$.
     Notice that $\calD$ is a random directed graph in $\P$
     that is measurable in terms of $(u_i)_i$.
 \end{definition}
 
+\begin{lemma}
+    Consider the Glauber dynamic on the Ising model $\mu:=\langle\blank\rangle_{\Lambda,\beta}^\zeta$
+    where $\Lambda$ is a finite vertex subset of some locally finite graph $G$,
+    and $\zeta$ a boundary condition.
 
-Suppose that $G=(V,E)$ is a simple graph whose max-degree is $K\in\Z_{\geq 0}$
-and fix $u\in V$.
+    Fix $v\in\Lambda$ and $k\in\Z_{\geq 0}$.
+    Let $i\leq k$ denote the largest index such that $(v,i)\in V(\calD)$.
+    Then the value of $X_k(u)$ is measurable in terms of:
+    \begin{itemize}
+        \item The set $\calC_{v,k}$ of $\calD$-vertices reachable from $(v,i)$ by following \emph{outgoing} $\calD$-edges,
+        \item The values of the initial/boundary conditions on $\calC_{v,k}\cap\partial\calD$,
+        \item The values of $\iota$ on $\calC_{v,k}\setminus\partial\calD$.
+    \end{itemize} 
+\end{lemma}
+
+Suppose that $G=(V,E)$ is a simple graph whose max-degree is $K\in\Z_{\geq 0}$.
 Then the expression in Equation~\eqref{eq:Ferromagnetism} lies in the interval
 \begin{equation}
     \label{eq:constrained_interval}
@@ -266,7 +293,7 @@ More precisely, we have
     \begin{cases}
         f_u^-(\sigma) & \text{if $\iota < \tfrac12 - \tfrac12 \tanh (\beta K)$,} \\
         f_u^+(\sigma) & \text{if $\iota > \tfrac12 + \tfrac12 \tanh (\beta K)$,} \\
-        f_u^{\text{``something depending on $N_+(\sigma)-N_-(\sigma)$''}}(\sigma) & \text{if $\iota\in I_{K,\beta}$.}
+        f_u^{\text{``something depending on $\iota$ and $N_+(\sigma)-N_-(\sigma)$''}}(\sigma) & \text{if $\iota\in I_{K,\beta}$.}
     \end{cases}
 \]
 Thus, with probability $1-\tanh(\beta K)$,
@@ -278,13 +305,13 @@ at the neighbours of $u$.
 
 \begin{theorem}[Exponential decay at high temperature]
     Let $G=(V,E)$ be a simple graph of maximum degree $K\in\Z_{\geq 0}$,
-    and fix $u\in V$.
+    and fix $v\in V$.
     Fix $\beta\in[0,\infty)$.
-    Let $\Lambda_n$ denote the set of vertices at a graph distance smaller than $n$ from $u$.
-    Then if $K\tanh(\beta K)<1$, the magnetisation of $\sigma_u$ vanishes exponentially fast in the distance to the boundary,
+    Let $\Lambda_n$ denote the set of vertices at a graph distance smaller than $n$ from $v$.
+    Then if $K\tanh(\beta K)<1$, the magnetisation of $\sigma_v$ vanishes exponentially fast in the distance to the boundary,
     in the sense that for all $n$ we have
     \[
-        |\langle\sigma_u\rangle_{\Lambda_n,\beta}^+| \leq C e^{-c n},
+        |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+| \leq C e^{-c n},
     \]
     where $c,C\in(0,\infty)$ are constant only depending on $K$ and $\beta$.
 
@@ -292,7 +319,62 @@ at the neighbours of $u$.
 \end{theorem}
 
 \begin{proof}
-    
+    For fixed $n$, write $\P_n$ and $\calD_n$ for the associated auxilliary randomness measure and dependency structure.
+    Call a $\calD_n$-vertex $(u,i)$ \emph{good} if $\iota_i\not\in I_{K,\beta}$
+    and \emph{bad} otherwise.
+    Fix $T\in\Z_{\geq 0}$.
+    Notice that:
+    \begin{itemize}
+        \item Conditional on $\calC_{v,T}^n$, each vertex in $\calC_{v,T}^n\setminus\partial\calD_n$ is bad with probability $\tanh(\beta K)$,
+        independently of the state of the other vertices,
+        \item If we furthermore condition on the event that $\calC_{v,T}^n$ does \emph{not} contain a path towards $\partial\calD_n$
+        consisting of only bad $\calD_n$-vertices, then the conditional law of $X_n(v)$ is that of a fair coin flip.
+    \end{itemize}
+    It suffices to prove that
+    \begin{equation}
+        \lim_{T\to\infty}
+        \P_n[\{\text{there exists a bad path from $(v,T)$ to $\partial\calD_n$}\}]
+        \leq
+        C e^{-c n}.
+    \end{equation}
+    First of all, it is easy to see that the probability that the path reaches to the initial condition $\Lambda\times\{0\}$,
+    tends to zero with $T$ (in fact, for fixed $n$, it tends to zero exponentially fast in $T$ by standard properties of finite state Markov chains).
+    It suffices to prove that
+        \begin{equation}
+        \lim_{T\to\infty}
+        \P_n[\{\text{there exists a bad path from $(v,T)$ to $\partial\Lambda\times\Z_{\geq 0}$}\}]
+        \leq
+        C e^{-c n}.
+    \end{equation}
+    Now every path from $(v,T)$ to $\partial\Lambda\times\Z_{\geq 0}$ may be associated
+    with a unique $\bar\Lambda$, by simply forgetting the second coordinate (the time at which the Glauber updates were performed).
+    Such paths satisfy the following criteria:
+    \begin{itemize}
+        \item They start at $v$,
+        \item They end at $\partial\Lambda$, and never visit $\partial\Lambda$ except at the last step,
+        \item They may visit the other vertices multiple times.
+    \end{itemize}
+    Thus, we get
+    \begin{align}
+        |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+|
+        &\leq
+        \lim_{T\to\infty}
+        \P_n[\{\text{there exists a bad path from $(v,T)$ to $\partial\Lambda\times\Z_{\geq 0}$}\}]
+        \\&\leq
+        \sum_{\omega:v\to\partial\Lambda_n}\lim_{T\to\infty} \P_n[\{\text{the path corresponding to $\omega$ is bad}\}]
+        \\&=
+        \sum_{\omega:v\to\partial\Lambda_n} \tanh(\beta K)^{|\omega|}.
+    \end{align}
+    Such a path must have a length of at least $n$,
+    and there are at most $K^\ell$ paths of length $\ell$.
+    Thus, by bounding the last expression in the previous display, we obtain
+    \begin{equation}
+        |\langle\sigma_v\rangle_{\Lambda_n,\beta}^+|
+        \leq
+        \sum_{\ell=n}^\infty (K\tanh(\beta K))^\ell
+        =  \frac{(K\tanh(\beta K))^n}{1-\tanh(\beta K)}.
+    \end{equation}
+    This is the desired exponential decay.
 \end{proof}
 
 
