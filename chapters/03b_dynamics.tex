@@ -131,6 +131,7 @@ We are now going to prove that the Markov chain $X^\mu$ mixes to $\mu$.
 \end{remark}
 
 \begin{lemma}[Glauber update for conditioned measures]
+    \label{lem:conditioning}
     Consider a finite simple graph $G=(V,E)$.
     Consider a probability measure $\mu$ on $\Omega$ such that every state has a positive probability.
     For $\Lambda\subset V$ and $\zeta\in\{\pm1\}^{V\setminus\Lambda}$,
@@ -199,13 +200,6 @@ For the avoidance of doubt, let us define what we mean by an \emph{increasing fu
     Such a  function is called \emph{decreasing} if $\sigma\leq\tau$ implies $f(\sigma)\geq f(\tau)$ for all $\sigma,\tau\in\calA$.
 \end{definition}
 
-\begin{figure}
-    \centering
-    \includegraphics{figures/mono.pdf}
-    \caption{Ferromagnetism of the Ising model implies that applying the Glauber update
-    with the external source of randomness $(u,\iota)$ preserves the ordering of the configurations.}
-    \label{fig:mono}
-\end{figure}
 
 The monotonicity property in the previous theorem has profound implications,
 that we will come back to very soon.
@@ -422,9 +416,81 @@ at the neighbours of $u$.
     for fixed $u$ and $\iota$.
 \end{proof}
 
+\begin{figure}
+    \centering
+    \includegraphics{figures/mono.pdf}
+    \caption{Ferromagnetism of the Ising model implies that applying the Glauber update
+    with the external source of randomness $(u,\iota)$ preserves the ordering of the configurations.}
+    \label{fig:mono}
+\end{figure}
 
-\begin{lemma}[Monotonicity of the grand coupling]
-    Let $G$ denote a finite simple graph and consider $\beta\in[0,\infty)$.
-    Consider the 
-\end{lemma}
+For the next result, we also recall Lemma~\ref{lem:conditioning}.
 
+\begin{theorem}
+  \label{thm:ordering}
+    Fix $\beta\in[0,\infty)$.
+    Let $G=(V,E)$ denote a locally finite simple graph,
+    and fix a finite domain $\Lambda\subset V$ and a boundary condition $\zeta$.
+    Now fix $x\in\Lambda$.
+    Consider the measures $\mu:=\mu_{\Lambda,\beta}^\zeta$ and $\mu_\pm:=\mu_{\Lambda,\beta}^{\zeta}[\blank|\{\sigma_x=\pm 1\}]$.
+    Consider the Glauber dynamic $\P$ for these three measures, started from the same initial state $X_0^\mu=X_0^{\mu_\pm}=\sigma$.
+    Then $\P$-almost surely, we have
+    \begin{equation}
+      \label{eq:ordering_dynamic}
+      X_k^{\mu_-}\leq X_k^\mu\leq X_k^{\mu_+}
+    \end{equation}
+    for all $k\in\Z_{\geq 0}$.
+
+    In particular, we have
+    \begin{equation}
+      \label{eq:ordering_measures}
+        \mu_-\preceq \mu \preceq \mu_+,
+    \end{equation}
+    where $\preceq$ denotes the stochastic domination relation defined below.
+\end{theorem}
+
+\begin{definition}
+  \label{def:stochastic_ordering}
+  Let $\mu$ and $\nu$ denote two probability measures on some partially ordered set $\calA$.
+  Then $\mu$ is said to \emph{stochastically dominate} $\nu$, denoted $\nu\preceq\mu$,
+  if $\nu[f]\leq\mu[f]$ for all bounded increasing functions $f:\calA\to\R$.
+\end{definition}
+
+\begin{proof}[Proof of Theorem~\ref{thm:ordering}]
+    We first prove the ordering in the dynamic, and then deduce the ordering of the measures from it.
+    \textbf{Ordering of the dynamic.}
+    We prove that $X_k^{\mu_-}\leq X_k^\mu\leq X_k^{\mu_+}$ for all $k$ by induction on $k$.
+    The base case $k=0$ is true because the Markov chains start from the same initial state.
+    Now suppose that $X_k^{\mu_-}\leq X_k^\mu\leq X_k^{\mu_+}$ for some $k$.
+    Then we have
+    \begin{equation}
+        R_{u_{k+1},\iota_{k+1}}^{\mu_-}(X_k^{\mu_-})
+        \leq
+        R_{u_{k+1},\iota_{k+1}}^{\mu}(X_k^{\mu})
+        \leq
+        R_{u_{k+1},\iota_{k+1}}^{\mu_+}(X_k^{\mu_+}),
+    \end{equation}
+    where we used the monotonicity of the Glauber update and Lemma~\ref{lem:conditioning}.
+    This proves the induction step.
+    \textbf{Ordering of the measures.}
+    Let $f$ denote a bounded increasing function on $\Omega$.
+    Then we have
+    \begin{equation}
+      \label{eq:ordering_expectation}
+      \E[f(X_k^{\mu_-})]\leq \E[f(X_k^\mu)]\leq \E[f(X_k^{\mu_+})]
+    \end{equation}
+    for any $k$.
+    As $k\to\infty$, these expectations converge to $\mu_-[f]$, $\mu[f]$, and $\mu_+[f]$ respectively.
+\end{proof}
+
+\begin{theorem}[Construction of the infinite-volume measure]
+    Fix $\beta\in[0,\infty)$.
+    Let $G=(V,E)$ denote a locally finite simple graph.
+    Then there exists a unique probability measure $\mu_{G,\beta}^+$ on $\Omega$
+    such that for any random variable $f$ depending on finitely many spins, we have
+    \begin{equation}
+        \label{eq:infinite_volume_measure}
+        \langle f\rangle_{G,\beta}^+ := \mu_{G,\beta}^+[f] = \lim_{\Lambda\uparrow V} \langle f\rangle_{\Lambda,\beta}^+,
+    \end{equation}
+    where the limit is taken over finite vertex subsets $\Lambda$ of $V$.
+\end{theorem}
