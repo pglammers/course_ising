@@ -16,54 +16,65 @@
     \[
         E(\T_n^d) := \{\{x,y\} : x,y\in \T_n^d, \|x-y\|_1 = 1\}.
     \]
-    Write $\langle\blank\rangle_{\T_n^d,\beta}$ for the Ising model on $\T_n^d$ at inverse temperature $\beta$.
-
-    For $m>0$, we define the discrete Gaussian free field with mass $m$ on $\T_n^d$ as the probability measure on $\R^{\T_n^d}$ given by
-    \[
-        \langle f(\phi)\rangle_{\operatorname{GFF},\T_n^d,\beta,m}
-        := \frac{1}{Z_{\operatorname{GFF},\T_n^d,\beta,m}} \int_{\R^{\T_n^d}} f(\phi) e^{-\frac{\beta}{2}(\|\nabla\phi\|_2^2 + m\|\phi\|_2^2)} d\phi,
-    \]
-    where $\nabla\phi$ is the discrete gradient of $\phi$, defined by
-    \[
-        \|\nabla\phi\|_2^2 := \sum_{\{x,y\}\in E(\T_n^d)} (\phi_x - \phi_y)^2,
-    \]
-    and $\|\phi\|_2^2 := \sum_{x\in \T_n^d} \phi_x^2$.
-    \end{definition}
-
-
+    We occasionally write $\T$ for $\T_n^d$ when the parameters are clear from the context.
+\end{definition}
 
 % Now state the chessboard estimate, for the Gaussian free fied.
 
 \begin{theorem}[Chessboard estimate]
   \label{thm:chessboard}
-    For any $n=2^k$, $d\geq 1$, $\beta\geq 0$, $m>0$, and any bounded functions $f_z:\R\to\R$ indexed by $z\in \T_n^d$, we have
-    \[
-        \langle \prod_{x\in \T_n^d} f_x(\phi_x)\rangle_{\operatorname{GFF},\T_n^d,\beta,m}
-        \leq \max_{x\in \T_n^d} \langle \prod_{y\in \T_n^d} f_y(\phi_x)\rangle_{\operatorname{GFF},\T_n^d,\beta,m}.
-    \]
+  Fix $d\in\Z_{\geq 1}$ and $n=2^k$ for some $k\in\Z_{\geq 1}$.
+  Also fix some $\beta\geq 0$.
+  Then for any family of real functions $f_x:\R\to\R$ indexed by $x\in \T$, we have
+  \[
+    \left|\int_{\R^\T}
+    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{x\in \T} f_x(\phi_x) \diff\phi\right|
+    \leq
+    \prod_{x\in \T}\left( \int_{\R^\T}
+    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{y\in \T} f_x(\phi_y) \diff\phi\right)^{1/|\T|},
+  \]
+  and in particular the right side is bounded by
+  \[
+  \max_{x\in \T}
+    \int_{\R^\T}
+    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{y\in \T} f_x(\phi_y) \diff\phi.
+  \]
 \end{theorem}
 
-In practice, we use the chessboard esimate in a very particular setting.
-
-\begin{corollary}
-    
-\end{corollary}
-
-\begin{proof}
-    Consider the chessboard esimate.
-    Fix $\tau\in\R^{\T_n^d}$.
-    For each $x\in\T_n^d$, define
-    \[
-        f_x(a) := \true{ |a-\tau_x|\in [-1,1]\setminus[-1+\epsilon,1-\epsilon] }.
-    \]
-    Then
-    \begin{align}
-    Z(\tau):=
-    \lim_{\epsilon,m\to 0} \frac1{(2\epsilon)^{n^d}}
-        Z_{\operatorname{GFF},\T_n^d,\beta,m} \langle \prod_{x\in \T_n^d} f_x(\phi_x)\rangle_{\operatorname{GFF},\T_n^d,\beta,m}
-        = \sum_{\sigma\in\{\pm 1\}^{\T_n^d}} e^{-\frac{\beta}{2}\|\nabla(\sigma+\tau)\|_2^2 }
-    \end{align}
-\end{proof}
-
+We apply the theorem in the following way:
+let $\tau\in\R^\T$ and $A\subset\R$, and set $f_x(a) := \true{a-\tau_x\in A}$ for each $x\in \T$.
+Then the chessboard estimate gives 
+\[
+    \int_{\R^\T}
+    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \true{\phi-\tau\in A^\T} \diff\phi
+    \leq
+    \int_{\R^\T}
+    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \true{\phi\in A^\T} \diff\phi.
+\]
+Now suppose that we set $A=[-1,1]\setminus(-1+\epsilon,1-\epsilon)$,
+multiply both sides by $\epsilon^{-|\T|}$, and take the limit $\epsilon\to 0$.
+Then the right side converges to
+\[
+    \sum_{\sigma\in\{\pm 1\}^\T} e^{-\frac\beta2 \|\nabla\sigma\|_2^2}
+    =
+    e^{\beta |E(\T)|}
+    Z_{\T,\beta}^{\operatorname{Ising}},
+\]
+while the left side converges to
+\[
+    \sum_{\sigma\in\{\pm 1\}^\T} e^{-\frac\beta2 \|\nabla(\sigma+\tau)\|_2^2}=
+    e^{\beta |E(\T)|}
+    Z_{\T,\beta}^{\operatorname{Ising}}\cdot
+    \langle
+    e^{\frac\beta2 (\|\nabla\sigma\|_2^2-\|\nabla (\sigma+\tau)\|_2^2)}
+    \rangle_{\T,\beta}^{\operatorname{Ising}}.
+\]
+In particular, the expectation on the right is bounded by $1$, which leads to
+\[
+    \langle
+    e^{\beta (\nabla\sigma,\nabla\tau)}
+    \rangle_{\T,\beta}^{\operatorname{Ising}}
+    \leq e^{\frac\beta2 \|\nabla\tau\|_2^2}.
+\]
 
 % Now use the chessboard esimate to give the Gaussian domination bound
