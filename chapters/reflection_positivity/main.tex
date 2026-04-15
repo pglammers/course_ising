@@ -6,7 +6,7 @@
 
 \section{Reflection positivity}
 
-\begin{definition}
+\begin{definition}[Torus]
   \label{def:torus}
     For $n\geq 1$ and $d\geq 1$, we define the torus of circumference $n$ in dimension $d$ as the graph $\T_n^d$ with vertex set
     \(
@@ -76,5 +76,107 @@ In particular, the expectation on the right is bounded by $1$, which leads to
     \rangle_{\T,\beta}^{\operatorname{Ising}}
     \leq e^{\frac\beta2 \|\nabla\tau\|_2^2}.
 \]
+Replacing $\tau$ by $\epsilon\tau$, expanding to second order in $\epsilon$, and sending $\epsilon\to0$,
+yields
+\[  
+    \frac{\beta^2}2
+    \langle (\nabla\sigma,\nabla\tau)^2\rangle \leq \frac\beta2 \|\nabla\tau\|_2^2
+    \qquad
+    \text{or}
+    \qquad
+    \langle (\nabla\sigma,\nabla\tau)^2\rangle \leq \frac1\beta \|\nabla\tau\|_2^2
+\]
+
+Now define the Laplacian $\Delta$ on $\T$ by
+\[
+    (\Delta f)_x := \sum_{y\sim x} (f_y - f_x).
+\]
+Then for any $f,g\in\R^\T$, we have
+\begin{equation*}
+    (\nabla f,\nabla g) = \sum_{\{x,y\}\in E(\T)} (f_x-f_y)(g_x-g_y) = -\sum_{x\in \T} f_x (\Delta g)_x = -(f,\Delta g).
+\end{equation*}
+Then the previous inequality can be rewritten as
+\begin{equation}
+    \label{eq:Gaussian_domination_real}
+    \langle
+    (\sigma,\Delta\tau)^2
+    \rangle
+    \leq \frac1\beta(\tau,-\Delta\tau).
+\end{equation}
+
+Notice that $-\Delta:\R^\T\to\R^\T$ is a linear operator commuting with shifts
+of the torus.
+This suggests that it is diagonal in the Fourier basis.
+Let \(\operatorname{Char}(\T)\) denote the set of \emph{characters}
+of $\T$, that is, the set of group homomorphisms $(\T,+)\to\C$.
+The structure of \(\operatorname{Char}(\T)\) is well-known:
+since $\T=(\Z/n\Z)^d$,
+any character $\chi\in\operatorname{Char}(\T)$ must an $n$-th root of unity
+to each basis element $(e_i)_i\in\T$, and any assignment leads to a character.
+Define the \emph{dual torus} $\T^*:=2\pi(\Z/n\Z)^d$,
+and for any $k\in\T^*$, we set
+\(\chi_k(x):=e^{i(x,k)}\).
+Then $(\chi_k)_k$ forms an orthogonal basis of the vector space $\ell^2(\T)$,
+with $\|\chi_k\|_2^2=|\T|$ and
+\[
+    -\Delta\chi_k = \lambda_k\chi_k
+    \qquad\text{with}\qquad
+    \lambda_k = 2\sum_{i=1}^d (1-\cos k_i).
+\]
+
+Equation~\eqref{eq:Gaussian_domination_real} only makes sense for real-valued $\tau$,
+but we would like to set $\tau=\chi_k$.
+By applying Equation~\eqref{eq:Gaussian_domination_real} explicitly for the
+real and imaginary part of $\chi_k$, we obtain
+\begin{equation}
+    \label{eq:Gaussian_domination_Fourier}
+    \lambda_k^2\langle|(\sigma,\chi_k)|^2\rangle \leq \frac{\lambda_k}\beta |\T|
+    \qquad\text{or}\qquad
+    \langle|(\sigma,\chi_k)|^2\rangle \leq \frac{\T}{\beta\lambda_k}.
+\end{equation}
+Now for fixed $\sigma\in\{\pm 1\}^\T\subset \R^\T$,
+we may interpret $(\hat\sigma_k)_k:=((\sigma,\chi_k))_k$ as the Fourier
+transform of $\sigma$.
+Parseval's identity yields
+\[
+    \sum_k |\hat\sigma_k|^2 =  |\T|(\sigma,\sigma)| = |\T|^2.
+\]
+By Equation~\eqref{eq:Gaussian_domination_Fourier},
+we may now \emph{lower bound} $\langle|\hat\sigma_0|\rangle$
+by
+\begin{equation}
+    \frac{\langle|\hat\sigma_0|^2\rangle}{|\T|^2}\geq 1 - \frac1{\beta|\T|}\sum_{k\in\Lambda^*\setminus\{0\}}\frac{1}{\lambda_k}.
+\end{equation}
+Now we may interpret the right-hand side as a Riemann sum,
+to obtain the lower bound 
+\[
+    \frac1{|\T|}\sum_{k\in\Lambda^*\setminus\{0\}}\frac{1}{\lambda_k}
+    \geq
+    (2\pi)^{-d}\int_{[-\pi,\pi]^d} \frac1{2\sum_{i=1}^d (1-\cos t_i)}\diff t=:I_d.
+\]
+By expanding the cosine to second order, one can check that $I_2=\infty$, but $I_d<\infty$ for $d\geq 3$.
+Thus, we get
+\[
+    \frac{\langle|\hat\sigma_0|^2\rangle}{|\T|^2}
+    \geq
+    1-\frac{I_d}{\beta}>0
+\]
+for sufficiently large $\beta$.
+This is great news,
+since
+\[
+    \frac{\langle|\hat\sigma_0|^2\rangle}{|\T|^2}
+    =
+    \frac{1}{|\T|^2}\sum_{x,y\in \T} \langle\sigma_x\sigma_y\rangle,
+\]
+that is, it measures the two-point correlation function between two randomly chosen vertices of the torus.
+It is easy to see that
+\[
+    \langle\sigma_x\rangle_{\Z^d,\beta}^+ \geq \sqrt{1-I_d/\beta}>0,
+\]
+which yields another proof of the phase transition for the Ising model on $\Z^d$ for $d\geq 3$.
+
+
+
 
 % Now use the chessboard esimate to give the Gaussian domination bound
