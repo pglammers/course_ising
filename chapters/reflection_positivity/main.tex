@@ -107,22 +107,52 @@ Then the previous inequality can be rewritten as
 Notice that $-\Delta:\R^\T\to\R^\T$ is a linear operator commuting with shifts
 of the torus.
 This suggests that it is diagonal in the Fourier basis.
-Let \(\operatorname{Char}(\T)\) denote the set of \emph{characters}
+
+\color{blue}
+Recall that $\T=(\Z/n\Z)^d$.
+Let \(\operatorname{Char}(\T)\) be the set of \emph{characters}
 of $\T$, that is, the set of group homomorphisms $(\T,+)\to\C$.
-The structure of \(\operatorname{Char}(\T)\) is well-known:
-since $\T=(\Z/n\Z)^d$,
-any character $\chi\in\operatorname{Char}(\T)$ must an $n$-th root of unity
-to each basis element $(e_i)_i\in\T$, and any assignment leads to a character.
-Define the \emph{dual torus} $\T^*:=2\pi(\Z/n\Z)^d$,
-and for any $k\in\T^*$, we set
-\(\chi_k(x):=e^{i(x,k)}\).
-Then $(\chi_k)_k$ forms an orthogonal basis of the vector space $\ell^2(\T)$,
-with $\|\chi_k\|_2^2=|\T|$ and
+Since $\T$ is a finite abelian group, \(\operatorname{Char}(\T)\) may be understood as follows.
+\begin{itemize}
+    \item Since $nx=0\in\T$ for any $x\in\T$, we have $\chi^n\equiv 1$ for any $\chi\in\operatorname{Char}(\T)$.
+    \item If we assign an $n$-th root of unity to each basis element $(e_i)_i\in\T$, then we get a character by extending the assignment linearly.
+\end{itemize}
+This gives a description of all characters.
+More precisely,
+writing $\T^*:=(2\pi/n)(\Z/n\Z)^d$ for the \emph{dual torus}, we can identify $\operatorname{Char}(\T)$ with $\T^*$ by sending $k\in\T^*$ to the character $\chi_k$ defined by $\chi_k(x):=e^{i(x,k)}$.
+
+Now $\ell^2(\T)$ is a complex Hilbert space with inner product
+\[
+    (f,g):=\sum_{x\in \T} \bar g_x f_x.
+\]
+Moreover, $\operatorname{Char}(\T)$ forms an orthogonal basis of $\ell^2(\T)$, with $\|\chi\|_2^2=|\T|$ for each character $\chi$.
+This means that for any $f\in\ell^2(\T)$, we have
+\[
+    f = \sum_{\chi}\frac{1}{\|\chi\|_2^2}(\chi,f)\chi = \frac1{|\T|}\sum_{\chi}(\chi,f)\chi.
+\]
+The vectors in the basis $\operatorname{Char}(\T)$ are eigenvectors of translations of the torus.
+For this reason, it is also called the \emph{Fourier basis}.
+For any $f\in\ell^2(\T)$ and $k\in\T^*$, we write $\hat f(k):=(\chi_k,f)$ for the \emph{Fourier coefficient} of $f$ at $k$.
+The formula above may then be rewritten as
+\[
+    f = \frac1{|\T|}\sum_{k\in\T^*} \hat f(k) \chi_k.
+\]
+This is an orthogonal expansion of $f$ (with $\|\chi_k\|_2^2=|\T|$), which implies Parseval's identity:
+\[
+    \|f\|_2^2 = \frac1{|\T|}\sum_{k\in\T^*} |\hat f(k)|^2.
+\]
+Since the shift operators on $\T$ are diagonal in the Fourier basis,
+all convolution operators on $\ell^2(\T)$ are also diagonal in the Fourier basis.
+This includes the Laplacian $\Delta$.
+\color{black}
+
+By a direct calculation, one can check that
 \[
     -\Delta\chi_k = \lambda_k\chi_k
     \qquad\text{with}\qquad
     \lambda_k = 2\sum_{i=1}^d (1-\cos k_i).
 \]
+
 
 Equation~\eqref{eq:Gaussian_domination_real} only makes sense for real-valued $\tau$,
 but we would like to set $\tau=\chi_k$.
@@ -137,6 +167,9 @@ real and imaginary part of $\chi_k$, we obtain
 Now for fixed $\sigma\in\{\pm 1\}^\T\subset \R^\T$,
 we may interpret $(\hat\sigma_k)_k:=((\sigma,\chi_k))_k$ as the Fourier
 transform of $\sigma$.
+
+\subsection{Alternative proof of spontaneous magnetization for the Ising model in dimension $d\geq 3$}
+
 Parseval's identity yields
 \[
     \sum_k |\hat\sigma_k|^2 =  |\T|(\sigma,\sigma)| = |\T|^2.
@@ -177,6 +210,29 @@ It is easy to see that
     \geq  \sqrt{1-I_d/\beta}>0,
 \]
 which yields another proof of the phase transition for the Ising model on $\Z^d$ for $d\geq 3$.
+
+\subsection{Upper bound on the two-point function at the critical point}
+
+Let $S(x):=\langle\sigma_0\sigma_x\rangle$.
+Its Fourier transform satisfies
+\[
+\hat S(k)=
+|\sum_{x\in\T}\chi_k(x+y)\langle\sigma_0\sigma_x\rangle|
+\leq
+\langle|\sum_{x\in\T}\sigma_0\sigma_x\chi_k(x+y)|\rangle
+=
+\frac1{|\T|}\langle|\hat\sigma_k|^2\rangle
+\leq
+\frac{1}{\beta\lambda_k}.
+\]
+\todo{Explain why Fourier transform is non-negative}
+We would like to turn this into a pointwise bound on $S(x)$.
+We could express $S(x)$ in terms of its Fourier transform,
+but this does not give a good bound.
+
+
+
+
 
 
 
