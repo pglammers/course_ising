@@ -2,7 +2,8 @@
 
 We already used the high-temperature expansion to prove one correlation inequality:
 the first Griffiths inequality, which asserts that $\langle\sigma_A\rangle\geq 0$.
-This was an immediate consequence of the fact that the high-temperature expansion is a sum of positive terms.
+This was an immediate consequence of the fact that the high-temperature expansion is a
+sum of positive terms.
 
 There are many other interested inequalities.
 Many of those are obtained via the \emph{switching lemma}.
@@ -13,7 +14,8 @@ because the setup is a little bit simpler.
 We can already use it to prove two interesting inequalities:
 \begin{itemize}
     \item The \emph{pairing bound}, which relates multi-point and two-point correlation functions,
-    \item The \emph{Simon--Lieb inequality}, which yields a finite-size criterion for exponential decay.
+    \item The \emph{Simon--Lieb inequality}, which yields a finite-size criterion for
+        exponential decay.
 \end{itemize}
 
 We first prove the following switching lemma.
@@ -26,7 +28,7 @@ case that $G\subset G'$.
     \label{lemma:switching_high_t}
     Let $G$ and $G'$ denote two finite graphs and fix $\beta\in[0,\infty)$.
     If $A\subset V$, $\eta\subset E\cup E'$, and $Q\subset \eta\cap E\cap E'$,
-    then 
+    then
     \begin{equation}
         \bfM_{G,\beta}\times\bfM_{G',\beta}
         [\{\omega\Delta\omega'=\eta\}\cap \{\partial\omega=A\}]
@@ -49,13 +51,14 @@ case that $G\subset G'$.
     We make two important observations:
     \begin{itemize}
         \item $(\Xi_Q)^2$ restricts to a involution on $\{\omega\Delta\omega'=\eta\}$,
-        \item On $\{\omega\Delta\omega'=\eta\}$, the map $(\Xi_Q)^2$ does not modify the number $|\omega|+|\omega'|$
-        of edges.
-    \end{itemize} 
+        \item On $\{\omega\Delta\omega'=\eta\}$, the map $(\Xi_Q)^2$ does not modify the
+            number $|\omega|+|\omega'|$
+            of edges.
+    \end{itemize}
     Since the weight of each configuration $(\omega,\omega')$ is a function of $|\omega|+|\omega'|$,
     the two observations imply that
     the measure \[\bfM_{G,\beta}\times\bfM_{G',\beta}
-        [\{\omega\Delta\omega'=\eta\}\cap (\blank)]\] is preserved by the involution
+    [\{\omega\Delta\omega'=\eta\}\cap (\blank)]\] is preserved by the involution
     $(\Xi_Q)^2$.
     The result follows since $(\Xi_Q)^2$ is is also a bijection from $\{\partial\omega= A\}$
     to $\{\partial\omega= A\Delta \partial Q\}$.
@@ -75,19 +78,22 @@ it is useful to have some simple terminology for graphs and percolations.
     ($u$ and $v$ may represent vertices or sets of vertices).
     For fixed $A\subset V$, we shall also write $\calE_A$ for the set
     \[
-        \{\omega\subset E:\text{$|C\cap A|$ is even for any connected component $C\subset V$ of $(V,\omega)$}\}.
+        \{\omega\subset E:\text{$|C\cap A|$ is even for any connected component $C\subset
+        V$ of $(V,\omega)$}\}.
     \]
 \end{definition}
 
 \begin{exercise}
     \label{exo:basic_perco}
-    Let $G$ denote a graph and 
+    Let $G$ denote a graph and
     $x,y\in V$  distinct vertices. Prove that:
     \begin{itemize}
         \item If $A=\{x,y\}$, then $\{\omega\in\calE_A\}=\{x\xleftrightarrow{\omega}y\}$,
-        \item If $\omega\in\calE_A$, then we may find a finite subset $\eta\subset\omega$ with $\partial\eta=A$,
+        \item If $\omega\in\calE_A$, then we may find a finite subset $\eta\subset\omega$
+            with $\partial\eta=A$,
         \item If $G$ is a finite graph and $\partial\omega=A$, then $\omega\in\calE_A$,
-        \item For any $A\subset V$, the event $\{\omega\in\calE_A\}$ is an increasing event of the percolation $\omega$.
+        \item For any $A\subset V$, the event $\{\omega\in\calE_A\}$ is an increasing
+            event of the percolation $\omega$.
     \end{itemize}
 \end{exercise}
 
@@ -140,15 +146,16 @@ as interacting paths which pair up the sources in our source set.
     We now claim that
     \begin{align}
         &\bfM^2[\{\partial\omega = A,\,\partial\omega'=\emptyset\}]
-        \\&\leq 
-            \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
+        \\&\leq
+        \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
         \bfM^2[
-        \{\omega\Delta\omega'=\eta,\,\partial\omega = A,\,\partial\omega'=\emptyset\}
+            \{\omega\Delta\omega'=\eta,\,\partial\omega = A,\,\partial\omega'=\emptyset\}
         ]
         \\&=
-            \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
+        \sum\nolimits_{y\in A\setminus\{x\},\,\eta\in\{0,1\}^E,\,\{x\xleftrightarrow{\eta}y\}}
         \bfM^2[
-        \{\omega\Delta\omega'=\eta,\,\partial\omega = A\setminus\{x,y\},\,\partial\omega'=\{x,y\}\}
+            \{\omega\Delta\omega'=\eta,\,\partial\omega =
+            A\setminus\{x,y\},\,\partial\omega'=\{x,y\}\}
         ].
     \end{align}
     The inequality is the previous inequality,
@@ -160,7 +167,7 @@ as interacting paths which pair up the sources in our source set.
     \[
         \sum\nolimits_{y\in A\setminus\{x\}}
         \bfM^2[
-        \{\partial\omega = A\setminus\{x,y\},\,\partial\omega'=\{x,y\}\}
+            \{\partial\omega = A\setminus\{x,y\},\,\partial\omega'=\{x,y\}\}
         ]
         =
         (2^{-|V|}Z)^2 \langle\sigma_{A\setminus\{x,y\}}\rangle\langle\sigma_x\sigma_y\rangle,
@@ -188,24 +195,24 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     Fix $x\in \Lambda$ and $y\in V\setminus\Lambda$.
     \begin{itemize}
         \item We have
-        \[
-            \langle\sigma_x\sigma_y\rangle_{G,\beta}
-            \leq
-            \sum_{z\in\partial_\circ\Lambda}
-            \langle\sigma_x\sigma_z\rangle_{\Lambda,\beta}^\f
-            \langle\sigma_y\sigma_z\rangle_{G,\beta}.
-        \]
+            \[
+                \langle\sigma_x\sigma_y\rangle_{G,\beta}
+                \leq
+                \sum_{z\in\partial_\circ\Lambda}
+                \langle\sigma_x\sigma_z\rangle_{\Lambda,\beta}^\f
+                \langle\sigma_y\sigma_z\rangle_{G,\beta}.
+            \]
         \item We have
-        \[
-            \langle\sigma_x\sigma_y\rangle_{G,\beta}
-            \leq
-            (\tanh\beta)
-            \sum_{zz'\in\partial_e\Lambda}
-            \langle\sigma_x\sigma_z\rangle_{\Lambda,\beta}^\f
-            \langle\sigma_y\sigma_{z'}\rangle_{G,\beta}.
-        \]
+            \[
+                \langle\sigma_x\sigma_y\rangle_{G,\beta}
+                \leq
+                (\tanh\beta)
+                \sum_{zz'\in\partial_e\Lambda}
+                \langle\sigma_x\sigma_z\rangle_{\Lambda,\beta}^\f
+                \langle\sigma_y\sigma_{z'}\rangle_{G,\beta}.
+            \]
     \end{itemize}
-    In fact, the converse inequalities are also true if we 
+    In fact, the converse inequalities are also true if we
     multiply the right hand sides by $1/|\partial_\circ\Lambda|$
     and $1/|\partial_e\Lambda|$ respectively.
 \end{theorem}
@@ -231,7 +238,8 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
         \true{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset}
         \\
         \leq
-        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
+        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap
+        E(\Lambda^\f)}z}
         \true{\omega\Delta\omega'=\eta,\,\partial\omega=\{x,y\},\,\partial\omega'=\emptyset}.
     \end{multline}
     Using the switching lemma like for the pairing bound,
@@ -239,13 +247,15 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     \begin{align}
         &\bfM'[\{\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
         \\&
-        \leq 
-        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
+        \leq
+        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap
+        E(\Lambda^\f)}z}
         \bfM'[
         \{\omega\Delta\omega'=\eta,\,\partial\omega=\{x,y\},\,\partial\omega'=\emptyset\}]
         \\&
         =
-        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap E(\Lambda^\f)}z}
+        \sum\nolimits_{z\in\partial_\circ\Lambda,\,\eta\in\{0,1\}^E,\,x\xleftrightarrow{\eta\cap
+        E(\Lambda^\f)}z}
         \bfM'[
         \{\omega\Delta\omega'=\eta,\,\partial\omega=\{y,z\},\,\partial\omega'=\{x,z\}\}]
         \\&
@@ -273,7 +283,7 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     $x$ and $y$,
     then there must be some edge $zz'\in\partial_e\Lambda$
     such that $\omega\Delta\omega'$ contains a self-avoiding path
-    from $x$ to $y$, which passes through $zz'$ 
+    from $x$ to $y$, which passes through $zz'$
     and which does not leave $\Lambda$ before using this edge.
     The switching lemma may then be applied in a similar fashion.
     By switching the edge $zz'$, which only appears in the bigger
@@ -289,7 +299,7 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
         \phi_\beta(\Lambda):=
         (\tanh\beta)
         \sum_{zz'\in\partial_e\Lambda}
-            \langle\sigma_0\sigma_z\rangle_{\Lambda,\beta}^\f.
+        \langle\sigma_0\sigma_z\rangle_{\Lambda,\beta}^\f.
     \]
     If $\phi_\beta(\Lambda)<1$ for some $\Lambda$, then
     there exists a constant $c=c_{d,\beta}>0$
@@ -312,7 +322,7 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
         }{
             \operatorname{Diameter}(\Lambda)+1
         }
-    \right\rfloor.
+        \right\rfloor.
     \]
     It suffices to prove that for any $x\in\Z^d$ and $n\in\Z_{\geq 0}$, we have
     \[
@@ -327,25 +337,27 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
         \langle\sigma_x\rangle_{\Delta,\beta}^+
         =
         \langle\sigma_x\sigma_\frakg\rangle_{\Delta^\frakg,\beta}
-        \leq 
+        \leq
         (\tanh\beta)
-            \sum_{zz'\in\partial_e(\Lambda+x)}
-            \langle\sigma_x\sigma_z\rangle_{\Lambda+x,\beta}^\f
-            \langle\sigma_\frakg\sigma_{z'}\rangle_{\Delta^\frakg,\beta}.
+        \sum_{zz'\in\partial_e(\Lambda+x)}
+        \langle\sigma_x\sigma_z\rangle_{\Lambda+x,\beta}^\f
+        \langle\sigma_\frakg\sigma_{z'}\rangle_{\Delta^\frakg,\beta}.
     \]
-    By induction, we may bound $\langle\sigma_\frakg\sigma_{z'}\rangle_{\Delta^\frakg,\beta}=\langle\sigma_{z'}\rangle_{\Delta,\beta}^+\leq \phi_\beta(\Lambda)^{a(x)-1}$,
+    By induction, we may bound
+    $\langle\sigma_\frakg\sigma_{z'}\rangle_{\Delta^\frakg,\beta}=\langle\sigma_{z'}\rangle_{\Delta,\beta}^+\leq
+    \phi_\beta(\Lambda)^{a(x)-1}$,
     so that the previous line is upper bounded by
     \[
         \langle\sigma_x\rangle_{\Delta,\beta}^+
         \leq
         \left(\textstyle
-        (\tanh\beta)
+            (\tanh\beta)
             \sum_{zz'\in\partial_e(\Lambda+x)}
             \langle\sigma_x\sigma_z\rangle_{\Lambda+x,\beta}^\f
-            \right)
-            \phi_\beta(\Lambda)^{a(x)-1}
-            =
-            \phi_\beta(\Lambda)^{a(x)}.
+        \right)
+        \phi_\beta(\Lambda)^{a(x)-1}
+        =
+        \phi_\beta(\Lambda)^{a(x)}.
     \]
     This is the desired bound.
 \end{proof}
@@ -365,12 +377,13 @@ that is, the set of edges connecting $\Lambda$ and $V\setminus\Lambda$.
     Indeed, the converse version of the Simon inequality yields
     \[
         \langle \sigma_0\rangle_{\Lambda,\beta}^+
-        \geq \frac{\tanh\beta}{|\partial_e\Lambda|} 
+        \geq \frac{\tanh\beta}{|\partial_e\Lambda|}
         \sum_{zz'\in\partial_e\Lambda}
-            \langle\sigma_0\sigma_z\rangle_{\Lambda,\beta}^\f
-            =\frac{\phi_\beta(S)}{|\partial_e\Lambda|}.
+        \langle\sigma_0\sigma_z\rangle_{\Lambda,\beta}^\f
+        =\frac{\phi_\beta(S)}{|\partial_e\Lambda|}.
     \]
     If the left hand side decays exponentially fast in the distance from $0$ to the boundary,
-    then one may clearly choose $\Lambda$ so large that 
-    $\langle \sigma_0\rangle_{\Lambda,\beta}^+\leq 1/|\partial_e\Lambda|$, in which case $\phi_\beta(\Lambda)<1$.
+    then one may clearly choose $\Lambda$ so large that
+    $\langle \sigma_0\rangle_{\Lambda,\beta}^+\leq 1/|\partial_e\Lambda|$, in which case
+    $\phi_\beta(\Lambda)<1$.
 \end{remark}

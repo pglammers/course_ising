@@ -52,36 +52,37 @@ and the random-currents weights:
 \]
 We may thus interpret the relation between $e^{-\beta|E|}\bfM$ and $e^{-\beta|E|}\M$ as follows:
 \begin{itemize}
-    \item $\M$ is a nonnormalised family of independent $\operatorname{Poisson}(\beta)$-variables $(\n_{xy})_{xy\in E}$,
+    \item $\M$ is a nonnormalised family of independent
+        $\operatorname{Poisson}(\beta)$-variables $(\n_{xy})_{xy\in E}$,
     \item $\bfM$ is obtained from $\M$ by writing $\omega_{xy}$ for the \emph{parity} of $\n_{xy}$,
     \item In particular, $\partial\n\sim\M$ and $\partial\omega\sim\bfM$ have the same distribution,
     \item Moreover, the percolation $\hat\n$ may be viewed as
-    \[
-        \hat\n = \omega \cup\{xy\in E: \n_{xy}\in\{2,4,8,\ldots\}\}.
-    \]
-    In particular, the following distributions are the same:
-    \begin{equation}
-        \label{eq:equivalence}
-        \text{$\hat\n$ in the measure $\M$}
-        \qquad
-        \text{and}
-        \qquad
-        \text{$\omega\cup\eta$ in the measure $\bfM\times\P_{p}$,}
-    \end{equation}
-    where $\eta\sim\P_p$ is an independent bond percolation on $G$
-    with parameter
-    \[
-        p
-        =\frac{\cosh\beta-1}{\cosh\beta}
-        =\frac{
-            \sum_{\n\in 2\Z_{\geq 1}} \frac{\beta^\n}{\n!}
-        }{
-            \sum_{\n\in 2\Z_{\geq 0}} \frac{\beta^\n}{\n!}
-        }
-        .
-    \]
-    This is called \emph{sprinkling};
-    $\hat\n$ is a \emph{sprinkled} version of $\omega$.
+        \[
+            \hat\n = \omega \cup\{xy\in E: \n_{xy}\in\{2,4,8,\ldots\}\}.
+        \]
+        In particular, the following distributions are the same:
+        \begin{equation}
+            \label{eq:equivalence}
+            \text{$\hat\n$ in the measure $\M$}
+            \qquad
+            \text{and}
+            \qquad
+            \text{$\omega\cup\eta$ in the measure $\bfM\times\P_{p}$,}
+        \end{equation}
+        where $\eta\sim\P_p$ is an independent bond percolation on $G$
+        with parameter
+        \[
+            p
+            =\frac{\cosh\beta-1}{\cosh\beta}
+            =\frac{
+                \sum_{\n\in 2\Z_{\geq 1}} \frac{\beta^\n}{\n!}
+            }{
+                \sum_{\n\in 2\Z_{\geq 0}} \frac{\beta^\n}{\n!}
+            }
+            .
+        \]
+        This is called \emph{sprinkling};
+        $\hat\n$ is a \emph{sprinkled} version of $\omega$.
 \end{itemize}
 
 The last observation arises from the simple fact that edges carring an even current
@@ -131,7 +132,8 @@ over subsets of $\omega\Delta\omega'$ to subsets of $\hat\n\cup\hat\m$.
     \begin{enumerate}
         \item $\P[\{\text{$X_B$ is even}\}|\{X_B+X_Y= N \}]=\frac12$ whenever $N>0$,
         \item $\P[\{\text{$X_B$ is even}\}|\{X_B+X_Y= N \}]=0$ whenever $N=0$,
-        \item $\P[\{\text{$X_B$ is even}\}]-\P[\{\text{$X_B$ is odd}\}]=\P[\{\text{$X_B+X_Y=0$}\}]\geq 0$.
+        \item $\P[\{\text{$X_B$ is even}\}]-\P[\{\text{$X_B$ is
+            odd}\}]=\P[\{\text{$X_B+X_Y=0$}\}]\geq 0$.
     \end{enumerate}
 \end{exercise}
 
@@ -139,7 +141,7 @@ over subsets of $\omega\Delta\omega'$ to subsets of $\hat\n\cup\hat\m$.
     \label{lem:explicit_switching_lemma}
     Let $G$ and $G'$ denote two finite graphs and fix $\beta\in[0,\infty)$.
     If $A\subset V$, $\s\in(\Z_{\geq 0})^{E\cup E'}$, and $Q\subset \hat\s\cap E\cap E'$,
-    then 
+    then
     \begin{equation}
         \M_{G,\beta}\times\M_{G',\beta}
         [\{\n+\m=\s\}\cap \{\partial\n=A\}]
@@ -168,7 +170,6 @@ over subsets of $\omega\Delta\omega'$ to subsets of $\hat\n\cup\hat\m$.
     which proves the previous identity.
 \end{proof}
 
-
 % \begin{lemma}[Switching lemma]
 %     \label{lem:switching_lemma}
 %     Let $G$ denote a finite graph and $\beta\in[0,\infty)$.
@@ -178,7 +179,8 @@ over subsets of $\omega\Delta\omega'$ to subsets of $\hat\n\cup\hat\m$.
 %     \begin{align}
 %         &\M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A}\true{\partial\m=B}]
 %         \\={}&
-%         \M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A\Delta S}\true{\partial\m=B\Delta S}].
+%         \M^2[F(\n+\m)\true{\widehat{\n+\m} \in \calE_S}\true{\partial\n=A\Delta
+% S}\true{\partial\m=B\Delta S}].
 %     \end{align}
 % \end{lemma}
 
@@ -220,18 +222,21 @@ This is typical for the switching lemma.
         \M^2[\{\widehat{\n+\m} \in \calE_B\}\cap\{\partial\n=A\}\cap\{\partial\m=B\}]
         \\
         &\qquad\stackrel{\text{switch}}=
-        \M^2[\{\widehat{\n+\m} \in \calE_B\}\cap\{\partial\n=A\Delta B\}\cap\{\partial\m=\emptyset\}]
+        \M^2[\{\widehat{\n+\m} \in \calE_B\}\cap\{\partial\n=A\Delta
+        B\}\cap\{\partial\m=\emptyset\}]
         \\
         &\qquad\leq
         \M^2[\{\partial\n=A\Delta B\}\cap\{\partial\m=\emptyset\}].
     \end{align}
-    For the first equality, we simply observe that $\{\partial\m=B\}\subset \{\widehat{\n+\m} \in \calE_B\}$
+    For the first equality, we simply observe that $\{\partial\m=B\}\subset
+    \{\widehat{\n+\m} \in \calE_B\}$
     (see Exercice~\ref{exo:basic_perco}).
-    The switch is the switching lemma, where we switch over a subset of $\widehat{\n+\m}$ 
+    The switch is the switching lemma, where we switch over a subset of $\widehat{\n+\m}$
     having $B$ as source set.
     The inequality is inclusion of events.
 
-    By the random currents expansion of correlation functions (Theorem~\ref{thm:current_representation_of_correlation_functions}),
+    By the random currents expansion of correlation functions
+    (Theorem~\ref{thm:current_representation_of_correlation_functions}),
     the left- and rightmost expressions are given by
     \[
         Z^2\langle\sigma_A\rangle\langle\sigma_B\rangle/4^{|V|}
@@ -274,5 +279,7 @@ This is typical for the switching lemma.
     \]
 
     Observe that we can now express all correlation functions in terms of a single
-    fixed probability measure $4^{|V|}\M^2[\{\partial\n=\partial\m=\emptyset\}\cap(\blank)]/Z^2$ on sourceless random currents.
+    fixed probability measure
+    $4^{|V|}\M^2[\{\partial\n=\partial\m=\emptyset\}\cap(\blank)]/Z^2$ on sourceless
+    random currents.
 \end{exercise}

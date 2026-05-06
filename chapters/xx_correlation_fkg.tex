@@ -7,7 +7,8 @@ theory (independent randomness) as the \emph{Harris inequality},
 after Theodore Harris.
 In these lecture notes, we shall state and prove the FKG inequality in a simplified
 context, which will be sufficient for our purposes.
-The interested reader may consult the original paper, which is an accessible classic in statistical mechanics.
+The interested reader may consult the original paper, which is an accessible classic in
+statistical mechanics.
 
 \begin{definition}[FKG inequality]
     Let $(\Omega,\preceq)$ denote a partially ordered set
@@ -42,12 +43,12 @@ or in terms of a mixture of increasing and decreasing functions.
 
 \begin{exercise}[Iterating the FKG inequality]
     Let $\mu$ denote a probability measure satisfying the FKG inequality and
-     $(A_i)_i$ a finite family of increasing events.
+    $(A_i)_i$ a finite family of increasing events.
     Prove that
     \[
         \mu(\cap_i A_i)\geq \prod_i\mu(A_i).
     \]
-    
+
     If $(f_i)_i$ is a finite family of increasing functions,
     does it hold true that $\mu[\prod_i f_i]\geq \prod_i \mu[f_i]$?
     Why (not)?
@@ -66,10 +67,10 @@ but to derive it, we require the notion of a distributive lattice.
         \item $x\vee y$ equals the least upper bound of $x$ and $y$ with respect to $\preceq$,
         \item $x\wedge y$ equals the greatest lower bound of $x$ and $y$ with respect to $\preceq$,
         \item The following two \emph{distribution equations}:
-        \begin{itemize}
-            \item $x\wedge (y\vee z)=(x\wedge y)\vee(x\wedge z)$,
-            \item $x\vee (y\wedge z)=(x\vee y)\wedge(x\vee z)$.
-        \end{itemize}
+            \begin{itemize}
+                \item $x\wedge (y\vee z)=(x\wedge y)\vee(x\wedge z)$,
+                \item $x\vee (y\wedge z)=(x\vee y)\wedge(x\vee z)$.
+            \end{itemize}
     \end{enumerate}
     A distributive lattice is called \emph{finite} or \emph{countable}
     whenever $\Omega$ has these respective properties.
@@ -77,12 +78,11 @@ but to derive it, we require the notion of a distributive lattice.
     to $\{0,1\}^I$ for some index set $I$.
 \end{definition}
 
-
 \begin{definition}[FKG lattice condition]
     Let $X:\Omega\to[0,\infty)$ denote a
     function defined on some distributive lattice $(\Omega,\preceq,\vee,\wedge)$.
     We say that $X$ satisfies the \emph{FKG lattice condition}
-    if 
+    if
     \begin{equation}
         X(\omega\vee\eta)\cdot X(\omega\wedge\eta)
         \geq
@@ -121,7 +121,7 @@ but to derive it, we require the notion of a distributive lattice.
     satisfy the FKG inequality due to the induction hypothesis.
 
     \begin{claim*}
-    For any increasing function $f$  on $(\Omega,\preceq)$ we have \(
+        For any increasing function $f$  on $(\Omega,\preceq)$ we have \(
             \mu_-[f]\leq\mu_+[f]
         \).
     \end{claim*}
@@ -162,7 +162,7 @@ but to derive it, we require the notion of a distributive lattice.
     Writing $X(\omega^+)=X(\omega)X'(\omega)$
     where
     $X'(\omega):=\frac{X(\omega^+)}{X(\omega)}$,
-    we get 
+    we get
     \[
         \mu_+[ f]
         =

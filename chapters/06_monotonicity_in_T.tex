@@ -42,7 +42,7 @@
     We perform the differential and then multiply each side by $\langle\sigma_A\rangle$,
     to see that this inequality is equivalent to
     \[
-       \sum_{xy}
+        \sum_{xy}
         \frac{\sum_\sigma
             \sigma_x\sigma_y\sigma_A\prod_{uv}e^{\beta\sigma_u\sigma_v}
         }{Z}
@@ -74,26 +74,25 @@
 Next, we want to prove monotonicity in domains.
 We first challenge the reader to prove the following exercise.
 
-
 \begin{exercise}[Conditioning on equality increases the correlation functions]
     \label{exo:conditioning_equality}
     Consider the Ising model on a finite graph $G$
     at inverse temperature $\beta$, and fix some subset $A\subset V$.
     \begin{itemize}
         \item     Prove that for any two distinct vertices $u,v\in V$,
-        we have
-        \[
-            \E_{G,\beta}[\sigma_A|\{\sigma_u=\sigma_v\}]
-            \geq
-            \E_{G,\beta}[\sigma_A]=\langle\sigma_A\rangle_{G,\beta}.
-        \]
+            we have
+            \[
+                \E_{G,\beta}[\sigma_A|\{\sigma_u=\sigma_v\}]
+                \geq
+                \E_{G,\beta}[\sigma_A]=\langle\sigma_A\rangle_{G,\beta}.
+            \]
         \item Prove for any $X\subset Y\subset V$, we have
-        \[
-            \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $X$}\}]
-            \leq
-            \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $Y$}\}]
-            .
-        \]
+            \[
+                \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $X$}\}]
+                \leq
+                \E_{G,\beta}[\sigma_A|\{\text{$\sigma$ is constant on $Y$}\}]
+                .
+            \]
     \end{itemize}
 \end{exercise}
 
@@ -105,9 +104,11 @@ We first challenge the reader to prove the following exercise.
     and a subset $A\subset \Lambda$.
     \begin{itemize}
         \item \textbf{Free boundary.}
-        We have $\langle\sigma_A\rangle^\f_{\Lambda,\beta}\leq\langle\sigma_A\rangle^\f_{\Lambda',\beta}$.
+            We have
+            $\langle\sigma_A\rangle^\f_{\Lambda,\beta}\leq\langle\sigma_A\rangle^\f_{\Lambda',\beta}$.
         \item \textbf{Wired boundary.}
-        We have $\langle\sigma_A\rangle^+_{\Lambda,\beta}\geq\langle\sigma_A\rangle^+_{\Lambda',\beta}$.
+            We have
+            $\langle\sigma_A\rangle^+_{\Lambda,\beta}\geq\langle\sigma_A\rangle^+_{\Lambda',\beta}$.
     \end{itemize}
 \end{lemma}
 
@@ -122,7 +123,7 @@ We first challenge the reader to prove the following exercise.
         \langle\sigma_A\rangle_{G'',\beta}
     \]
     for any $A\subset V(G')$.
-    To prove the claim, we simply expand 
+    To prove the claim, we simply expand
     \[
         \langle\sigma_A\rangle_{G'',\beta}
         =
@@ -134,10 +135,10 @@ We first challenge the reader to prove the following exercise.
     \]
     Thus, we want to show that
     \[
-            \langle e^{\beta\sigma_x\sigma_y} \sigma_A \rangle_{G'}
-            \geq 
-            \langle e^{\beta\sigma_x\sigma_y}\rangle_{G'}
-            \langle\sigma_A\rangle_{G'}.
+        \langle e^{\beta\sigma_x\sigma_y} \sigma_A \rangle_{G'}
+        \geq
+        \langle e^{\beta\sigma_x\sigma_y}\rangle_{G'}
+        \langle\sigma_A\rangle_{G'}.
     \]
     This follows from the second Griffiths inequality.
     We have now proved the claim.
@@ -162,7 +163,6 @@ We first challenge the reader to prove the following exercise.
     \]
     This follows from the claim.
 \end{proof}
-
 
 \begin{proof}[Proof for $\langle\blank\rangle^+$]
     Without loss of generality,
@@ -209,4 +209,3 @@ We first challenge the reader to prove the following exercise.
 
     Those are the desired inequalities.
 \end{proof}
-

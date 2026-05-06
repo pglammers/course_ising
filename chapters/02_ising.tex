@@ -19,7 +19,8 @@ Ising solved the one-dimension Ising model, see Exercise~\ref{exercise:ising_1d}
 
 \begin{definition}[Ising model]
     \label{def:ising_finite}
-    The Ising model on a finite graph \( G = (V, E) \) with \emph{inverse temperature} \( \beta \in [0,\infty) \) is defined as follows.
+    The Ising model on a finite graph \( G = (V, E) \) with \emph{inverse temperature} \(
+    \beta \in [0,\infty) \) is defined as follows.
     Let $\Omega:=\{\pm1\}^V$ denote the set of spin configurations on the vertices of the graph;
     a typical element of $\Omega$ is denoted by $\sigma=(\sigma_u)_{u\in V}$.
     Elements $\sigma\in\Omega$ are called \emph{spin configurations};
@@ -28,29 +29,38 @@ Ising solved the one-dimension Ising model, see Exercise~\ref{exercise:ising_1d}
     \[
         H_{G,\beta}^{\operatorname{Ising}}(\sigma) := -\beta \sum_{uv \in E} \sigma_u \sigma_v.
     \]
-    We write $\mu_{G,\beta}^{\operatorname{Ising}}$ for the associated \emph{Boltzmann distribution} or \emph{Gibbs measure}:
+    We write $\mu_{G,\beta}^{\operatorname{Ising}}$ for the associated \emph{Boltzmann
+    distribution} or \emph{Gibbs measure}:
     \[
-        \mu_{G,\beta}^{\operatorname{Ising}}(\sigma) := \frac{1}{Z_{G,\beta}^{\operatorname{Ising}}} e^{-H^{\operatorname{Ising}}_{G,\beta}(\sigma)},
+        \mu_{G,\beta}^{\operatorname{Ising}}(\sigma) :=
+        \frac{1}{Z_{G,\beta}^{\operatorname{Ising}}}
+        e^{-H^{\operatorname{Ising}}_{G,\beta}(\sigma)},
     \]
-    where \(Z_{G,\beta}^{\operatorname{Ising}}\) is normalisation constant or \emph{partition function} defined by
+    where \(Z_{G,\beta}^{\operatorname{Ising}}\) is normalisation constant or
+    \emph{partition function} defined by
     \[
-        Z_{G,\beta}^{\operatorname{Ising}}:= \sum_{\sigma\in\Omega} e^{-H^{\operatorname{Ising}}_{G,\beta}(\sigma)}.
+        Z_{G,\beta}^{\operatorname{Ising}}:= \sum_{\sigma\in\Omega}
+        e^{-H^{\operatorname{Ising}}_{G,\beta}(\sigma)}.
     \]
-    We shall write $\langle\blank\rangle_{G,\beta}^{\operatorname{Ising}}$ for the expectation functional associated to this probability measure.
+    We shall write $\langle\blank\rangle_{G,\beta}^{\operatorname{Ising}}$ for the
+    expectation functional associated to this probability measure.
 \end{definition}
 
 \begin{remark}
     For brevity, we omit the superscript $\operatorname{Ising}$ in notations.
-    We also occasionaly omit the reference to the graph $G$ or the inverse temperature $\beta$ when they are clear from the context.
+    We also occasionaly omit the reference to the graph $G$ or the inverse temperature
+    $\beta$ when they are clear from the context.
 \end{remark}
 
 \begin{remark}
-    We often prefer the notation $\langle X\rangle$ over $\mu[X]$ when taking the expectation of some random variable $X$,
+    We often prefer the notation $\langle X\rangle$ over $\mu[X]$ when taking the
+    expectation of some random variable $X$,
     expect when considering \emph{conditional} expectations.
 \end{remark}
 
 \begin{remark}[Flip-symmetry]
-    The Ising model is \emph{flip-symmetric} in the sense that the distribution of the spins is invariant under the transformation $\sigma\mapsto-\sigma$.
+    The Ising model is \emph{flip-symmetric} in the sense that the distribution of the
+    spins is invariant under the transformation $\sigma\mapsto-\sigma$.
     This is because the Hamiltonian is invariant under this transformation.
 \end{remark}
 
@@ -62,13 +72,17 @@ Ising solved the one-dimension Ising model, see Exercise~\ref{exercise:ising_1d}
 
 \begin{exercise}[Ising's 1924 result on the absence of a phase transition on $\Z$]
     \label{exercise:ising_1d}
-    Consider the Ising model on the nearest-neighbour graph on the set $V_n:=\{0,1,\ldots,n\}$ for $n\in\Z_{\geq 1}$
+    Consider the Ising model on the nearest-neighbour graph on the set
+    $V_n:=\{0,1,\ldots,n\}$ for $n\in\Z_{\geq 1}$
     at inverse temperature $\beta\in[0,\infty)$.
     \begin{enumerate}[label=(\roman*)]
         \item Calculate $\langle\sigma_x\rangle$ for any $x\in V_n$.
-        \item Calculate $\langle\sigma_x\sigma_y\rangle$ for any $x,y\in V_n$. Does this value depend on $n$?
-        \item Use flip-symmetry to argue that $\langle\sigma_x\sigma_y\rangle=\mu[\sigma_y|\{\sigma_x=+1\}]$.
-        \item \emph{Harder:} Calculate $\mu[\sigma_k|\{\sigma_0=\sigma_{2k}=+1\}]$, where $k\in\Z_{\geq 0}$ and $n=2k$.
+        \item Calculate $\langle\sigma_x\sigma_y\rangle$ for any $x,y\in V_n$. Does this
+            value depend on $n$?
+        \item Use flip-symmetry to argue that
+            $\langle\sigma_x\sigma_y\rangle=\mu[\sigma_y|\{\sigma_x=+1\}]$.
+        \item \emph{Harder:} Calculate $\mu[\sigma_k|\{\sigma_0=\sigma_{2k}=+1\}]$, where
+            $k\in\Z_{\geq 0}$ and $n=2k$.
     \end{enumerate}
     \emph{Hint.}
     Let $(X_{k})_{k\geq 0}$
@@ -85,7 +99,8 @@ It turns out that it decays exponentially fast in $n$ for any fixed $\beta$.
 Since the qualitative behaviour (exponential decay) is the same for all $\beta$,
 Ising concluded that the model does not undergoe a phase transition in one dimension.
 He conjectured that the same would be true in higher dimension.
-Over the past one hundred years, our mathematical understanding of the Ising model has advanced considerably,
+Over the past one hundred years, our mathematical understanding of the Ising model has
+advanced considerably,
 with the development of several techniques that are very different in nature.
 We now know that Ising's conjecture is false in dimension two and higher,
 and that the behaviour of the model changes significantly with the dimension
@@ -97,9 +112,9 @@ and with the precise value of the inverse temperature $\beta$.
 %     we define $\sigma_A:\Omega\to\{\pm\},\,\sigma\mapsto\prod_{x\in A}\sigma_x$.
 %     Its expectation $\langle\sigma_A\rangle$ in any probability measure $\langle\blank\rangle$
 %     on $\Omega$ is called a \emph{correlation function}.
-%     If $|A|=n$ then $\langle\sigma_A\rangle$ is also called an \emph{$n$-point correlation function}.
+%     If $|A|=n$ then $\langle\sigma_A\rangle$ is also called an \emph{$n$-point
+% correlation function}.
 % \end{definition}
-
 
 % \begin{exercise}[Flip-symmetry]
 %     \label{exercise:flip-symmetry}
@@ -123,13 +138,16 @@ and with the precise value of the inverse temperature $\beta$.
 % \begin{definition}[Free boundary conditions]
 %     Let $G=(V,E)$ denote a locally finite graph and $\Lambda\subset V$ a finite set.
 %     Write $\Lambda^\f$ for the subgraph of $G$ induced by $\Lambda$.
-%     Write $\langle\blank\rangle_{\Lambda,\beta}^\f:=\langle\blank\rangle_{\Lambda^\f,\beta}$ for the \emph{free-boundary
-%     Ising model} in $\Lambda$ at inverse temperature $\beta\in[0,\infty)$.    
+%     Write
+% $\langle\blank\rangle_{\Lambda,\beta}^\f:=\langle\blank\rangle_{\Lambda^\f,\beta}$ for
+% the \emph{free-boundary
+%     Ising model} in $\Lambda$ at inverse temperature $\beta\in[0,\infty)$.
 % \end{definition}
 
 % \begin{definition}[Fixed boundary conditions]
 %     Let $G=(V,E)$ denote a locally finite graph and $\Lambda\subset V$ a finite set.
-%     Let $\partial\Lambda\subset V\setminus\Lambda$ denote the set of vertices adjacent to $\Lambda$.
+%     Let $\partial\Lambda\subset V\setminus\Lambda$ denote the set of vertices adjacent
+% to $\Lambda$.
 %     Write $\bar\Lambda$ for the graph defined by
 %     \[
 %         V(\bar\Lambda):=\Lambda\cup\partial\Lambda;\qquad
@@ -153,7 +171,8 @@ conditional on any fixed spin, the spins ``in the past''
 are independent of the spins ``in the future''.
 This property generalises to arbitrary graphs
 and is called the \emph{Markov property} of the Ising model.
-In tandem with the Markov property, it is useful to introduce the notion of \emph{boundary conditions}.
+In tandem with the Markov property, it is useful to introduce the notion of
+\emph{boundary conditions}.
 
 \begin{definition}[Boundary conditions, cf.~Figure~\ref{fig:triangular}]
     Let $G=(V,E)$ denote a locally finite graph and $\Lambda\subset V$ a finite set.
@@ -163,7 +182,8 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
         V(\bar\Lambda):=\Lambda\cup\partial\Lambda;\qquad
         E(\bar\Lambda):=\{xy\in E:xy\cap\Lambda\neq\emptyset\}.
     \]
-    We shall also simply write $\bar\Lambda$ for $V(\bar\Lambda)$ when no confusion is likely to arise.
+    We shall also simply write $\bar\Lambda$ for $V(\bar\Lambda)$ when no confusion is
+    likely to arise.
     For any $\zeta\in\{\pm1\}^{\partial\Lambda}$,
     we shall write $\langle\blank\rangle_{\Lambda,\beta}^\zeta$
     for the measure
@@ -176,17 +196,20 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
     We write $\langle\blank\rangle_{\Lambda,\beta}^-$ for the boundary condition $\zeta\equiv-1$.
 \end{definition}
 
-
 \begin{theorem}[Markov property of the Ising model]
     Let $G$ denote a finite simple graph,
     and consider the Ising model $\mu_{G,\beta}$ at inverse temperature $\beta\in[0,\infty)$.
     Let $\Lambda\subset V$ be a subset of the vertices of $G$,
-    and let $\zeta\in\{\pm1\}^{V\setminus\Lambda}$ be a fixed spin configuration outside of $\Lambda$.
+    and let $\zeta\in\{\pm1\}^{V\setminus\Lambda}$ be a fixed spin configuration outside
+    of $\Lambda$.
     Let $(\Lambda_i)_i$ denote the partition of $\Lambda$ into connected components.
-    Then the conditional measure $\mu_{G,\beta}[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]$ satisfies the following properties:
+    Then the conditional measure
+    $\mu_{G,\beta}[\blank|\{\sigma|_{\Lambda^\complement}=\zeta\}]$ satisfies the
+    following properties:
     \begin{enumerate}
         \item The family of random variables $(\sigma|_{\bar\Lambda_i})_i$ is independent,
-        \item The law of $\sigma|_{\bar\Lambda_i}$ is $\langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}$.
+        \item The law of $\sigma|_{\bar\Lambda_i}$ is
+            $\langle\blank\rangle_{\Lambda_i,\beta}^{\zeta|_{\partial\Lambda_i}}$.
     \end{enumerate}
     In other words, we have
     \begin{equation}
@@ -201,11 +224,13 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
     \[
         C:=-\beta\sum_{xy\in E,\,xy\subset\Lambda^\complement}\zeta_x\zeta_y.
     \]
-    Then we can decompose the Hamiltonian for any $\sigma$ with $\sigma|_{\Lambda^\complement}=\zeta$ as
+    Then we can decompose the Hamiltonian for any $\sigma$ with
+    $\sigma|_{\Lambda^\complement}=\zeta$ as
     \[
         H_{G,\beta}(\sigma)=C+\sum_i H_{\bar\Lambda_i,\beta}(\sigma),
     \]
-    where each $H_{\bar\Lambda_i,\beta}$ is measurable in terms of $\zeta|_{\partial\Lambda_i}$ and $\sigma|_{\bar\Lambda_i}$.
+    where each $H_{\bar\Lambda_i,\beta}$ is measurable in terms of
+    $\zeta|_{\partial\Lambda_i}$ and $\sigma|_{\bar\Lambda_i}$.
     This implies Equation~\eqref{eq:markov_property}.
 \end{proof}
 
@@ -226,4 +251,3 @@ In tandem with the Markov property, it is useful to introduce the notion of \emp
     $\mu_{\Delta,\beta}^+[\blank|\{\sigma|_{\Lambda^\complement}\equiv+1\}]$,
     by going back to first principles (the definition of the Ising measure).
 \end{exercise}
-

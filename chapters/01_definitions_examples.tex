@@ -1,22 +1,22 @@
 \section{The Curie--Weiss model}
 \label{sec:definitions_examples}
 
-At the end of the 19th century, Pierre Curie published his experimental results on 
+At the end of the 19th century, Pierre Curie published his experimental results on
 \emph{ferromagnetism}:
 the
 magnetic properties of metals.
 He made three striking observations.
 \begin{itemize}
     \item The magnetic strength of a metal varies with the temperature.
-    Increasing the temperature decreases the magnetic strength.
+        Increasing the temperature decreases the magnetic strength.
     \item Each metal has a certain temperature, specific to that metal,
-    at which the magnetic properties disappear entirely.
-    We call this temperature the \emph{Curie temperature}.
+        at which the magnetic properties disappear entirely.
+        We call this temperature the \emph{Curie temperature}.
     \item Around the Curie temperature, the magnetic strength drops continuously
-    to zero. In other words, the magnetic strength does not ``jump'' to zero.
+        to zero. In other words, the magnetic strength does not ``jump'' to zero.
 \end{itemize}
 The first observation singles out the temperature as the driving parameter of the system.
-This is good news for us, since the temperature may be regarded informally as the amount of 
+This is good news for us, since the temperature may be regarded informally as the amount of
 ``randomness'' or ``entropy'' in the system, justifying a probabilistic analysis of the situation.
 The second observation implies that there is a \emph{phase transition}:
 there is a special temperature (in this case the Curie temperature) at which
@@ -25,19 +25,22 @@ The third observation entails an important property of this phase transition.
 
 The first mathematical explanation for Curie's experimental results came from
 Pierre Weiss.
-He proposed the following mathematical axioms in order to give a mathematical explanation for Curie's observations.
+He proposed the following mathematical axioms in order to give a mathematical explanation
+for Curie's observations.
 \begin{itemize}
     \item The metal consists of $n$ atoms.
     \item Each atom acts like a small magnet in itself.
-    It is in one of two states: $\{+1,-1\}$.
+        It is in one of two states: $\{+1,-1\}$.
     \item The total strength of the metal is obtained by summing the states of all atoms.
     \item Each atom interacts with all other atoms.
-    The atoms prefer to \emph{align}, that is, to be in the same state.
-    The temperature regulates the strength of the interaction.
+        The atoms prefer to \emph{align}, that is, to be in the same state.
+        The temperature regulates the strength of the interaction.
 \end{itemize}
 Physically, it makes sense that the temperature regulates the interaction strength.
-When atoms move slowly, they will stabilise, oriented in alignment with the magnetic field imposed by the other atoms.
-When atoms move fast, they will not be bothered by the states of the other atoms, and simply align themselves randomly.
+When atoms move slowly, they will stabilise, oriented in alignment with the magnetic
+field imposed by the other atoms.
+When atoms move fast, they will not be bothered by the states of the other atoms, and
+simply align themselves randomly.
 It is thus natural to think of the interaction strength as the \emph{inverse temperature}.
 
 \begin{definition}[Curie--Weiss model]
@@ -63,10 +66,12 @@ It is thus natural to think of the interaction strength as the \emph{inverse tem
 \begin{figure}
     \includegraphics{figures/CW.pdf}
     \caption{In the Curie--Weiss model, each spin interacts equally with all other spins.
-    It may be considered an Ising model on the complete graph $K_n$ with interaction strength $\beta/n$.}
+        It may be considered an Ising model on the complete graph $K_n$ with interaction
+    strength $\beta/n$.}
 \end{figure}
 
-Let $n_+=n_+(\sigma)$ denote the number of vertices with spin $+$ in a configuration $\sigma\in\Omega$.
+Let $n_+=n_+(\sigma)$ denote the number of vertices with spin $+$ in a configuration
+$\sigma\in\Omega$.
 This is a random variable.
 Let us try to calculate the probability of the event $\{n_+=k\}$,
 without worrying about the partition function (the normalising constant).
@@ -90,7 +95,7 @@ Using Stirling's approximation for the factorials, we find that
     f_{\beta}:[0,1]\to\R,\,
     x\mapsto x \log x + (1-x)\log (1-x) + 2 \beta x (1-x).
 \end{gather}
-If we fix $\beta$ and send $n$ to infinity, then 
+If we fix $\beta$ and send $n$ to infinity, then
 we discover a large deviations principle for the random variable $n_+/n$
 with rate function $f_{\beta}$ and speed $n$.
 In particular, the random variable $n_+/n$ concentrates
@@ -98,11 +103,18 @@ around the minimisers of the function $f_{\beta}$.
 
 \begin{exercise}[The rate function of the Curie--Weiss model]~
     \begin{enumerate}[label=(\roman*)]
-        \item Show that for small $\beta$, the function \( f_{\beta} \) has a single minimum at $x=1/2$, which means that the random variable \( n_+/n \) concentrates around the value \( 1/2 \).
-        \item Show that for large $\beta$, the function \( f_{\beta} \) has two minima at \( (1 \pm m)/2 \) for some $m>0$, which means that the random variable \( n_+/n \) is concentrated around these minima.
-        The value of $m$ is called the \emph{magnetisation}.
-        \item Calculate the critical value for $\beta$. At this value, the second derivative of \( f_{\beta} \) vanishes at \( x=1/2 \). What does this mean for the distribution of \( n_+/n \)?
-        Estimate the order of magnitude of $\Var\frac{n_+}{n}$ as $n\to\infty$ for this value of $\beta$.
+        \item Show that for small $\beta$, the function \( f_{\beta} \) has a single
+            minimum at $x=1/2$, which means that the random variable \( n_+/n \)
+            concentrates around the value \( 1/2 \).
+        \item Show that for large $\beta$, the function \( f_{\beta} \) has two minima at
+            \( (1 \pm m)/2 \) for some $m>0$, which means that the random variable \(
+            n_+/n \) is concentrated around these minima.
+            The value of $m$ is called the \emph{magnetisation}.
+        \item Calculate the critical value for $\beta$. At this value, the second
+            derivative of \( f_{\beta} \) vanishes at \( x=1/2 \). What does this mean
+            for the distribution of \( n_+/n \)?
+            Estimate the order of magnitude of $\Var\frac{n_+}{n}$ as $n\to\infty$ for
+            this value of $\beta$.
     \end{enumerate}
 \end{exercise}
 
@@ -110,11 +122,12 @@ around the minimisers of the function $f_{\beta}$.
     Reconsider Equation~\eqref{eq:CurieWeissDistribution}.
     In this equation, the competition between the two factors is transparent.
     \begin{itemize}
-        \item     First, there is a combinatorial term or \emph{entropy}, which favours values $k$ for the random variable
-        $n_+$ such that the cardinality of the set $\{n_+=k\}$ is large.
-        This means that values $k\approx n/2$ are preferred.
-        \item     Second, there is the \emph{energy} term, which favours values such that the energy 
-        is minimised. This favours configurations where as many spins as possible align.    
+        \item     First, there is a combinatorial term or \emph{entropy}, which favours
+            values $k$ for the random variable
+            $n_+$ such that the cardinality of the set $\{n_+=k\}$ is large.
+            This means that values $k\approx n/2$ are preferred.
+        \item     Second, there is the \emph{energy} term, which favours values such that the energy
+            is minimised. This favours configurations where as many spins as possible align.
     \end{itemize}
     The interaction parameter $\beta$ allows us to put more emphasis
     on the entropy term or on the energy term.

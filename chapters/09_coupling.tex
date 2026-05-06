@@ -12,18 +12,20 @@ which is a standard strategy for reaching this objective.
 One uses the i.i.d.\ randomness
 to construct a Markov chain whose invariant distribution is the Ising model
 (for example, via the Metropolis--Hastings algorithm).
-To take a sample, one starts at a deterministic configuration, runs the algorithm for a deterministic number of steps (say $N$),
+To take a sample, one starts at a deterministic configuration, runs the algorithm for a
+deterministic number of steps (say $N$),
 and then takes the final state as the sample.
 This strategy has two drawbacks:
 \begin{itemize}
     \item The Markov chain approximates its invariant distribution;
-    no sample is ``perfect'',
+        no sample is ``perfect'',
     \item The number $N$ required for the desired precision is often hard to calculate.
 \end{itemize}
 
 \emph{Coupling from the past} circumvents these problems.
 This section explains the basic algorithm,
-and the second section discusses theoretical implications (such as ergodicity, mixing, and uniqueness of Gibbs measures).
+and the second section discusses theoretical implications (such as ergodicity, mixing,
+and uniqueness of Gibbs measures).
 Throughout this section, we consider the Ising model
 on a finite graph $G$ at inverse temperature $\beta$.
 
@@ -43,7 +45,8 @@ The conditional value of $\sigma_x$ may thus be sampled as follows:
 first draw $U\sim U([0,1])$ (the uniform distribution on the unit interval),
 then set
 \[
-    \sigma_x:=\begin{cases}
+    \sigma_x:=
+    \begin{cases}
         - &\text{if $U\leq \tau_\beta(\sum_{y\sim x}\sigma_x)$,}\\
         + &\text{if $U> \tau_\beta(\sum_{y\sim x}\sigma_x)$.}
     \end{cases}
@@ -57,11 +60,12 @@ we first describe an explicit Glauber map.
     \[
         R_{x,U}:\Omega\to\Omega,\,\sigma\mapsto
         \left(
-            z\mapsto \begin{cases}
+            z\mapsto
+            \begin{cases}
                 \sigma_z&\text{if $z\neq x$}\\
                 - &\text{if $z=x$ and $U\leq \tau_\beta(\sum_{y\sim x}\sigma_y)$}\\
                 + &\text{if $z=x$ and $U>\tau_\beta(\sum_{y\sim x}\sigma_y)$}
-            \end{cases} 
+            \end{cases}
         \right).
     \]
     This map potentially flips the spin at $x$, while leaving all other spins invariant.
@@ -70,13 +74,14 @@ we first describe an explicit Glauber map.
 \newcommand\Piid{\P_{\operatorname{iid}}}
 
 Let $\Piid$ denote a new probability measure in which
- $((x_k,U_k))_{k\in\Z}$ is an i.i.d.\ sequence of
+$((x_k,U_k))_{k\in\Z}$ is an i.i.d.\ sequence of
 uniform random variables in $V\times[0,1]$.
 The idea is to use the i.i.d.\ randomness in this sequence to set up a Markov chain
 mixing to $\langle\blank\rangle_{G,\beta}$ (as described above).
 In this probability space, we write $R^{k,\ell}$ for the random map
 \[
-    R^{k,\ell}:=R_{x_{k+1},U_{k+1}}\circ R_{x_{k+2},U_{k+2}} \circ \cdots \circ R_{x_{\ell},U_{\ell}}
+    R^{k,\ell}:=R_{x_{k+1},U_{k+1}}\circ R_{x_{k+2},U_{k+2}} \circ \cdots \circ
+    R_{x_{\ell},U_{\ell}}
 \]
 for any $k,\ell\in\Z$ with $k\leq\ell$.
 
@@ -95,11 +100,11 @@ We leave its proof to the reader.
         \item The matrix $A$ is the transition kernel of an irreducible aperiodic Markov chain.
         \item $\langle\blank\rangle_{G,\beta}$ solves the detailed balance equations for $A$.
         \item For any $\sigma\in\Omega$ and $k\in\Z$, the random sequence
-        \(
-            (R^{k,k+n}(\sigma))_{n\geq 0}
-        \)
-        in $\Piid$
-        has the law of the Markov chain with transition kernel $A$, started from $\sigma$.
+            \(
+                (R^{k,k+n}(\sigma))_{n\geq 0}
+            \)
+            in $\Piid$
+            has the law of the Markov chain with transition kernel $A$, started from $\sigma$.
     \end{itemize}
 \end{proposition}
 
@@ -114,12 +119,14 @@ but rather of $R^{-n,0}(\sigma)$.
     Let $T\in\Z_{\geq 0}\cup\{\infty\}$ denote the random stopping time
     defined via
     \[
-        T:=\inf\{n\in\Z_{\geq 0}:\text{the function $R^{-n,0}:\Omega\to\Omega$ is constant as a function on $\Omega$}\}.
+        T:=\inf\{n\in\Z_{\geq 0}:\text{the function $R^{-n,0}:\Omega\to\Omega$ is
+        constant as a function on $\Omega$}\}.
     \]
     Suppose that $\P(\{T<\infty\})=1$.
     Then all of the following are true:
     \begin{itemize}
-        \item For any $S\geq T$, the function $R^{-S,0}$ is also constant on $\Omega$, and $R^{-S,0}=R^{-T,0}$,
+        \item For any $S\geq T$, the function $R^{-S,0}$ is also constant on $\Omega$,
+            and $R^{-S,0}=R^{-T,0}$,
         \item The distribution of function $R^{-T,0}$ is $\langle\blank\rangle_{G,\beta}$.
     \end{itemize}
     Here we simply write $R^{-T,0}$ for $R^{-T,0}(\sigma)$ (with $\sigma\in\Omega$ arbitrary)
@@ -131,7 +138,7 @@ but rather of $R^{-n,0}(\sigma)$.
     and a sequence $((x_k,U_k))_k$.
     If $R^{-n,0}$ is constant for some $n$, then
     \[
-            R^{-(n+1),0}=R^{-n,0}\circ R_{x_{-n},U_{-n}}=R^{-n,0}.
+        R^{-(n+1),0}=R^{-n,0}\circ R_{x_{-n},U_{-n}}=R^{-n,0}.
     \]
     In that case, we simply have
     \[
@@ -160,22 +167,27 @@ Another proof is provided later.
 
 \begin{remark}[Algorithm description]
     The algorithm can practically be implemented in a computer as follows.
-\begin{enumerate}
-    \item Fix a strictly increasing sequence $(n_k)_{k\geq 0}$ of integers with $n_0=0$.
-    \item Set $k=0$, and repeat the following procedure as long as $R^{-n_k,0}$ is \emph{not} constant:
     \begin{enumerate}
-        \item Add $1$ to the counter $k$,
-        \item Draw $((x_i,U_i))_{-n_k< i\leq -n_{k-1}}$ from the independent source of randomness,
-        \item Calculate the map $R^{-n_k,0}$.
+        \item Fix a strictly increasing sequence $(n_k)_{k\geq 0}$ of integers with $n_0=0$.
+        \item Set $k=0$, and repeat the following procedure as long as $R^{-n_k,0}$ is
+            \emph{not} constant:
+            \begin{enumerate}
+                \item Add $1$ to the counter $k$,
+                \item Draw $((x_i,U_i))_{-n_k< i\leq -n_{k-1}}$ from the independent
+                    source of randomness,
+                \item Calculate the map $R^{-n_k,0}$.
+            \end{enumerate}
+        \item Output the constant value $R^{-n_k,0}$ as our sample from
+            $\langle\blank\rangle_{G,\beta}$.
     \end{enumerate}
-    \item Output the constant value $R^{-n_k,0}$ as our sample from $\langle\blank\rangle_{G,\beta}$.
-\end{enumerate}
 \end{remark}
 
 The algorithm has two drawbacks:
 \begin{itemize}
-    \item It requires memory to record $R^{-n_k,0}$ or $((x_i,U_i))_{-n_k< i\leq 0}$ between iterations,
-    \item It requires time to determine if $R^{-n_k,0}$ is constant on $\Omega$ (which has cardinal $2^{|V|}$).
+    \item It requires memory to record $R^{-n_k,0}$ or $((x_i,U_i))_{-n_k< i\leq 0}$
+        between iterations,
+    \item It requires time to determine if $R^{-n_k,0}$ is constant on $\Omega$ (which
+        has cardinal $2^{|V|}$).
 \end{itemize}
 
 We now describe an important ingredient not mentioned so far: \emph{monotonicity}.
@@ -196,18 +208,22 @@ $\leq$, in the sense that
     \begin{enumerate}
         \item Each map $R_{x_i,U_i}:\Omega\to\Omega$ preserves $\leq$,
         \item Each map $R^{i,j}:\Omega\to\Omega$ preserves $\leq$,
-        \item $(R^{-n,0}(\sigma^{\max}))_n$ is decreasing in $n$, where $\sigma^{\max}\equiv+\in\Omega$ is the maximal element,
-        \item $(R^{-n,0}(\sigma^{\min}))_n$ is increasing in $n$, where $\sigma^{\min}\equiv-\in\Omega$ is the minimal element,
+        \item $(R^{-n,0}(\sigma^{\max}))_n$ is decreasing in $n$, where
+            $\sigma^{\max}\equiv+\in\Omega$ is the maximal element,
+        \item $(R^{-n,0}(\sigma^{\min}))_n$ is increasing in $n$, where
+            $\sigma^{\min}\equiv-\in\Omega$ is the minimal element,
         \item We have $R^{-\infty,0}(\sigma^{\min})\leq R^{-\infty,0}(\sigma^{\max})$,
-        where $R^{-\infty,0}(\cdots)$ denotes the $n\to\infty$ limit,
-        \item If  $R^{-n,0}(\sigma^{\min})= R^{-n,0}(\sigma^{\max})$, then the map $R^{-n,0}$ is constant.
+            where $R^{-\infty,0}(\cdots)$ denotes the $n\to\infty$ limit,
+        \item If  $R^{-n,0}(\sigma^{\min})= R^{-n,0}(\sigma^{\max})$, then the map
+            $R^{-n,0}$ is constant.
     \end{enumerate}
 \end{lemma}
 
 \begin{proof}
     The first item can be proved by simply inspecting the definition of $R_{x_i,U_i}$.
     The second item then follows: indeed, a composition of increasing functions is increasing.
-    For the third item (and similarly, the fourth item), observe that monotonicity of $R^{-n,0}$ implies:
+    For the third item (and similarly, the fourth item), observe that monotonicity of
+    $R^{-n,0}$ implies:
     \[
         R^{-(n+1),0}(\sigma^{\max})
         =
@@ -217,7 +233,6 @@ $\leq$, in the sense that
     \]
     The last two items follow from monotonicity of the map $R^{-n,0}$ (the second item).
 \end{proof}
-
 
 \begin{lemma}[Coupling from the past: convergence]
     Recall the context of Theorem~\ref{thm:coupling_from_the_past}.
@@ -231,7 +246,8 @@ $\leq$, in the sense that
 \begin{proof}
     The reformulation of the stopping time is valid thanks to the previous lemma.
     It suffices to prove that it is almost surely finite.
-    Notice that the distribution of both $R^{-\infty,0}(\sigma^{\max})$ and $R^{-\infty,0}(\sigma^{\min})$
+    Notice that the distribution of both $R^{-\infty,0}(\sigma^{\max})$ and
+    $R^{-\infty,0}(\sigma^{\min})$
     is given by $\langle\blank\rangle_{G,\beta}$.
     Since they have the same distribution and are almost surely $\leq$-ordered in $\Piid$,
     they must be almost surely equal.

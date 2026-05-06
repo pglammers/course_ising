@@ -7,8 +7,9 @@
 \section{Reflection positivity}
 
 \begin{definition}[Torus]
-  \label{def:torus}
-    For $n\geq 1$ and $d\geq 1$, we define the torus of circumference $n$ in dimension $d$ as the graph $\T_n^d$ with vertex set
+    \label{def:torus}
+    For $n\geq 1$ and $d\geq 1$, we define the torus of circumference $n$ in dimension
+    $d$ as the graph $\T_n^d$ with vertex set
     \(
         \T_n^d := (\Z/n\Z)^d
     \)
@@ -22,28 +23,28 @@
 % Now state the chessboard estimate, for the Gaussian free fied.
 
 \begin{theorem}[Chessboard estimate]
-  \label{thm:chessboard}
-  Fix $d\in\Z_{\geq 1}$ and $n=2^k$ for some $k\in\Z_{\geq 1}$.
-  Also fix some $\beta\geq 0$.
-  Then for any family of real functions $f_x:\R\to\R$ indexed by $x\in \T$, we have
-  \[
-    \left|\int_{\R^\T}
-    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{x\in \T} f_x(\phi_x) \diff\phi\right|
-    \leq
-    \prod_{x\in \T}\left( \int_{\R^\T}
-    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{y\in \T} f_x(\phi_y) \diff\phi\right)^{1/|\T|},
-  \]
-  and in particular the right side is bounded by
-  \[
-  \max_{x\in \T}
-    \int_{\R^\T}
-    e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{y\in \T} f_x(\phi_y) \diff\phi.
-  \]
+    \label{thm:chessboard}
+    Fix $d\in\Z_{\geq 1}$ and $n=2^k$ for some $k\in\Z_{\geq 1}$.
+    Also fix some $\beta\geq 0$.
+    Then for any family of real functions $f_x:\R\to\R$ indexed by $x\in \T$, we have
+    \[
+        \left|\int_{\R^\T}
+        e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{x\in \T} f_x(\phi_x) \diff\phi\right|
+        \leq
+        \prod_{x\in \T}\left( \int_{\R^\T}
+        e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{y\in \T} f_x(\phi_y) \diff\phi\right)^{1/|\T|},
+    \]
+    and in particular the right side is bounded by
+    \[
+        \max_{x\in \T}
+        \int_{\R^\T}
+        e^{-\frac\beta2 \|\nabla\phi\|_2^2} \prod_{y\in \T} f_x(\phi_y) \diff\phi.
+    \]
 \end{theorem}
 
 We apply the theorem in the following way:
 let $\tau\in\R^\T$ and $A\subset\R$, and set $f_x(a) := \true{a-\tau_x\in A}$ for each $x\in \T$.
-Then the chessboard estimate gives 
+Then the chessboard estimate gives
 \[
     \int_{\R^\T}
     e^{-\frac\beta2 \|\nabla\phi\|_2^2} \true{\phi-\tau\in A^\T} \diff\phi
@@ -76,9 +77,10 @@ In particular, the expectation on the right is bounded by $1$, which leads to
     \rangle_{\T,\beta}^{\operatorname{Ising}}
     \leq e^{\frac\beta2 \|\nabla\tau\|_2^2}.
 \]
-Replacing $\tau$ by $\epsilon\tau$, expanding to second order in $\epsilon$, and sending $\epsilon\to0$,
+Replacing $\tau$ by $\epsilon\tau$, expanding to second order in $\epsilon$, and sending
+$\epsilon\to0$,
 yields
-\[  
+\[
     \frac{\beta^2}2
     \langle (\nabla\sigma,\nabla\tau)^2\rangle \leq \frac\beta2 \|\nabla\tau\|_2^2
     \qquad
@@ -93,7 +95,8 @@ Now define the Laplacian $\Delta$ on $\T$ by
 \]
 Then for any $f,g\in\R^\T$, we have
 \begin{equation*}
-    (\nabla f,\nabla g) = \sum_{\{x,y\}\in E(\T)} (f_x-f_y)(g_x-g_y) = -\sum_{x\in \T} f_x (\Delta g)_x = -(f,\Delta g).
+    (\nabla f,\nabla g) = \sum_{\{x,y\}\in E(\T)} (f_x-f_y)(g_x-g_y) = -\sum_{x\in \T}
+    f_x (\Delta g)_x = -(f,\Delta g).
 \end{equation*}
 Then the previous inequality can be rewritten as
 \begin{equation}
@@ -114,30 +117,37 @@ Let \(\operatorname{Char}(\T)\) be the set of \emph{characters}
 of $\T$, that is, the set of group homomorphisms $(\T,+)\to\C$.
 Since $\T$ is a finite abelian group, \(\operatorname{Char}(\T)\) may be understood as follows.
 \begin{itemize}
-    \item Since $nx=0\in\T$ for any $x\in\T$, we have $\chi^n\equiv 1$ for any $\chi\in\operatorname{Char}(\T)$.
-    \item If we assign an $n$-th root of unity to each basis element $(e_i)_i\in\T$, then we get a character by extending the assignment linearly.
+    \item Since $nx=0\in\T$ for any $x\in\T$, we have $\chi^n\equiv 1$ for any
+        $\chi\in\operatorname{Char}(\T)$.
+    \item If we assign an $n$-th root of unity to each basis element $(e_i)_i\in\T$, then
+        we get a character by extending the assignment linearly.
 \end{itemize}
 This gives a description of all characters.
 More precisely,
-writing $\T^*:=(2\pi/n)(\Z/n\Z)^d$ for the \emph{dual torus}, we can identify $\operatorname{Char}(\T)$ with $\T^*$ by sending $k\in\T^*$ to the character $\chi_k$ defined by $\chi_k(x):=e^{i(x,k)}$.
+writing $\T^*:=(2\pi/n)(\Z/n\Z)^d$ for the \emph{dual torus}, we can identify
+$\operatorname{Char}(\T)$ with $\T^*$ by sending $k\in\T^*$ to the character $\chi_k$
+defined by $\chi_k(x):=e^{i(x,k)}$.
 
 Now $\ell^2(\T)$ is a complex Hilbert space with inner product
 \[
     (f,g):=\sum_{x\in \T} \bar g_x f_x.
 \]
-Moreover, $\operatorname{Char}(\T)$ forms an orthogonal basis of $\ell^2(\T)$, with $\|\chi\|_2^2=|\T|$ for each character $\chi$.
+Moreover, $\operatorname{Char}(\T)$ forms an orthogonal basis of $\ell^2(\T)$, with
+$\|\chi\|_2^2=|\T|$ for each character $\chi$.
 This means that for any $f\in\ell^2(\T)$, we have
 \[
     f = \sum_{\chi}\frac{1}{\|\chi\|_2^2}(\chi,f)\chi = \frac1{|\T|}\sum_{\chi}(\chi,f)\chi.
 \]
 The vectors in the basis $\operatorname{Char}(\T)$ are eigenvectors of translations of the torus.
 For this reason, it is also called the \emph{Fourier basis}.
-For any $f\in\ell^2(\T)$ and $k\in\T^*$, we write $\hat f(k):=(\chi_k,f)$ for the \emph{Fourier coefficient} of $f$ at $k$.
+For any $f\in\ell^2(\T)$ and $k\in\T^*$, we write $\hat f(k):=(\chi_k,f)$ for the
+\emph{Fourier coefficient} of $f$ at $k$.
 The formula above may then be rewritten as
 \[
     f = \frac1{|\T|}\sum_{k\in\T^*} \hat f(k) \chi_k.
 \]
-This is an orthogonal expansion of $f$ (with $\|\chi_k\|_2^2=|\T|$), which implies Parseval's identity:
+This is an orthogonal expansion of $f$ (with $\|\chi_k\|_2^2=|\T|$), which implies
+Parseval's identity:
 \[
     \|f\|_2^2 = \frac1{|\T|}\sum_{k\in\T^*} |\hat f(k)|^2.
 \]
@@ -153,7 +163,6 @@ By a direct calculation, one can check that
     \lambda_k = 2\sum_{i=1}^d (1-\cos k_i).
 \]
 
-
 Equation~\eqref{eq:Gaussian_domination_real} only makes sense for real-valued $\tau$,
 but we would like to set $\tau=\chi_k$.
 By applying Equation~\eqref{eq:Gaussian_domination_real} explicitly for the
@@ -168,7 +177,8 @@ Now for fixed $\sigma\in\{\pm 1\}^\T\subset \R^\T$,
 we may interpret $(\hat\sigma_k)_k:=((\sigma,\chi_k))_k$ as the Fourier
 transform of $\sigma$.
 
-\subsection{Alternative proof of spontaneous magnetization for the Ising model in dimension $d\geq 3$}
+\subsection{Alternative proof of spontaneous magnetization for the Ising model in
+dimension $d\geq 3$}
 
 Parseval's identity yields
 \[
@@ -178,16 +188,18 @@ By Equation~\eqref{eq:Gaussian_domination_Fourier},
 we may now \emph{lower bound} $\langle|\hat\sigma_0|\rangle$
 by
 \begin{equation}
-    \frac{\langle|\hat\sigma_0|^2\rangle}{|\T|^2}\geq 1 - \frac1{\beta|\T|}\sum_{k\in\Lambda^*\setminus\{0\}}\frac{1}{\lambda_k}.
+    \frac{\langle|\hat\sigma_0|^2\rangle}{|\T|^2}\geq 1 -
+    \frac1{\beta|\T|}\sum_{k\in\Lambda^*\setminus\{0\}}\frac{1}{\lambda_k}.
 \end{equation}
 Now we may interpret the right-hand side as a Riemann sum,
-to obtain the lower bound 
+to obtain the lower bound
 \[
     \frac1{|\T|}\sum_{k\in\Lambda^*\setminus\{0\}}\frac{1}{\lambda_k}
     \geq
     (2\pi)^{-d}\int_{[-\pi,\pi]^d} \frac1{2\sum_{i=1}^d (1-\cos t_i)}\diff t=:I_d.
 \]
-By expanding the cosine to second order, one can check that $I_2=\infty$, but $I_d<\infty$ for $d\geq 3$.
+By expanding the cosine to second order, one can check that $I_2=\infty$, but
+$I_d<\infty$ for $d\geq 3$.
 Thus, we get
 \[
     \frac{\langle|\hat\sigma_0|^2\rangle}{|\T|^2}
@@ -202,7 +214,8 @@ since
     =
     \frac{1}{|\T|^2}\sum_{x,y\in \T} \langle\sigma_x\sigma_y\rangle,
 \]
-that is, it measures the two-point correlation function between two randomly chosen vertices of the torus.
+that is, it measures the two-point correlation function between two randomly chosen
+vertices of the torus.
 It is easy to see that
 \[
     \langle\sigma_x\rangle_{\Z^d,\beta}^+ \geq
@@ -229,12 +242,5 @@ which yields another proof of the phase transition for the Ising model on $\Z^d$
 % We would like to turn this into a pointwise bound on $S(x)$.
 % We could express $S(x)$ in terms of its Fourier transform,
 % but this does not give a good bound.
-
-
-
-
-
-
-
 
 % Now use the chessboard esimate to give the Gaussian domination bound

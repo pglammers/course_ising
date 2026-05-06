@@ -19,7 +19,8 @@ For a streamlined presentation, we will henceforth present all our expansions
 for the Ising model on \emph{finite graphs without boundary conditions}.
 This obviously includes the free boundary conditions.
 It is straightforward to see that fixed boundary conditions
-also fit into this framework, see Definition~\ref{definition:ghost} and Lemma~\ref{lemma:ghost} below.
+also fit into this framework, see Definition~\ref{definition:ghost} and
+Lemma~\ref{lemma:ghost} below.
 
 Consider the Ising model on a finite graph $G$.
 We are typically interested in the correlation functions,
@@ -29,7 +30,8 @@ defined via
     =
     \frac{\sum_{\sigma\in\Omega}\sigma_A e^{-H(\sigma)}}{\sum_{\sigma\in\Omega}e^{-H(\sigma)}}
     =
-    \frac{\sum_{\sigma\in\Omega}\sigma_A \prod_{xy\in E} e^{\beta\sigma_x\sigma_y} }{\sum_{\sigma\in\Omega}\prod_{xy\in E} e^{\beta\sigma_x\sigma_y} }.
+    \frac{\sum_{\sigma\in\Omega}\sigma_A \prod_{xy\in E} e^{\beta\sigma_x\sigma_y}
+    }{\sum_{\sigma\in\Omega}\prod_{xy\in E} e^{\beta\sigma_x\sigma_y} }.
 \]
 An \emph{expansion} of the Ising model involves rewriting the sum
 \[
@@ -39,7 +41,8 @@ A typical expansion comes down to rewriting the exponential, for example:
 \begin{itemize}
     \item We may write $e^{\beta\sigma_x\sigma_y}=\cosh \beta + \sigma_x\sigma_y \sinh \beta$,
     \item We may write $e^{\beta\sigma_x\sigma_y}=\sum_{k=0}^\infty (\beta\sigma_x\sigma_y)^k/k!$,
-    \item We may write $e^{\beta\sigma_x\sigma_y}=e^{-2\beta} + 2\cdot\true{\sigma_x=\sigma_y}\sinh\beta$.
+    \item We may write $e^{\beta\sigma_x\sigma_y}=e^{-2\beta} +
+        2\cdot\true{\sigma_x=\sigma_y}\sinh\beta$.
 \end{itemize}
 Every expansion comes with its own advantages and disadvantages.
 The high-temperature expansion derives from the first identity.
@@ -140,7 +143,7 @@ proof of exponential decay of the correlation functions at high temperature.
 
 \begin{theorem}[Exponential decay at high temperature]
     \label{thm:Exponential decay at high temperature}
-    Consider the Ising model with $+$ boundary conditions 
+    Consider the Ising model with $+$ boundary conditions
     on the graph $\Z^d$ for $d\in\Z_{\geq 1}$.
     Then for any $\beta\in[0,\infty)$
     such that $(2d-1)\tanh\beta < 1$,
@@ -203,9 +206,9 @@ It is easy to see that the following lemma holds true.
         \langle\sigma_x\sigma_\frakg\rangle_{\Lambda^\frakg}
         =
         \frac{
-        \bfM_{\Lambda^\frakg}[\{\partial\omega=\{x,\frakg\}\}]
+            \bfM_{\Lambda^\frakg}[\{\partial\omega=\{x,\frakg\}\}]
         }{
-        \bfM_{\Lambda^\frakg}[\{\partial\omega=\emptyset\}]
+            \bfM_{\Lambda^\frakg}[\{\partial\omega=\emptyset\}]
         }.
     \]
     If $\partial\omega=\{x,\frakg\}$, then $\omega$ contains a self-avoiding
@@ -219,8 +222,9 @@ It is easy to see that the following lemma holds true.
     The proof is now completed after performing the two steps of the Peierls argument:
     \begin{itemize}
         \item One bounds each term by $(\tanh\beta)^{|\gamma|}$,
-        \item One bounds the number of walks $\gamma$ of length $n$ from $x$ by $2d(2d-1)^{|\gamma|-1}$.
-    \end{itemize} 
+        \item One bounds the number of walks $\gamma$ of length $n$ from $x$ by
+            $2d(2d-1)^{|\gamma|-1}$.
+    \end{itemize}
     \qedhere
 \end{proof}
 
@@ -231,13 +235,14 @@ It is easy to see that the following lemma holds true.
 Let us summarise what we have proved so far.
 \begin{itemize}
     \item Theorem~\ref{thm:Exponential decay at high temperature}
-    implies that there is exponential decay of correlations when $\beta$ is sufficiently small.
-    \item In dimension $d=1$, Theorem~\ref{thm:Exponential decay at high temperature} also implies Ising's result (Theorem~\ref{thm:Ising}),
-    since there was no requirement on $\beta$ when $d=1$.
+        implies that there is exponential decay of correlations when $\beta$ is sufficiently small.
+    \item In dimension $d=1$, Theorem~\ref{thm:Exponential decay at high temperature}
+        also implies Ising's result (Theorem~\ref{thm:Ising}),
+        since there was no requirement on $\beta$ when $d=1$.
     \item In dimension $d\geq 2$, we proved that there is \emph{magnetisation} via the
-    Peierls argument (Theorem~\ref{thm:peierls}).
-    Thus, in dimension $d\geq 2$, there must be a phase transition,
-    and we aim to investigate further.
+        Peierls argument (Theorem~\ref{thm:peierls}).
+        Thus, in dimension $d\geq 2$, there must be a phase transition,
+        and we aim to investigate further.
 \end{itemize}
 
 The high-temperature expansion is typically used to find upper bounds on correlation
@@ -254,8 +259,8 @@ This map is an involution.
 Moreover, for any $A\subset V$, it restricts to a bijection
 \begin{equation}
     \label{eq:XiQ}
-\Xi_Q:
-\{\partial\omega=A\}\to\{\partial\omega=A\Delta\partial Q\}.
+    \Xi_Q:
+    \{\partial\omega=A\}\to\{\partial\omega=A\Delta\partial Q\}.
 \end{equation}
 The measure $\bfM$ is not invariant under the involution $\Xi_Q$,
 but it is easy to see how the map affects the measure.
@@ -315,4 +320,3 @@ This lemma complements Theorem~\ref{thm:Exponential decay at high temperature}
 at high temperature, as the lemma asserts that the correlation functions cannot
 decay \emph{faster} than exponentially at any finite temperature
 (that is, when $\beta>0$).
-

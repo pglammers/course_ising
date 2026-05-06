@@ -30,7 +30,7 @@ Unfortunately, its proof is beyond the scope of these lecture notes.
     \begin{equation}
         \label{eq:infrared_simple_decay}
         \lim_{\|y-x\|_2\to\infty}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f=0.
-    \end{equation}    
+    \end{equation}
 \end{theorem}
 
 Thus, we aim to prove that the infrared bound implies continuity (Theorem~\ref{thm:continuity}).
@@ -56,7 +56,7 @@ Globally, the proof consists of the following two lemmas.
         \langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f.
     \]
     for any $x,y\in\Z^d$.
-    More generally, for any subset $A\subset\Z^d$ of even cardinal, we have 
+    More generally, for any subset $A\subset\Z^d$ of even cardinal, we have
     \[
         \langle\sigma_A\rangle_{\Z^d,\beta}^+
         =
@@ -69,8 +69,10 @@ Globally, the proof consists of the following two lemmas.
     The infrared bound then tells us that at $\beta_c$ the two-point function tends
     to zero with the distance (for both free and wired boundary conditions, due to Step~2).
     Step~1 then tells us that the magnetisation vanishes.
-    All odd correlation functions then vanish for $\langle\blank\rangle^+$ by Theorem~\ref{thm:vanishing_magnetisation}.
-    The even correlation functions match those of $\langle\blank\rangle^\f$ by the last part of Step~2.
+    All odd correlation functions then vanish for $\langle\blank\rangle^+$ by
+    Theorem~\ref{thm:vanishing_magnetisation}.
+    The even correlation functions match those of $\langle\blank\rangle^\f$ by the last
+    part of Step~2.
 \end{proof}
 
 Step~2 is the hard step; we start with a proof of Step~1.
@@ -119,8 +121,8 @@ We want to prove that
     \label{eq:continuity_target_limit}
     \lim_{\Lambda\uparrow\Z^d}
     \left(
-    \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}
-    -\langle\sigma_A\rangle_{\Lambda^\f,\beta}
+        \langle\sigma_A\rangle_{\Lambda^\frakg,\beta}
+        -\langle\sigma_A\rangle_{\Lambda^\f,\beta}
     \right)
     =
     0.
@@ -134,7 +136,8 @@ let us first introduce the probability measure
 \begin{lemma}[Continuity, Step~2a]
     Fix $\Lambda\subset\Z^d$ finite, fix $\beta\in[0,\infty)$,
     and fix $A\subset\Lambda$ of even cardinal.
-    Consider the random pair $(\n,\m)\sim \P_{\Lambda^\frakg,\beta}^A\times\P_{\Lambda^\f,\beta}^\emptyset$
+    Consider the random pair $(\n,\m)\sim
+    \P_{\Lambda^\frakg,\beta}^A\times\P_{\Lambda^\f,\beta}^\emptyset$
     Then
     \begin{equation}
         \frac{
@@ -156,10 +159,12 @@ let us first introduce the probability measure
     We have
     \begin{multline}
         Z_{\Lambda^\frakg}Z_{\Lambda^\f}\langle\sigma_A\rangle_{\Lambda^\f,\beta}=
-        2^{2|\Lambda|+1}\M_{\Lambda^\frakg}\times\M_{\Lambda^\f}[\{\partial\n=\emptyset,\,\partial\m= A\}]
+        2^{2|\Lambda|+1}\M_{\Lambda^\frakg}\times\M_{\Lambda^\f}[\{\partial\n=\emptyset,\,\partial\m=
+        A\}]
         \\
         =
-        2^{2|\Lambda|+1}\M_{\Lambda^\frakg}\times\M_{\Lambda^\f}[\{\partial\n=A,\,\partial\m= \emptyset\}\cap\{\widehat{\n+\m}\cap E(\Lambda^\f)\in\calE_A\}],
+        2^{2|\Lambda|+1}\M_{\Lambda^\frakg}\times\M_{\Lambda^\f}[\{\partial\n=A,\,\partial\m=
+        \emptyset\}\cap\{\widehat{\n+\m}\cap E(\Lambda^\f)\in\calE_A\}],
     \end{multline}
     where we use switching for the last equality.
     In other words,
@@ -176,68 +181,72 @@ In order to prove Step~2 (or equivalently, Equation~\eqref{eq:continuity_target_
 we now use the previous lemma to make a number of reductions.
 \begin{itemize}
     \item By the previous lemma,
-    proving Equation~\eqref{eq:continuity_target_limit} is equivalent to proving that 
-    \[
-        \lim_{\Lambda\uparrow\Z^d}
-        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+        proving Equation~\eqref{eq:continuity_target_limit} is equivalent to proving that
+        \[
+            \lim_{\Lambda\uparrow\Z^d}
+            \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
             [\{(\widehat{\n+\m}\cap E(\Lambda^\f))\not\in\calE_A\}]=0.
-    \]
+        \]
     \item Let $B_n=[-n,n]^d\cap \Z^d$ denote an extremely large box
-    containing $A$.
-    If the ghost is required to pair up the vertices in $A$,
-    then $B_n$ must be connected to the ghost.
-    Therefore it suffices to prove that
-    \begin{equation}
-        \label{eq:targetinter}
-        \lim_{\Lambda\uparrow\Z^d}
-        \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
+        containing $A$.
+        If the ghost is required to pair up the vertices in $A$,
+        then $B_n$ must be connected to the ghost.
+        Therefore it suffices to prove that
+        \begin{equation}
+            \label{eq:targetinter}
+            \lim_{\Lambda\uparrow\Z^d}
+            \P_{\Lambda^\frakg}^A\times\P_{\Lambda^\f}^\emptyset
             [\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
-    \end{equation}
+        \end{equation}
     \item The percolation measure $\P_{\Lambda^\frakg}^A$ may be viewed
-    as a normalised version of \[\bfM_{\Lambda^\frakg}[\{\partial\omega=A\}\cap(\blank)]\times \P_p,\] see Equation~\eqref{eq:equivalence}.
-    Fix $Q\subset E(B_n^\f)$ such that $\partial Q=A$.
-    Equation~\eqref{eq:XiQ} relates the measures $\bfM_{\Lambda^\frakg}^A$
-    and $\bfM_{\Lambda^\frakg}^\emptyset$:
-    the map $\Xi_Q$ acts as a pushforward map
-    between the measures, up to a Radon--Nikodym derivative which is uniformly
-    lower- and upper bounded.
-    Since $\Xi_Q$ only modifies the edges in $E(B_n^\f)$, it leaves the event \[\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}\] invariant.
-    This implies that Equation~\eqref{eq:targetinter} is equivalent to 
-    \begin{equation}
-        \lim_{\Lambda\uparrow\Z^d}
-        \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
+        as a normalised version of
+        \[\bfM_{\Lambda^\frakg}[\{\partial\omega=A\}\cap(\blank)]\times \P_p,\] see
+        Equation~\eqref{eq:equivalence}.
+        Fix $Q\subset E(B_n^\f)$ such that $\partial Q=A$.
+        Equation~\eqref{eq:XiQ} relates the measures $\bfM_{\Lambda^\frakg}^A$
+        and $\bfM_{\Lambda^\frakg}^\emptyset$:
+        the map $\Xi_Q$ acts as a pushforward map
+        between the measures, up to a Radon--Nikodym derivative which is uniformly
+        lower- and upper bounded.
+        Since $\Xi_Q$ only modifies the edges in $E(B_n^\f)$, it leaves the event \[\{B_n
+        \xleftrightarrow{\widehat{\n+\m}}\frakg\}\] invariant.
+        This implies that Equation~\eqref{eq:targetinter} is equivalent to
+        \begin{equation}
+            \lim_{\Lambda\uparrow\Z^d}
+            \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
             [\{B_n \xleftrightarrow{\widehat{\n+\m}}\frakg\}]=0.
-    \end{equation}
-    \item 
-    By inclusion of events, it suffices to show that
-    \begin{equation}
-        \lim_{N\to\infty}\lim_{\Lambda\uparrow\Z^d}
-        \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
+        \end{equation}
+    \item
+        By inclusion of events, it suffices to show that
+        \begin{equation}
+            \lim_{N\to\infty}\lim_{\Lambda\uparrow\Z^d}
+            \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
             [\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}]=0.
-    \end{equation}
-    In fact, the event $\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}$
-    is a \emph{local} event.
-    We shall show below that the measures $\P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset$
-    converge in the local convergence topology as $\Lambda\uparrow\Z^d$.
-    Thus, if we write $\P^{\emptyset,\emptyset}$ for its limit, it then suffices
-    to show that
-    \[
-        \lim_{N\to\infty}\P^{\emptyset,\emptyset}
+        \end{equation}
+        In fact, the event $\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}$
+        is a \emph{local} event.
+        We shall show below that the measures
+        $\P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset$
+        converge in the local convergence topology as $\Lambda\uparrow\Z^d$.
+        Thus, if we write $\P^{\emptyset,\emptyset}$ for its limit, it then suffices
+        to show that
+        \[
+            \lim_{N\to\infty}\P^{\emptyset,\emptyset}
             [\{B_n \xleftrightarrow{\widehat{\n+\m}}\partial B_N\}]=0.
-    \]
-    Since $n$ is arbitrary, this is equivalent to showing
-    that $\widehat{\n+\m}$ does not percolate $\P^{\emptyset,\emptyset}$-almost surely.
+        \]
+        Since $n$ is arbitrary, this is equivalent to showing
+        that $\widehat{\n+\m}$ does not percolate $\P^{\emptyset,\emptyset}$-almost surely.
 \end{itemize}
- 
+
 Thus, as explained above, it suffices to prove the following two steps.
 
 \begin{lemma}[Continuity, Step~2b]\label{lemma:continuity_step2b}
     Consider the Ising model on $\Z^d$ with $d\in\Z_{\geq 1}$
     and $\beta\in[0,\infty)$.
     Then the limit $\P^{\emptyset,\emptyset}:=
-        \lim_{\Lambda\uparrow\Z^d}
-        \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
-        $ converges in the local convergence topology.
+    \lim_{\Lambda\uparrow\Z^d}
+    \P_{\Lambda^\frakg}^\emptyset\times\P_{\Lambda^\f}^\emptyset
+    $ converges in the local convergence topology.
 \end{lemma}
 
 \begin{lemma}[Continuity, Step~2c]\label{lemma:continuity_step2c}
@@ -260,28 +269,28 @@ with the infrared bound.
     the proof of convergence is the same for the two families,
     and we focus on the second.
     \begin{itemize}
-        \item Argue that the sprinkling relation implies that it suffices to prove that the probability measures
-        $\bfP_{\Lambda^\f}^\emptyset:\propto\bfM_{\Lambda^\f}[\{\partial\n=\emptyset\}\cap(\blank)]$
-        converge in the local convergence topology.
+        \item Argue that the sprinkling relation implies that it suffices to prove that
+            the probability measures
+            $\bfP_{\Lambda^\f}^\emptyset:\propto\bfM_{\Lambda^\f}[\{\partial\n=\emptyset\}\cap(\blank)]$
+            converge in the local convergence topology.
         \item Prove that for a fixed edge $xy$,
-        we have 
-        \[
-            \bfP_{\Lambda^\f}^\emptyset[\{\omega_{xy}=a\}]\propto 
-            \langle
-            (\sigma_x\sigma_y\tanh\beta)^a e^{-\beta\sigma_x\sigma_y}
-            \rangle_{\Lambda^\f,\beta}
-        \]
-        as $a$ ranges over $\{0,1\}$.
-        Conclude that this value converges as $\Lambda\uparrow\Z^d$.
+            we have
+            \[
+                \bfP_{\Lambda^\f}^\emptyset[\{\omega_{xy}=a\}]\propto
+                \langle
+                (\sigma_x\sigma_y\tanh\beta)^a e^{-\beta\sigma_x\sigma_y}
+                \rangle_{\Lambda^\f,\beta}
+            \]
+            as $a$ ranges over $\{0,1\}$.
+            Conclude that this value converges as $\Lambda\uparrow\Z^d$.
         \item Let $Q\subset E(\Z^d)$ finite.
-        Find a local observable $X_\zeta$ for each $\zeta\in\{0,1\}^Q$ such that
-        \[
-            \bfP_{\Lambda^\f}[\{\omega|_Q=\zeta\}]\propto \langle X_\zeta\rangle_{\Lambda^\f}.
-        \]
-        Argue that the probabilities on the left converge as $\Lambda\uparrow\Z^d$.
+            Find a local observable $X_\zeta$ for each $\zeta\in\{0,1\}^Q$ such that
+            \[
+                \bfP_{\Lambda^\f}[\{\omega|_Q=\zeta\}]\propto \langle X_\zeta\rangle_{\Lambda^\f}.
+            \]
+            Argue that the probabilities on the left converge as $\Lambda\uparrow\Z^d$.
     \end{itemize}
 \end{exercise}
-
 
 \begin{exercise}[Burton--Keane argument without ergodicity]
     The measure $\P^{\emptyset,\emptyset}$ is insertion tolerant (due to sprinkling)
@@ -293,10 +302,9 @@ with the infrared bound.
     at this stage?
 \end{exercise}
 
-
-
 \begin{proof}[Proof of Continuity, Step~2c]
-    We want to prove that $p:=\P^{\emptyset,\emptyset}[\{0\xleftrightarrow{\widehat{\n+\m}}\infty\}]=0$.
+    We want to prove that
+    $p:=\P^{\emptyset,\emptyset}[\{0\xleftrightarrow{\widehat{\n+\m}}\infty\}]=0$.
 
     Define the random set $C_\infty:=\{x:x\xleftrightarrow{\widehat{\n+\m}}\infty\}$.
     Recall that $B_m:=[-m,m]^d\cap \Z^d$.
@@ -332,7 +340,7 @@ with the infrared bound.
         \sum_{x,y\in B_m}\langle\sigma_x\sigma_y\rangle_{\Z^d,\beta}^\f
         \geq \frac12 p^2 |B_m|^2.
     \]
-    By 
+    By
     the infrared bound (Equation~\eqref{eq:infrared_simple_decay}),
     the left side is of order $o(|B_m|^2)$
     as $m\to\infty$.
